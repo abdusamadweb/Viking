@@ -1,0 +1,19 @@
+@use '/src/scss' as *;
+
+.header {
+  padding: 15px 0;
+  background: #102B52;
+
+  .logo {
+    width: 123px;
+    height: 54px;
+  }
+
+  .bar {
+
+    i {
+      font-size: 24px;
+      color: #fff;
+    }
+  }
+}

@@ -1,0 +1,46 @@
+@use "/src/scss" as *;
+
+.nav-bar {
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  max-width: 600px;
+  width: 100%;
+  padding: 16px 20px 20px;
+  margin: 0 auto;
+  border-radius: 25px 25px 0 0;
+  background: #1A1A1E;
+  box-shadow: 0px -5px 40px -5px #33333395;
+
+  @include breakpoint-down(310px) {
+    padding-inline: 0;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    .item {
+
+      &__link {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 4px;
+        color: $txt-color;
+
+        .txt {
+          font-size: 12px;
+        }
+
+        &.active {
+          color: $main-color;
+
+          path, .active {
+            fill: $main-color;
+          }
+        }
+      }
+    }
+  }
+}

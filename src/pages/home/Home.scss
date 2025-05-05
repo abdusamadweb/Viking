@@ -1,0 +1,151 @@
+@use '/src/scss' as *;
+
+.home {
+
+  .container {
+    padding: 0;
+  }
+
+  &__head {
+    padding-block: 12px 20px;
+    padding-inline: 15px;
+    border-radius: 0 0 25px 25px;
+    background: $main-color;
+
+    .titles {
+      margin-bottom: 12px;
+      color: #fff;
+
+      &__title {
+        font-weight: 500;
+        font-size: 28px;
+        line-height: 1.4;
+      }
+      &__desc {
+        font-size: 22px;
+      }
+    }
+  }
+
+  .university {
+    padding-block: 20px;
+    padding-inline: 15px;
+
+    &-list {
+      display: flex;
+      flex-flow: column;
+      gap: 10px;
+    }
+
+    &__btn {
+      display: block;
+      width: 100%;
+      font-weight: 600;
+      text-align: center;
+      padding: 15px 12px;
+      margin-top: 20px;
+      border-radius: 10px;
+      border: 1px solid $main-color;
+      color: $main-color;
+      background: #DCE6F4;
+    }
+  }
+
+  .apply {
+    text-align: center;
+    padding-block: 50px;
+    background: $main-color;
+
+    &__title {
+      font-weight: 500;
+      font-size: 24px;
+      margin-bottom: 40px;
+      color: #fff;
+    }
+
+    &__btn {
+      font-weight: 600;
+      font-size: 18px;
+      padding: 12px 20px;
+      border-radius: 12px;
+      color: $main-color;
+      background: #fff;
+    }
+  }
+
+  .direction {
+    padding: 20px 15px;
+
+    &__title {
+      text-align: center;
+      font-weight: 600;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    &__list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+  }
+
+  .home-news {
+    padding: 20px 35px;
+
+    @include breakpoint-down(320px) {
+      padding-inline: 20px;
+    }
+
+    &__title {
+      text-align: center;
+      font-weight: 600;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .slick-slide {
+      padding-inline: 10px;
+    }
+
+    .slick-dots {
+      display: none !important;
+    }
+
+    .slick-arrow {
+      top: 55%;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: $main-color;
+    }
+    .slick-next {
+      right: -25px;
+
+      &::after {
+        top: 50%;
+        left: 43%;
+        transform: translate(-50%, -50%)
+        rotate(135deg);
+      }
+
+      @include breakpoint-down(320px) {
+        //left: 93%;
+      }
+    }
+    .slick-prev {
+      left: -25px;
+
+      &::after {
+        top: 50%;
+        left: 57%;
+        transform: translate(-50%, -50%)
+        rotate(-45deg);
+      }
+
+      @include breakpoint-down(320px) {
+        left: -4%;
+      }
+    }
+  }
+}
