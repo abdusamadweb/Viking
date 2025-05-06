@@ -1,0 +1,202 @@
+@use "/src/scss" as *;
+
+.swap {
+  background: linear-gradient(180deg, #011D42 0%, #002061 47.6%, #000000 100%);
+
+  &__head {
+    padding-inline: 1rem;
+    padding-bottom: 20px;
+    border-radius: 0 0 22px 22px;
+    background: #102B52;
+
+    .titles {
+      text-align: center;
+      margin-bottom: 1rem;
+
+      .sub {
+        margin-bottom: 8px;
+        color: #8795AA;
+      }
+
+      .title {
+        font-weight: 500;
+        font-size: 32px;
+      }
+    }
+
+    .btns {
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+
+      .btn {
+        display: flex;
+        align-items: center;
+        padding: 1rem 20px;
+        gap: 10px;
+        border-radius: 20px;
+        background: $main-color;
+
+        i {
+          font-size: 24px;
+          color: #fff;
+        }
+        span {
+          font-weight: 500;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  &__body {
+    padding: 1rem;
+
+    .title {
+      font-weight: 500;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .list {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+
+      .item {
+        height: 75px;
+        border-radius: 15px;
+        border: 1px solid #333;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+.selected-modal {
+
+  .img {
+    height: 60px;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+    border: 1px solid #1F3752;
+  }
+  .title {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .ad {
+    align-items: flex-start;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+    background: #2E3B55;
+
+    img {
+      height: 44px;
+    }
+
+    .desc {
+      font-size: 14px;
+      line-height: 1.2;
+      margin-bottom: 5px;
+    }
+
+    .promo {
+      font-size: 12px;
+
+      i {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .balance {
+    font-size: 16px;
+    margin-bottom: 1rem;
+
+    .txt {
+      color: #8D94A3;
+    }
+    .price {
+      color: #fff;
+    }
+  }
+
+  .btns {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+
+    .btn {
+      height: unset;
+      font-weight: 500;
+      font-size: 16px;
+      padding: 12px 1rem;
+      border-radius: 12px;
+      border: none;
+      color: #fff;
+      background: #323F59 !important;
+
+      &.submit {
+        background: $main-color !important;
+      }
+    }
+  }
+}
+
+.deposit-drawer {
+
+  .title {
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 1rem;
+  }
+
+  .card {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 20px;
+    border: 1px solid #3A4E6F;
+    background-image: url('../../assets/images/swap-card-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &__img {
+      height: 42px;
+      margin-bottom: 10px;
+    }
+
+    &__number {
+      font-weight: 500;
+      font-size: 20px;
+      margin-bottom: 10px;
+
+      i {
+        font-size: 18px;
+      }
+    }
+
+    &__name {
+      font-weight: 500;
+      font-size: 16px;
+      margin-bottom: 1rem;
+    }
+
+    &__price {
+      font-size: 16px;
+      padding: 6px 10px;
+      border-radius: 30px;
+      background: #49618A;
+
+      .count {
+        font-weight: 500;
+      }
+    }
+  }
+}

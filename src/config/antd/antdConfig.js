@@ -3,7 +3,7 @@ export const antdConfig = () => {
 
     return {
         token: {
-            fontFamily: "Poppins",
+            fontFamily: "Nunito",
             colorPrimary: '#0063F2',
             colorText: '#222222',
         },
@@ -12,7 +12,8 @@ export const antdConfig = () => {
                 fontSize: 16,
                 paddingBlock: 8,
                 paddingInline: 16,
-                borderRadius: 10,
+                borderRadius: 12,
+                colorBorder: '#434A5B',
             },
             InputNumber: {
                 fontSize: 16,
@@ -21,7 +22,9 @@ export const antdConfig = () => {
                 borderRadius: 10,
             },
             Button: {
-                borderRadius: 10,
+                borderRadius: 12,
+                defaultActiveColor: '#fff',
+                defaultHoverColor: '#fff'
             },
             Menu: {
                 iconSize: 16,

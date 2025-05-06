@@ -6,9 +6,9 @@
   z-index: 10;
   max-width: 600px;
   width: 100%;
-  padding: 16px 20px 20px;
+  padding: 16px 8px 20px;
   margin: 0 auto;
-  border-radius: 25px 25px 0 0;
+  border-radius: 22px 22px 0 0;
   background: #1A1A1E;
   box-shadow: 0px -5px 40px -5px #33333395;
 
@@ -27,16 +27,20 @@
         align-items: center;
         flex-direction: column;
         gap: 4px;
-        color: $txt-color;
+        color: #8C8C8E;
 
         .txt {
           font-size: 12px;
+          margin-top: 4px;
         }
 
         &.active {
-          color: $main-color;
+          color: #fff;
 
-          path, .active {
+          path {
+            fill: #fff;
+          }
+          .active {
             fill: $main-color;
           }
         }

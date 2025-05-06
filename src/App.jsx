@@ -12,6 +12,7 @@ import {ConfigProvider} from "antd";
 import Home from "./pages/home/Home.jsx";
 import NavBar from "./components/nav-bar/NavBar.jsx";
 import Header from "./components/header/Header.jsx";
+import Swap from "./pages/swap/Swap.jsx";
 
 const Wrapper = ({ children }) => {
     const location = useLocation()
@@ -42,6 +43,7 @@ function App() {
                 <Routes>
 
                     <Route path='/' element={<Home />} />
+                    <Route path='/swap' element={<Swap />} />
 
                     <Route element={<AuthAdmin />}>
                         <Route path='/' element={<Home />} />
