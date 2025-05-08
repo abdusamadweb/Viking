@@ -1,15 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import img from "../../../assets/images/swap1.png";
 import gift from "../../../assets/images/gift.svg";
 import {Button, Form, Input, Modal} from "antd";
 import {validateMessages} from "../../../assets/scripts/global.js";
 
-const SelectedModal = ({ selItem, setSelItem }) => {
+const SelectedModal = ({ selItem, setSelItem, setModal }) => {
 
     const [form] = Form.useForm()
 
+    const [loading, setLoading] = useState(false)
+
     const onFormSubmit = (val) => {
         console.log(val)
+
+        setLoading(true)
+
+        setTimeout(() => {
+            setLoading(false)
+            setSelItem(null)
+            setModal('success')
+        }, 1000)
     }
 
 
@@ -58,8 +68,8 @@ const SelectedModal = ({ selItem, setSelItem }) => {
                     <span className='price'>10 000 000 uzs</span>
                 </div>
                 <div className="btns grid">
-                    <Button className='btn' htmlType='button'>Закрыть</Button>
-                    <Button className='btn submit' htmlType='submit'>Пополнить</Button>
+                    <Button className='btn' htmlType='button' onClick={() => setSelItem(null)}>Закрыть</Button>
+                    <Button className='btn submit' htmlType='submit' loading={loading}>Пополнить</Button>
                 </div>
             </Form>
         </Modal>

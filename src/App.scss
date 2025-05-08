@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 .App {
+  position: relative;
   max-width: 600px;
   min-height: 100vh;
   width: 100%;
@@ -58,6 +59,39 @@
   &::placeholder {
     color: #727784;
   }
+}
+
+
+.status {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 15px;
+  background: #30717D;
+
+  &.accept {
+    background: #006800;
+  }
+  &.reject {
+    background: #7D3030;
+  }
+  &.pending {
+    background: #5E307D;
+  }
+}
+
+.green {
+  color: #00E31A;
+}
+.red {
+  color: #FF4C4C;
+}
+
+
+.ant-select-dropdown {
+  border-radius: 10px !important;
+}
+.ant-select-item-option {
+  border-radius: 10px !important;
 }
 
 
@@ -147,15 +181,35 @@
 
 .main-drawer {
 
+  .line {
+    width: 50px;
+    height: 5px;
+    display: block;
+    margin: 0 auto 1rem;
+    border-radius: 22px;
+    background: #49556C;
+  }
+
   .ant-drawer-content {
     border-radius: 20px 20px 0 0;
     background: transparent;
   }
   .ant-drawer-body {
-    padding: 1rem 1rem 20px;
+    padding: 10px 1rem 20px;
     border-radius: 20px 20px 0 0;
     color: #fff;
-    background: $bg-content2;
+    background: #1C2A47;
+  }
+
+  .info {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 20px;
+    border: 1px solid #2E3B55;
+
+    .title {
+      font-size: 18px;
+    }
   }
 }
 

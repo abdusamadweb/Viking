@@ -1,10 +1,10 @@
 // hidden routes
 export const hiddenRoutes = [
-    '/profile', '/login', '/admin', '/searchQ'
+    '/monitoring',
 ]
 
 export const hiddenRoutesNav = [
-    '/login', '/admin',
+    '/monitoring',
 ]
 
 export const openRoutesAdmin = [

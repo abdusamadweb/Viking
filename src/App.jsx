@@ -13,6 +13,8 @@ import Home from "./pages/home/Home.jsx";
 import NavBar from "./components/nav-bar/NavBar.jsx";
 import Header from "./components/header/Header.jsx";
 import Swap from "./pages/swap/Swap.jsx";
+import History from "./pages/history/History.jsx";
+import Monitoring from "./pages/history/Monitoring.jsx";
 
 const Wrapper = ({ children }) => {
     const location = useLocation()
@@ -29,7 +31,7 @@ function App() {
 
 
     return (
-    <div className={`App ${path.includes('login') ? 'pb0' : ''} ${path.includes('admin') ? 'admin' : ''}`}>
+    <div className={`App ${path.includes('login') ? 'pb0' : ''} ${path.includes('adnpmin') ? 'admin' : ''}`}>
 
         {loading && <Loader setLoading={setLoading} />}
 
@@ -44,6 +46,8 @@ function App() {
 
                     <Route path='/' element={<Home />} />
                     <Route path='/swap' element={<Swap />} />
+                    <Route path='/history' element={<History />} />
+                    <Route path='/history/monitoring' element={<Monitoring />} />
 
                     <Route element={<AuthAdmin />}>
                         <Route path='/' element={<Home />} />

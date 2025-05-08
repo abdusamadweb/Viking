@@ -1,0 +1,242 @@
+@use "/src/scss" as *;
+
+.history {
+  padding-block: 1rem;
+  background: linear-gradient(180deg, #102B52 0%, #200061 47.6%, #000000 100%);
+
+  &__head {
+
+    .title {
+      font-weight: 500;
+      font-size: 20px;
+      margin-bottom: 1rem;
+    }
+
+    .statistics {
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding-bottom: 1rem;
+
+      &__item {
+        padding: 10px;
+        border-radius: 12px;
+        background: #272F71;
+
+        .sub {
+          font-size: 12px;
+          margin-bottom: 4px;
+          color: #A9ACC6;
+        }
+
+        .count {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  &__body {
+
+    .titles {
+      width: calc(100% + 2rem);
+      padding: 8px 1rem;
+      margin-left: -1rem;
+      background: #2B2770;
+
+      .month {
+        font-size: 14px;
+      }
+      .count {
+        font-weight: 500;
+        font-size: 14px;
+        color: #9593B7;
+      }
+    }
+
+    .list {
+
+      &__item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-block: 10px;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid #301A5D;
+        }
+
+        .imgs {
+          width: 60px;
+          height: 50px;
+          border-radius: 10px;
+          border: 1px solid #1A324C;
+          background: linear-gradient(180deg, #011D42 0%, #002061 47.6%, #000000 100%);
+
+          img {
+            width: 32px;
+            height: 40px;
+          }
+        }
+
+        .txt {
+          display: block;
+          margin-bottom: 2px;
+        }
+        .date {
+          font-size: 12px;
+          color: #A39CC0;
+        }
+
+        .flexed {
+          display: flex;
+          flex-flow: column;
+          align-items: flex-end;
+        }
+
+        .count {
+          display: block;
+          font-weight: 500;
+          font-size: 16px;
+          margin-bottom: 5px;
+        }
+        .status {
+          font-size: 12px;
+          padding: 3px 10px;
+        }
+      }
+    }
+  }
+}
+
+.check-drawer {
+
+  .titles {
+    margin-bottom: 1rem;
+
+    .title {
+      font-weight: 500;
+      font-size: 20px;
+    }
+    .status {
+      font-size: 16px;
+    }
+  }
+
+  .list {
+    margin-bottom: 1rem;
+
+    &__item {
+      padding-block: 10px;
+
+      &:not(:last-child) {
+        border-bottom: 1px dotted #323F59;
+      }
+
+      .txt {
+        font-size: 14px;
+        margin-bottom: 4px;
+        color: #A4AAB5;
+      }
+
+      .value {
+        display: block;
+      }
+
+      .count {
+        display: block;
+        font-weight: 500;
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+.monitoring {
+  min-height: 100vh;
+  padding-block: 25px;
+
+  &__head {
+    .titles {
+      font-weight: 500;
+      font-size: 20px;
+      margin-bottom: 1rem;
+
+      i {
+        font-size: 24px;
+        color: #fff;
+      }
+    }
+
+    .ant-segmented {
+      width: 100%;
+      display: block;
+      margin-bottom: 1rem;
+
+      &-item {
+        border-radius: 10px;
+      }
+      .ant-segmented-item-label {
+        font-weight: 500;
+        padding: 2px 12px;
+      }
+    }
+
+    .select {
+      width: 100%;
+      margin-bottom: 1rem;
+
+      .ant-select-selector {
+        border-color: #3D4171;
+      }
+
+      .ant-select-arrow {
+        color: #fff;
+      }
+    }
+  }
+
+  &__body {
+
+    .summary {
+      padding: 10px;
+      margin-block: 1rem;
+      border-radius: 12px;
+      background: #2C1A51;
+
+      .txt {
+        color: #ABA3B9;
+      }
+      .value {
+        font-weight: 500;
+      }
+    }
+
+    .list {
+
+      &__item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-block: 10px;
+
+        &:not(:last-child) {
+          border-bottom: 1px dotted #20192F;
+        }
+        
+        .percent {
+          width: 40px;
+          height: 28px;
+          display: grid;
+          place-items: center;
+          font-size: 14px;
+          border-radius: 20px;
+          background: linear-gradient(145deg, #0f409a, #4DA3E6);
+        }
+
+        .value {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

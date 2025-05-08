@@ -7,6 +7,7 @@ import SelectedModal from "./modals/SelectedModal.jsx";
 import DepositModal from "./modals/DepositModal.jsx";
 import SuccessModal from "../../components/success-modal/SuccessModal.jsx";
 import DepositDrawer from "./modals/DepositDrawer.jsx";
+import WithdrawDrawer from "./modals/WithdrawDrawer.jsx";
 
 const Swap = () => {
 
@@ -55,6 +56,11 @@ const Swap = () => {
                 </div>
             </div>
 
+            <SuccessModal
+                modal={modal}
+                setModal={setModal}
+            />
+
             <DepositModal
                 modal={modal}
                 setModal={setModal}
@@ -63,11 +69,16 @@ const Swap = () => {
                 modal={modal}
                 setModal={setModal}
             />
-            <SuccessModal />
+
+            <WithdrawDrawer
+                modal={modal}
+                setModal={setModal}
+            />
 
             <SelectedModal
                 selItem={selItem}
                 setSelItem={setSelItem}
+                setModal={setModal}
             />
         </div>
     );

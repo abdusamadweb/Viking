@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Form, Input, Modal} from "antd";
 import {validateMessages} from "../../../assets/scripts/global.js";
 
@@ -6,8 +6,17 @@ const DepositModal = ({ modal, setModal }) => {
 
     const [form] = Form.useForm()
 
+    const [loading, setLoading] = useState(false)
+
     const onFormSubmit = (val) => {
         console.log(val)
+
+        setLoading(true)
+
+        setTimeout(() => {
+            setLoading(false)
+            setModal('drawer')
+        }, 1000)
     }
 
 
@@ -40,8 +49,14 @@ const DepositModal = ({ modal, setModal }) => {
                     <span className='price'>10 000 000 uzs</span>
                 </div>
                 <div className="btns grid">
-                    <Button className='btn' htmlType='button'>Закрыть</Button>
-                    <Button className='btn submit' htmlType='submit'>Пополнить</Button>
+                    <Button className='btn' htmlType='button' onClick={() => setModal('close')}>Закрыть</Button>
+                    <Button
+                        className='btn submit'
+                        htmlType='submit'
+                        loading={loading}
+                    >
+                        Пополнить
+                    </Button>
                 </div>
             </Form>
         </Modal>

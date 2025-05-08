@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {Drawer} from "antd";
+import {Button, Drawer} from "antd";
 import logo from '../../../assets/images/big-logo.svg'
 import timer from '../../../assets/images/timer.svg'
 
 const DepositDrawer = ({ modal, setModal }) => {
 
+    const [loading, setLoading] = useState(false)
+
+
     // timer
     const [active, setActive] = useState(false)
-    const [timeLeft, setTimeLeft] = useState(120)
+    const [timeLeft, setTimeLeft] = useState(600)
 
     useEffect(() => {
         if (!active) return;
@@ -29,12 +32,23 @@ const DepositDrawer = ({ modal, setModal }) => {
     const formatTime = (seconds) => {
         const minutes = Math.floor(seconds / 60)
         const secs = seconds % 60
-        return `${minutes}:${secs < 10 ? "0" : ""}${secs}`
+        return `${minutes} : ${secs < 10 ? "0" : ""}${secs}`
     }
 
     function startTimer() {
-        setTimeLeft(120)
+        setTimeLeft(600)
         setActive(true)
+    }
+
+
+    // onFormSubmit
+    const onFormSubmit = () => {
+        setLoading(true)
+
+        setTimeout(() => {
+            setLoading(false)
+            setModal('success')
+        }, 1000)
     }
 
 
@@ -46,8 +60,8 @@ const DepositDrawer = ({ modal, setModal }) => {
             closable={false}
             onClose={() => setModal('close')}
             open={modal === 'drawer'}
-            // open={true}
             key='bottom'
+            height={585}
         >
             <span className='line'/>
             <p className="title">Переведите сумму на указанному карту ниже</p>
@@ -73,6 +87,17 @@ const DepositDrawer = ({ modal, setModal }) => {
             <div className="timer center row align-center g10">
                 <img src={timer} alt="icon"/>
                 <span>{formatTime(timeLeft)}</span>
+            </div>
+            <div className="btns">
+                <Button
+                    className='btn submit'
+                    htmlType='submit'
+                    onClick={onFormSubmit}
+                    loading={loading}
+                >
+                    Я перевел указанную сумму
+                </Button>
+                <Button className='btn' onClick={() => setModal('close')}>Отменить</Button>
             </div>
         </Drawer>
     );

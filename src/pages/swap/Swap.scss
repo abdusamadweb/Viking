@@ -151,6 +151,7 @@
 }
 
 .deposit-drawer {
+  position: relative;
 
   .title {
     font-weight: 500;
@@ -197,6 +198,222 @@
       .count {
         font-weight: 500;
       }
+    }
+  }
+
+  .timer {
+    margin-bottom: 1rem;
+
+    span {
+      font-weight: 700;
+      font-size: 28px;
+    }
+  }
+
+  .btns {
+    
+    .btn {
+      width: 100%;
+
+      &.submit {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.withdraw-drawer {
+  background: #111B2F;
+
+  .ant-drawer-body {
+    padding: 0 0 1rem;
+    background: #111B2F;
+  }
+
+  .bgc {
+    padding-top: 10px;
+    margin-bottom: 10px;
+    background: #1C2A47;
+  }
+
+  .title {
+    font-weight: 500;
+    font-size: 20px;
+    padding: 0 1rem 1rem;
+  }
+
+  .div {
+    padding: 1rem;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background: #1C2A47;
+  }
+
+  .cards {
+    .ant-segmented {
+      width: 100%;
+      margin-bottom: 1rem;
+
+      .ant-segmented-item-label {
+        font-weight: 500;
+        padding: 2px 12px;
+      }
+      .ant-segmented-item {
+        border-radius: 8px;
+      }
+    }
+
+    &__number {
+
+      .txt {
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+
+      input {
+        height: 43px;
+        padding: 10px 1rem;
+        margin-bottom: 6px;
+        border-radius: 12px;
+        border: 1px solid #434A5B;
+        outline: none;
+        color: #fff;
+        background: #141D32;
+
+        &::placeholder {
+          color: #727784;
+        }
+        &:focus {
+          border-color: $main-color;
+        }
+      }
+
+      .imgs {
+        gap: 5px;
+        margin-bottom: 10px;
+
+        img {
+          padding: 4px 6px;
+          border-radius: 8px;
+          background: #323F59;
+        }
+      }
+    }
+
+    &__save {
+
+      .title {
+        font-weight: 400;
+        font-size: 14px;
+        padding: 0;
+      }
+
+      .ant-switch {
+        background-color: #32B141 !important;
+      }
+    }
+
+    &__list {
+
+      .ant-radio-group {
+        width: 100%;
+        display: flex;
+        flex-flow: column;
+        gap: 10px;
+      }
+      .ant-radio-wrapper {
+        width: 100%;
+        flex-flow: row-reverse;
+        justify-content: space-between;
+
+        padding: 5px 12px 5px 10px;
+        border-radius: 15px;
+        color: #fff;
+        background: #323F59;
+
+        &::after {
+          content: none;
+        }
+
+        .ant-radio-label {
+          padding: 0;
+        }
+
+        .ant-radio-inner {
+          width: 20px;
+          height: 20px;
+
+          &::after {
+            width: 20px;
+            height: 20px;
+            margin-block-start: -10px;
+            margin-inline-start: -10px;
+          }
+        }
+      }
+
+      .item {
+
+        .img {
+          width: 45px;
+          height: 40px;
+          padding: 10px;
+          border-radius: 13px;
+          background: #465269;
+        }
+
+        .name {
+          font-weight: 500;
+        }
+        .number {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+  .price {
+    .txt {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .ant-input {
+      margin-bottom: 1rem;
+    }
+
+    .balance {
+      margin-bottom: 0;
+
+      .row {
+        gap: 8px;
+      }
+      i {
+        bottom: 2px;
+      }
+      i, span {
+        color: #8D94A3;
+      }
+
+      .count {
+        color: #fff;
+      }
+    }
+  }
+
+  .info {
+    margin-inline: 1rem;
+
+    .title {
+      padding-left: 0;
+    }
+  }
+
+  .btns {
+    padding-inline: 1rem;
+
+    .submit {
+      width: 100%;
     }
   }
 }

@@ -3,6 +3,7 @@ import './Header.scss'
 import {Link, useHref} from "react-router-dom";
 import {hiddenRoutes} from "../../assets/scripts/mockAPI.js";
 import logo from '../../assets/images/logo.svg'
+import HeaderModal from "./HeaderModal.jsx";
 
 const Header = () => {
 
@@ -19,13 +20,24 @@ const Header = () => {
                     <Link className='logo' to='/'>
                         <img src={logo} alt="logo"/>
                     </Link>
-                    <div className='d-flex align-center g10'>
+                    <div className='d-flex align-center g1'>
+                        {
+                            href.includes('/history') &&
+                            <Link className='monitoring-link' to="/history/monitoring">
+                                <i className="fa-solid fa-chart-pie"/>
+                            </Link>
+                        }
                         <button className='bar' onClick={() => setModal(true)}>
                             <i className="fa-solid fa-bars"/>
                         </button>
                     </div>
                 </div>
             </div>
+
+            <HeaderModal
+                modal={modal}
+                setModal={setModal}
+            />
         </div>
     );
 };
