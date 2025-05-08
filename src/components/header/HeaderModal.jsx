@@ -13,7 +13,7 @@ const HeaderModal = ({ modal, setModal }) => {
             onCancel={() => setModal(false)}
             centered
         >
-
+s
         </Modal>
     );
 };
