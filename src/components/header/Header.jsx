@@ -3,11 +3,14 @@ import './Header.scss'
 import {Link, useHref} from "react-router-dom";
 import {hiddenRoutes} from "../../assets/scripts/mockAPI.js";
 import logo from '../../assets/images/logo.svg'
-import HeaderModal from "./HeaderModal.jsx";
+import HeaderModal from "./modals/HeaderModal.jsx";
+import LangDrawer from "./modals/LangDrawer.jsx";
+import ThemeDrawer from "./modals/ThemeDrawer.jsx";
 
 const Header = () => {
 
-    const [modal, setModal] = useState(false)
+    const [modal, setModal] = useState('close')
+    const [modal2, setModal2] = useState('close')
 
     const href = useHref({})
     const isHidden = hiddenRoutes.some(route => href.includes(route))
@@ -27,7 +30,14 @@ const Header = () => {
                                 <i className="fa-solid fa-chart-pie"/>
                             </Link>
                         }
-                        <button className='bar' onClick={() => setModal(true)}>
+                        {
+                            href === '/' &&
+                            <div className='balance row align-center'>
+                                <i className="fa-solid fa-wallet"/>
+                                <span>100 000 000 uzs</span>
+                            </div>
+                        }
+                        <button className='bar' onClick={() => setModal('menu')}>
                             <i className="fa-solid fa-bars"/>
                         </button>
                     </div>
@@ -37,6 +47,16 @@ const Header = () => {
             <HeaderModal
                 modal={modal}
                 setModal={setModal}
+                setModal2={setModal2}
+            />
+
+            <LangDrawer
+                modal={modal2}
+                setModal={setModal2}
+            />
+            <ThemeDrawer
+                modal={modal2}
+                setModal={setModal2}
             />
         </div>
     );

@@ -1,10 +1,10 @@
 // hidden routes
 export const hiddenRoutes = [
-    '/monitoring',
+    '/monitoring', '/profile', '/cards'
 ]
 
 export const hiddenRoutesNav = [
-    '/monitoring',
+    '/monitoring', '/profile', '/cards'
 ]
 
 export const openRoutesAdmin = [

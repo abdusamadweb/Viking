@@ -8,143 +8,98 @@
 
   &__head {
     padding-block: 12px 20px;
-    padding-inline: 15px;
+    padding-inline: 1rem;
+    margin-bottom: 25px;
     border-radius: 0 0 25px 25px;
-    background: $main-color;
+    background: linear-gradient(180deg, #102B52 0%, #1A245B 47.6%, #1A3065 100%);
 
-    .titles {
-      margin-bottom: 12px;
-      color: #fff;
-
-      &__title {
-        font-weight: 500;
-        font-size: 28px;
-        line-height: 1.4;
-      }
-      &__desc {
-        font-size: 22px;
-      }
-    }
-  }
-
-  .university {
-    padding-block: 20px;
-    padding-inline: 15px;
-
-    &-list {
+    .btn {
       display: flex;
-      flex-flow: column;
-      gap: 10px;
-    }
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 1rem;
+      border-radius: 15px;
+      background: #303A6C;
 
-    &__btn {
-      display: block;
-      width: 100%;
-      font-weight: 600;
-      text-align: center;
-      padding: 15px 12px;
-      margin-top: 20px;
-      border-radius: 10px;
-      border: 1px solid $main-color;
-      color: $main-color;
-      background: #DCE6F4;
+      i {
+        color: #838BA9;
+      }
+
+      .row {
+        i {
+          font-size: 22px;
+          color: #fff;
+        }
+        span {
+          font-weight: 500;
+          font-size: 17px;
+          color: #fff;
+        }
+      }
     }
   }
 
-  .apply {
-    text-align: center;
-    padding-block: 50px;
-    background: $main-color;
+  &__body {
+    padding-inline: 1rem;
+    padding-bottom: 1rem;
 
-    &__title {
-      font-weight: 500;
-      font-size: 24px;
-      margin-bottom: 40px;
-      color: #fff;
-    }
+    .ant-carousel {
+      margin-bottom: 25px;
 
-    &__btn {
-      font-weight: 600;
-      font-size: 18px;
-      padding: 12px 20px;
-      border-radius: 12px;
-      color: $main-color;
-      background: #fff;
-    }
-  }
+      .item {
+        position: relative;
+        padding: 12px 1rem;
+        border-radius: 15px;
+        background: linear-gradient(270deg, #00FFFF 0%, #295CDE 100%);
 
-  .direction {
-    padding: 20px 15px;
+        .titles {
+          font-weight: 500;
+          font-size: 16px;
+          margin-bottom: 10px;
+          color: #fff;
 
-    &__title {
-      text-align: center;
-      font-weight: 600;
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
+          span {
+            font-weight: 600;
+            font-size: 16px;
+            padding: 1px 6px;
+            border-radius: 25px;
+            color: #222;
+            background: #FAC30E;
+          }
+        }
 
-    &__list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-  }
+        .sub {
+          font-weight: 500;
+          font-size: 16px;
+          color: #fff;
+        }
 
-  .home-news {
-    padding: 20px 35px;
-
-    @include breakpoint-down(320px) {
-      padding-inline: 20px;
-    }
-
-    &__title {
-      text-align: center;
-      font-weight: 600;
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
-
-    .slick-slide {
-      padding-inline: 10px;
-    }
-
-    .slick-dots {
-      display: none !important;
-    }
-
-    .slick-arrow {
-      top: 55%;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: $main-color;
-    }
-    .slick-next {
-      right: -25px;
-
-      &::after {
-        top: 50%;
-        left: 43%;
-        transform: translate(-50%, -50%)
-        rotate(135deg);
-      }
-
-      @include breakpoint-down(320px) {
-        //left: 93%;
+        .img {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          border-radius: 0 0 15px 0;
+        }
       }
     }
-    .slick-prev {
-      left: -25px;
 
-      &::after {
-        top: 50%;
-        left: 57%;
-        transform: translate(-50%, -50%)
-        rotate(-45deg);
+    .how {
+
+      &__titles {
+        font-weight: 500;
+        font-size: 18px;
+        margin-bottom: 1rem;
+
+        i {
+          font-size: 22px;
+        }
       }
 
-      @include breakpoint-down(320px) {
-        left: -4%;
+      &__iframe {
+        width: 100%;
+        height: unset;
+        border-radius: 15px;
+        border: 1px solid #373841;
       }
     }
   }
