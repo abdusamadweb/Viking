@@ -3,7 +3,7 @@ import React from 'react';
 import {useNavigate} from "react-router-dom";
 import user from '../../assets/images/profile.png'
 import {validateMessages} from "../../assets/scripts/global.js";
-import {Button, Form, Input} from "antd";
+import {Button, DatePicker, Form, Input} from "antd";
 
 const Profile = () => {
 
@@ -31,6 +31,9 @@ const Profile = () => {
                     >
                         <div className="imgs">
                             <img className='img' src={user} alt="image"/>
+                            <button className='upload-btn'>
+                                <i className="fa-solid fa-pen"/>
+                            </button>
                         </div>
 
                         <Form.Item
@@ -46,6 +49,13 @@ const Profile = () => {
                             rules={[{required: true}]}
                         >
                             <Input placeholder='Фамилия...'/>
+                        </Form.Item>
+                        <Form.Item
+                            name='birth_date'
+                            label='Дата рождение'
+                            rules={[{required: true}]}
+                        >
+                            <DatePicker size='large' placeholder='Дата рождение' />
                         </Form.Item>
 
                         <Button className='btn'>Сохранить</Button>

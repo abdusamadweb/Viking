@@ -1,6 +1,7 @@
 @use '/src/scss' as *;
 
 .home {
+  background: linear-gradient(180deg,#102B52 0%, #002A61 10%, #200061 60%, #000000 100%);
 
   .container {
     padding: 0;
@@ -9,9 +10,6 @@
   &__head {
     padding-block: 12px 20px;
     padding-inline: 1rem;
-    margin-bottom: 25px;
-    border-radius: 0 0 25px 25px;
-    background: linear-gradient(180deg, #102B52 0%, #1A245B 47.6%, #1A3065 100%);
 
     .btn {
       display: flex;
@@ -19,7 +17,7 @@
       align-items: center;
       padding: 12px 1rem;
       border-radius: 15px;
-      background: #303A6C;
+      background: #FFFFFF1A;
 
       i {
         color: #838BA9;
@@ -41,44 +39,17 @@
 
   &__body {
     padding-inline: 1rem;
-    padding-bottom: 1rem;
+    padding-block: 1rem;
 
     .ant-carousel {
       margin-bottom: 25px;
 
       .item {
-        position: relative;
-        padding: 12px 1rem;
-        border-radius: 15px;
-        background: linear-gradient(270deg, #00FFFF 0%, #295CDE 100%);
+        padding-inline: 5px;
 
-        .titles {
-          font-weight: 500;
-          font-size: 16px;
-          margin-bottom: 10px;
-          color: #fff;
-
-          span {
-            font-weight: 600;
-            font-size: 16px;
-            padding: 1px 6px;
-            border-radius: 25px;
-            color: #222;
-            background: #FAC30E;
-          }
-        }
-
-        .sub {
-          font-weight: 500;
-          font-size: 16px;
-          color: #fff;
-        }
-
-        .img {
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          border-radius: 0 0 15px 0;
+        .banner {
+          width: 100%;
+          border-radius: 20px;
         }
       }
     }

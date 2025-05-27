@@ -1,0 +1,237 @@
+@use "/src/scss" as *;
+
+.card-page {
+  min-height: 100vh;
+  padding-block: 25px;
+  background: linear-gradient(180deg, #002A61 0%, #200061 47.6%, #000000 100%);
+
+  &__head {
+    .titles {
+      font-weight: 500;
+      font-size: 20px;
+      margin-bottom: 25px;
+
+      i {
+        font-size: 24px;
+        color: #fff;
+      }
+    }
+  }
+
+  &__body {
+
+    .list {
+
+      .item {
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: #FFFFFF1A;
+
+        .imgs {
+          width: 50px;
+          height: 44px;
+          display: grid;
+          place-items: center;
+          border-radius: 12px;
+          background: #FFFFFF1A;
+
+          img {
+            width: 30px;
+            height: 30px;
+          }
+        }
+
+        .name {
+          font-weight: 500;
+          font-size: 16px;
+        }
+        .number {
+          font-size: 12px;
+        }
+
+        i {
+          color: #fff;
+        }
+
+        .btns {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+
+          .btn {
+            width: 30px;
+            height: 30px;
+            display: grid;
+            place-items: center;
+            border-radius: 8px;
+            background: #FFFFFF1A;
+          }
+
+          i {
+            width: 14px;
+            height: 14px;
+            font-size: 14px;
+
+            &.fa-trash-can {
+              color: #FF4C4C;
+            }
+          }
+        }
+      }
+    }
+
+    .empty {
+      min-height: calc(100vh - 100px);
+      display: grid;
+      place-items: center;
+
+      &__content {
+        text-align: center;
+        padding: 2rem;
+
+        .img {
+          width: 75px;
+          height: 60px;
+          margin-bottom: 1rem;
+        }
+
+        .title {
+          font-size: 24px;
+          margin-bottom: 10px;
+        }
+        .desc {
+          font-size: 12px;
+          margin-bottom: 1rem;
+          color: #FFFFFF99;
+        }
+
+        .btn {
+          width: 100%;
+          font-weight: 500;
+          font-size: 18px;
+          padding: 1rem 20px;
+          border-radius: 12px;
+          color: #fff;
+          background: $main-color;
+        }
+      }
+    }
+  }
+}
+
+.card-add-drawer {
+
+  .card-form {
+    padding: 1rem;
+    border-radius: 15px;
+    border: 1px solid #FFFFFF33;
+    margin-bottom: 1rem;
+    background-image: url('../../assets/images/card-bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 150%;
+
+    .ant-form-item {
+      margin-bottom: 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    .ant-form-item-required {
+      color: #fff;
+    }
+
+    .ant-input, .inp-mask {
+      border: 1px solid #FFFFFF4D !important;
+      background: #FFFFFF4D !important;
+      backdrop-filter: blur(10px) !important;
+
+      &::placeholder {
+        color: #FFFFFF80;
+      }
+    }
+    .inp-mask {
+      height: 43px;
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid #434A5B;
+      outline: none;
+      color: #fff;
+      background: #141D32;
+    }
+  }
+
+  .choose {
+
+    &__title {
+      font-weight: 500;
+      font-size: 18px;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .ant-radio-group {
+      display: flex;
+      flex-flow: row;
+
+      .ant-radio-button-wrapper {
+        width: 48px;
+        height: 48px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        border: none;
+        background: #323F59;
+
+        &.ant-radio-button-wrapper-checked {
+          background: $main-color;
+        }
+
+        &::before {
+          content: none;
+        }
+      }
+    }
+
+    .imgs {
+      position: relative;
+      top: 0.5px;
+      right: 2.8px;
+      width: 24px;
+      height: 24px;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .btns {
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+.delete-modal {
+
+  .title {
+    font-weight: 500;
+    font-size: 20px;
+    padding-inline: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .btns {
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    
+    .delete {
+      background: #FF4C4C !important;
+    }
+  }
+}

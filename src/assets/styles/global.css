@@ -66,6 +66,7 @@ strong {
 i {
    position: relative;
    z-index: 1;
+   color: inherit;
 }
 
 .center-absolute {
@@ -134,6 +135,7 @@ i {
    flex-flow: nowrap;
 }
 .flex-column {
+   display: flex;
    flex-flow: column;
 }
 .center {

@@ -24,14 +24,20 @@ const HeaderModal = ({ modal, setModal, setModal2 }) => {
                 </div>
             </div>
             <ul className="list">
-                <li className="list__item" onClick={() => navigate('/profile')}>
+                <li className="list__item" onClick={() => {
+                    setModal('close')
+                    navigate('/profile')
+                }}>
                     <div className="row align-center g10">
                         <i className="fa-solid fa-user"/>
                         <span>Профиль</span>
                     </div>
                     <i className="fa-solid fa-chevron-right"/>
                 </li>
-                <li className="list__item" onClick={() => navigate('/cards')}>
+                <li className="list__item" onClick={() => {
+                    setModal('close')
+                    navigate('/cards')
+                }}>
                     <div className="row align-center g10">
                         <i className="fa-solid fa-credit-card"/>
                         <span>Мои карты</span>

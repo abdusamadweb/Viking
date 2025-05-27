@@ -16,6 +16,7 @@ import Swap from "./pages/swap/Swap.jsx";
 import History from "./pages/history/History.jsx";
 import Monitoring from "./pages/history/Monitoring.jsx";
 import Profile from "./pages/profile/Profile.jsx";
+import Card from "./pages/card/Card.jsx";
 
 const Wrapper = ({ children }) => {
     const location = useLocation()
@@ -51,6 +52,7 @@ function App() {
                     <Route path='/history/monitoring' element={<Monitoring />} />
 
                     <Route path='/profile' element={<Profile />} />
+                    <Route path='/cards' element={<Card />} />
 
                     <Route element={<AuthAdmin />}>
                         <Route path='/' element={<Home />} />

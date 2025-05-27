@@ -43,7 +43,7 @@
   }
 
   .ant-modal-content {
-    padding: 1rem;
+    padding: 1rem 1rem 5px;
     border-radius: 12px;
     border: 1px solid #4A4D61;
     background: #1D213A;
@@ -109,5 +109,57 @@
   
   .ant-switch-checked, .ant-switch-disabled {
     background: #32B141 !important;
+  }
+}
+
+.header-drawer {
+  .ant-drawer-content-wrapper {
+    height: fit-content !important;
+  }
+
+  .ant-radio-group {
+    display: flex;
+    flex-flow: column;
+    gap: 12px;
+  }
+  .ant-radio-wrapper {
+    flex-flow: row-reverse;
+    justify-content: space-between;
+    padding: 10px 15px 10px 10px;
+    border-radius: 12px;
+    border: 1px solid #4A4D61;
+    background: #323F59;
+
+    &::after {
+      content: none;
+    }
+  }
+  .ant-radio-wrapper-checked {
+    background: #0095FF4D;
+    border-color: $main-color;
+  }
+
+  .title {
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 1rem;
+  }
+  
+  .cards-list {
+
+
+    .item {
+      font-size: 18px;
+      color: #fff;
+
+      img {
+        width: 28px;
+        height: 28px;
+      }
+      i {
+        font-size: 20px;
+        color: #fff;
+      }
+    }
   }
 }

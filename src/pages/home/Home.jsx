@@ -6,7 +6,9 @@ import DepositDrawer from "../swap/modals/DepositDrawer.jsx";
 import WithdrawDrawer from "../swap/modals/WithdrawDrawer.jsx";
 import {Link} from "react-router-dom";
 import {Carousel} from "antd";
-import girl from '../../assets/images/girl.png'
+import ban1 from '../../assets/images/banner1.png'
+import ban2 from '../../assets/images/banner2.png'
+import ban3 from '../../assets/images/banner3.png'
 
 const Home = () => {
 
@@ -16,6 +18,36 @@ const Home = () => {
     return (
         <div className='home page'>
             <div className="container">
+                <div className="home__body">
+                    <Carousel
+                        autoplay
+                        dots={false}
+                    >
+                        <div className='item'>
+                            <img className='banner' src={ban1} alt="banner"/>
+                        </div>
+                        <div className='item'>
+                            <img className='banner' src={ban2} alt="banner"/>
+                        </div>
+                        <div className='item'>
+                            <img className='banner' src={ban3} alt="banner"/>
+                        </div>
+                    </Carousel>
+                    <div className="how">
+                        <div className="how__titles row align-center g10">
+                            <i className="fa-solid fa-circle-info"/>
+                            <span>Как пользоваться ботом?</span>
+                        </div>
+                        <iframe
+                            className='how__iframe'
+                            allowFullScreen
+                            src="https://www.youtube.com/embed/VQRLujxTm3c?si=GHXQUpaREsDmWhCZ"
+                            title="YouTube video player" frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                        />
+                    </div>
+                </div>
                 <div className="home__head row flex-column g10">
                     <button className='btn' onClick={() => setModal('deposit')}>
                         <div className="row align-center g10">
@@ -38,36 +70,6 @@ const Home = () => {
                         </div>
                         <i className="fa-solid fa-chevron-right"/>
                     </Link>
-                </div>
-                <div className="home__body">
-                    <Carousel
-                        autoplay
-                        dots={false}
-                    >
-                        <div className='item'>
-                            <div className="titles">
-                                Birinchi Depozit uchun <br/>
-                                <span>10 000 000 mln</span> <br/>
-                                Bonusga ega bo’ling!
-                            </div>
-                            <span className='sub'>Promokod: LimonPay</span>
-                            <img className='img' src={girl} alt="img"/>
-                        </div>
-                    </Carousel>
-                    <div className="how">
-                        <div className="how__titles row align-center g10">
-                            <i className="fa-solid fa-circle-info"/>
-                            <span>Как пользоваться ботом?</span>
-                        </div>
-                        <iframe
-                            className='how__iframe'
-                            allowFullScreen
-                            src="https://www.youtube.com/embed/VQRLujxTm3c?si=GHXQUpaREsDmWhCZ"
-                            title="YouTube video player" frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerPolicy="strict-origin-when-cross-origin"
-                        />
-                    </div>
                 </div>
             </div>
 

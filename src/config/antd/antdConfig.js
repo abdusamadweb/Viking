@@ -16,6 +16,13 @@ export const antdConfig = () => {
                 borderRadius: 12,
                 colorBorder: '#434A5B',
             },
+            DatePicker: {
+                fontSize: 16,
+                paddingBlock: 8,
+                paddingInline: 16,
+                borderRadius: 12,
+                colorBorder: '#434A5B',
+            },
             InputNumber: {
                 fontSize: 16,
                 paddingBlock: 8,
