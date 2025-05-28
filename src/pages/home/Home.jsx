@@ -1,5 +1,5 @@
 import './Home.scss'
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SuccessModal from "../../components/success-modal/SuccessModal.jsx";
 import DepositModal from "../swap/modals/DepositModal.jsx";
 import DepositDrawer from "../swap/modals/DepositDrawer.jsx";
@@ -9,10 +9,29 @@ import {Carousel} from "antd";
 import ban1 from '../../assets/images/banner1.png'
 import ban2 from '../../assets/images/banner2.png'
 import ban3 from '../../assets/images/banner3.png'
+import {$resp} from "../../api/config.js";
+import {useQuery} from "@tanstack/react-query";
+
+// fetch
+const fetchMe = async () => {
+    const { data } = await $resp.post("/user/me")
+    return data
+}
 
 const Home = () => {
 
     const [modal, setModal] = useState('close')
+
+
+    // fetch
+    const { data: me } = useQuery({
+        queryKey: ['me'],
+        queryFn: fetchMe,
+        keepPreviousData: true,
+    })
+    useEffect(() => {
+        if (me) localStorage.setItem('me', JSON.stringify(me?.data))
+    }, [me])
 
 
     return (

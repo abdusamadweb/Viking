@@ -23,6 +23,9 @@
     .list {
 
       .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         padding: 10px 12px;
         border-radius: 12px;
         background: #FFFFFF1A;

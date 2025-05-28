@@ -1,6 +1,6 @@
 import React from "react"
 import { useQuery } from "@tanstack/react-query"
-import { getFile } from "../../api/apiResp.js"
+import { getFile } from "../../api/config.js"
 import { Image, Skeleton } from "antd"
 
 const GetFile = ({ id, className, defImg, odiy }) => {

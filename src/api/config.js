@@ -1,5 +1,5 @@
 import axios from "axios"
-import $api, {API_TEST} from "./apiConfig"
+import $api, {API_TEST} from "./api.js"
 
 export const userLang = navigator.language || navigator.userLanguage
 

@@ -1,6 +1,6 @@
 import {useMutation} from '@tanstack/react-query'
 import {toast} from 'react-hot-toast'
-import {$adminResp} from "../api/apiResp.js";
+import {$adminResp} from "../api/config.js";
 
 export const logout = () => {
     localStorage.clear()

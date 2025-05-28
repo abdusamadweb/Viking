@@ -1,14 +1,76 @@
 import './Profile.scss'
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import user from '../../assets/images/profile.png'
 import {validateMessages} from "../../assets/scripts/global.js";
 import {Button, DatePicker, Form, Input} from "antd";
+import {useMutation, useQuery} from "@tanstack/react-query";
+import {$resp} from "../../api/config.js";
+import {toast} from "react-hot-toast";
+
+
+// fetch
+const fetchMe = async () => {
+    const { data } = await $resp.post("/user/me")
+    return data
+}
+
+const updateProfile = async (body) => {
+    const { data } = await $resp.post("/user/update-profile", body)
+    return data
+}
+
 
 const Profile = () => {
 
     const [form] = Form.useForm()
     const navigate = useNavigate()
+
+    const [file, setFile] = useState(null)
+
+
+    // fetch
+    const { data: me } = useQuery({
+        queryKey: ['me'],
+        queryFn: fetchMe,
+        keepPreviousData: true,
+    })
+    useEffect(() => {
+        if (me) localStorage.setItem('me', JSON.stringify(me?.data))
+    }, [me])
+
+
+    // mutate
+    const muUpdate = useMutation({
+        mutationFn: updateProfile,
+        onSuccess: (res) => {
+            toast.success(res.message)
+        },
+        onError: (err) => {
+            toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
+        }
+    })
+
+
+    // submit form
+    const onFormSubmit = (values) => {
+        const body = {
+            ...values,
+            file_id: file ? file?.file.response.files[0].id : me?.data?.logo_id,
+        }
+
+        muUpdate.mutate(body)
+    }
+
+
+    // form
+    useEffect(() => {
+        if (me) {
+            form.setFieldsValue(me?.data)
+        } else {
+            form.resetFields()
+        }
+    }, [form, me])
 
 
     return (
@@ -24,7 +86,7 @@ const Profile = () => {
                 </div>
                 <div className="profile__body">
                     <Form
-                        // onFinish={onFormSubmit}
+                        onFinish={onFormSubmit}
                         layout='vertical'
                         validateMessages={validateMessages}
                         form={form}

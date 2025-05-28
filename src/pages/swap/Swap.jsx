@@ -2,17 +2,35 @@ import './Swap.scss'
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import img from '../../assets/images/swap1.png'
-import {Form} from "antd";
+import {Empty, Form} from "antd";
 import SelectedModal from "./modals/SelectedModal.jsx";
 import DepositModal from "./modals/DepositModal.jsx";
 import SuccessModal from "../../components/success-modal/SuccessModal.jsx";
 import DepositDrawer from "./modals/DepositDrawer.jsx";
 import WithdrawDrawer from "./modals/WithdrawDrawer.jsx";
+import {$resp} from "../../api/config.js";
+import {useQuery} from "@tanstack/react-query";
+
+
+// fetch
+const fetchData = async () => {
+    const { data } = await $resp.post("/provider/f-all")
+    return data
+}
+
 
 const Swap = () => {
 
     const [selItem, setSelItem] = useState(null)
     const [modal, setModal] = useState('close')
+
+
+    // fetch
+    const { data } = useQuery({
+        queryKey: ['provider'],
+        queryFn: fetchData(),
+        keepPreviousData: true,
+    })
 
 
     return (
@@ -36,23 +54,21 @@ const Swap = () => {
                 </div>
                 <div className="swap__body">
                     <p className="title">Пополнить букмекерской конторы</p>
-                    <ul className='list'>
-                        <li className='item' onClick={() => setSelItem([])}>
-                            <img src={img} alt="image"/>
-                        </li>
-                        <li className='item' onClick={() => setSelItem([])}>
-                            <img src={img} alt="image"/>
-                        </li>
-                        <li className='item' onClick={() => setSelItem([])}>
-                            <img src={img} alt="image"/>
-                        </li>
-                        <li className='item' onClick={() => setSelItem([])}>
-                            <img src={img} alt="image"/>
-                        </li>
-                        <li className='item' onClick={() => setSelItem([])}>
-                            <img src={img} alt="image"/>
-                        </li>
-                    </ul>
+                    {
+                        data?.length ?
+                            <ul className='list'>
+                                {data?.map(i => (
+                                    <li
+                                        className='item'
+                                        onClick={() => setSelItem(i)}
+                                        key={i.id}
+                                    >
+                                        <img src={i?.logo_id} alt="image"/>
+                                    </li>
+                                ))}
+                            </ul>
+                            : <Empty description={false} />
+                    }
                 </div>
             </div>
 

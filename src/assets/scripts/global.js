@@ -1,5 +1,5 @@
-import {$resp} from "../../api/apiResp.js";
-import {API_TEST} from "../../api/apiConfig.js";
+import {$resp} from "../../api/config.js";
+import {API_TEST} from "../../api/api.js";
 import toast from "react-hot-toast";
 import {Upload} from "antd";
 

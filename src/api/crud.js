@@ -1,4 +1,4 @@
-import {$adminResp} from "./apiResp.js";
+import {$adminResp} from "./config.js";
 
 // add or edit item
 export const addOrEdit = async (url, value, id) => {
