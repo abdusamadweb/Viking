@@ -1,12 +1,13 @@
 import './Profile.scss'
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import user from '../../assets/images/profile.png'
-import {validateMessages} from "../../assets/scripts/global.js";
-import {Button, DatePicker, Form, Input} from "antd";
+import {uploadProps, validateMessages} from "../../assets/scripts/global.js";
+import {Button, DatePicker, Form, Input, Upload} from "antd";
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {$resp} from "../../api/config.js";
 import {toast} from "react-hot-toast";
+import profile from "../../assets/images/profile-def.png";
+import GetFile from "../../components/get-file/GetFile.jsx";
 
 
 // fetch
@@ -56,7 +57,8 @@ const Profile = () => {
     const onFormSubmit = (values) => {
         const body = {
             ...values,
-            file_id: file ? file?.file.response.files[0].id : me?.data?.logo_id,
+            birthday: new Date(values.birth_date).toLocaleDateString(),
+            logo_id: file ? file?.file.response.files[0].id : me?.data?.logo_id,
         }
 
         muUpdate.mutate(body)
@@ -92,10 +94,17 @@ const Profile = () => {
                         form={form}
                     >
                         <div className="imgs">
-                            <img className='img' src={user} alt="image"/>
-                            <button className='upload-btn'>
-                                <i className="fa-solid fa-pen"/>
-                            </button>
+                            <GetFile className='img' id={file ? file?.file?.response?.files?.[0]?.id : me?.data?.logo_id} defImg={profile} />
+                            <Upload
+                                className='upload'
+                                {...uploadProps}
+                                onChange={(e) => setFile(e)}
+                                listType='text'
+                            >
+                                <button className='upload-btn'>
+                                    <i className="fa-solid fa-pen"/>
+                                </button>
+                            </Upload>
                         </div>
 
                         <Form.Item
@@ -113,16 +122,15 @@ const Profile = () => {
                             <Input placeholder='Фамилия...'/>
                         </Form.Item>
                         <Form.Item
-                            name='birth_date'
+                            name='birthday'
                             label='Дата рождение'
                             rules={[{required: true}]}
                         >
                             <DatePicker size='large' placeholder='Дата рождение' />
                         </Form.Item>
 
-                        <Button className='btn'>Сохранить</Button>
+                        <Button className='btn' htmlType='submit'>Сохранить</Button>
                     </Form>
-
                 </div>
             </div>
         </div>

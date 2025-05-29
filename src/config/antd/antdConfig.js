@@ -58,6 +58,11 @@ export const antdConfig = () => {
                 optionLineHeight: 1.5,
                 borderRadius: 10,
                 controlHeight: 43
+            },
+            Pagination: {
+                colorText: '#fff',
+                colorBgContainer: '#272F71',
+                colorTextDisabled: '#777',
             }
         }
     }

@@ -1,22 +1,43 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Button, Form, Input, Modal} from "antd";
-import {validateMessages} from "../../../assets/scripts/global.js";
+import {formatPrice, validateMessages} from "../../../assets/scripts/global.js";
+import {$resp} from "../../../api/config.js";
+import {toast} from "react-hot-toast";
+import {useMutation} from "@tanstack/react-query";
 
-const DepositModal = ({ modal, setModal }) => {
+
+// fetch
+const deposit = async (body) => {
+    const { data } = await $resp.post("/transaction/deposit/create", body)
+    return data
+}
+
+
+const DepositModal = ({ modal, setModal, setActiveTimer, setDrawerCard }) => {
 
     const [form] = Form.useForm()
 
-    const [loading, setLoading] = useState(false)
+    const me = JSON.parse(localStorage.getItem('me'))
+
+
+    // mutate
+    const mutation = useMutation({
+        mutationFn: deposit,
+        onSuccess: (res) => {
+            toast.success(res.message)
+
+            setDrawerCard(res.data)
+
+            setModal('drawer')
+            setActiveTimer(true)
+        },
+        onError: (err) => {
+            toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
+        }
+    })
 
     const onFormSubmit = (val) => {
-        console.log(val)
-
-        setLoading(true)
-
-        setTimeout(() => {
-            setLoading(false)
-            setModal('drawer')
-        }, 1000)
+        mutation.mutate(val)
     }
 
 
@@ -38,7 +59,7 @@ const DepositModal = ({ modal, setModal }) => {
                 form={form}
             >
                 <Form.Item
-                    name='price'
+                    name='amount'
                     label='Сумма'
                     rules={[{ required: true }]}
                 >
@@ -46,14 +67,14 @@ const DepositModal = ({ modal, setModal }) => {
                 </Form.Item>
                 <div className='balance row between align-center'>
                     <span className='txt'>Ваш баланс</span>
-                    <span className='price'>10 000 000 uzs</span>
+                    <span className='price'>{ formatPrice(me?.amount | 0) } uzs</span>
                 </div>
                 <div className="btns grid">
                     <Button className='btn' htmlType='button' onClick={() => setModal('close')}>Закрыть</Button>
                     <Button
                         className='btn submit'
                         htmlType='submit'
-                        loading={loading}
+                        loading={mutation.isPending}
                     >
                         Пополнить
                     </Button>

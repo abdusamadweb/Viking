@@ -1,11 +1,14 @@
 import React from 'react';
 import {Modal, Switch} from "antd";
-import profile from '../../../assets/images/profile.png'
+import profile from '../../../assets/images/profile-def.png'
 import {useNavigate} from "react-router-dom";
+import {formatPhone} from "../../../assets/scripts/global.js";
 
 const HeaderModal = ({ modal, setModal, setModal2 }) => {
 
     const navigate = useNavigate()
+
+    const me = JSON.parse(localStorage.getItem('me'))
 
 
     return (
@@ -17,10 +20,10 @@ const HeaderModal = ({ modal, setModal, setModal2 }) => {
             closeIcon={false}
         >
             <div className="imgs row align-center g10">
-                <img src={profile} alt="img"/>
+                <img src={me?.logo_id || profile} alt="img"/>
                 <div>
-                    <span className="name">Eshonov Fakhriyor</span>
-                    <span className="tel">+998 97 628 28 82</span>
+                    <span className="name">{ me?.first_name + ' ' + me?.last_name }</span>
+                    <span className="tel">{ formatPhone(me?.phone_number) }</span>
                 </div>
             </div>
             <ul className="list">

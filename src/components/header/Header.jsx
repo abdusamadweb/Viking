@@ -6,11 +6,16 @@ import logo from '../../assets/images/logo.svg'
 import HeaderModal from "./modals/HeaderModal.jsx";
 import LangDrawer from "./modals/LangDrawer.jsx";
 import ThemeDrawer from "./modals/ThemeDrawer.jsx";
+import {formatPrice} from "../../assets/scripts/global.js";
+import GetFile from "../get-file/GetFile.jsx";
+import profile from "../../assets/images/profile-def.png";
 
 const Header = () => {
 
     const [modal, setModal] = useState('close')
     const [modal2, setModal2] = useState('close')
+
+    const me = JSON.parse(localStorage.getItem('me'))
 
     const href = useHref({})
     const isHidden = hiddenRoutes.some(route => href.includes(route))
@@ -34,7 +39,7 @@ const Header = () => {
                             href === '/' &&
                             <div className='balance row align-center'>
                                 <i className="fa-solid fa-wallet"/>
-                                <span>100 000 000 uzs</span>
+                                <span>{ me ? formatPrice(me?.amount) : 0 } uzs</span>
                             </div>
                         }
                         <button className='bar' onClick={() => setModal('menu')}>

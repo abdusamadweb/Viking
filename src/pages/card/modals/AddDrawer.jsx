@@ -1,14 +1,63 @@
-import React, {useRef} from 'react';
+import React, {useEffect} from 'react';
 import {Button, Drawer, Form, Input, Radio} from "antd";
 import {validateMessages} from "../../../assets/scripts/global.js";
 import {IMaskInput} from "react-imask";
 import card from '../../../assets/images/card-icon.svg'
 import humo from '../../../assets/images/humo-icon.svg'
 import uzcard from '../../../assets/images/uzcard-icon.svg'
+import {addOrEditUser} from "../../../api/crud.js";
+import {useMutation} from "@tanstack/react-query";
+import {toast} from "react-hot-toast";
 
-const AddDrawer = ({ modal, setModal }) => {
+const AddDrawer = ({ modal, setModal, selItem, setSelItem, refetch }) => {
 
-    const inputRef = useRef(null)
+    const [form] = Form.useForm()
+
+
+    // add & edit
+    const addOrEditMutation = useMutation({
+        mutationFn: ({ values, selItem }) => {
+            return addOrEditUser(
+                'user-card',
+                { ...values },
+                selItem?.id || false
+            )
+        },
+        onSuccess: async () => {
+            await refetch()
+
+            toast.success('Qoshildi!')
+
+            setModal('close')
+            setSelItem(null)
+            form.resetFields()
+        },
+        onError: (err) => {
+            toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
+        }
+    })
+
+    const onFormSubmit = (values) => {
+        const body = {
+            ...values,
+        }
+        console.log(body)
+
+        addOrEditMutation.mutate({
+            values: body,
+            selItem
+        })
+    }
+
+
+    // form
+    useEffect(() => {
+        if (selItem) {
+            form.setFieldsValue(selItem)
+        } else {
+            form.resetFields()
+        }
+    }, [form, selItem])
 
 
     return (
@@ -17,7 +66,10 @@ const AddDrawer = ({ modal, setModal }) => {
             className='card-add-drawer'
             placement='bottom'
             closable={false}
-            onClose={() => setModal('close')}
+            onClose={() => {
+                setSelItem(null)
+                setModal('close')
+            }}
             open={modal === 'add' || modal === 'edit'}
             key='bottom'
         >
@@ -26,10 +78,11 @@ const AddDrawer = ({ modal, setModal }) => {
                 { modal === 'add' ? 'Добавление карты' : 'Редактирование карты' }
             </p>
             <Form
-                // onFinish={onFormSubmit}
+                onFinish={onFormSubmit}
+                onFinishFailed={() => console.log('Xato: form to‘liq emas')}
                 layout='vertical'
                 validateMessages={validateMessages}
-                // form={form}
+                form={form}
             >
                 <div className="card-form">
                     <Form.Item
@@ -40,16 +93,13 @@ const AddDrawer = ({ modal, setModal }) => {
                         <Input placeholder='Введите название'/>
                     </Form.Item>
                     <Form.Item
-                        name='card'
+                        name='number'
                         label='Номер карты'
                         rules={[{ required: true, message: '' }]}
                     >
                         <IMaskInput
                             className='inp-mask'
                             mask='0000 0000 0000 0000'
-                            unmask={false}
-                            inputRef={inputRef}
-                            lazy={false}
                             placeholder='0000 - 0000 - 0000 - 0000'
                         />
                     </Form.Item>
@@ -58,7 +108,6 @@ const AddDrawer = ({ modal, setModal }) => {
                     <p className="choose__title">Выберите иконки</p>
                     <Form.Item
                         name='card_img'
-                        rules={[{ required: true, message: '' }]}
                     >
                         <Radio.Group
                             options={[
@@ -87,7 +136,13 @@ const AddDrawer = ({ modal, setModal }) => {
                     </Form.Item>
                 </div>
                 <div className="btns">
-                    <Button className='btn submit' htmlType='submit'>Сохранить</Button>
+                    <Button
+                        className='btn submit'
+                        htmlType='submit'
+                        loading={addOrEditMutation?.isPending}
+                    >
+                        Сохранить
+                    </Button>
                 </div>
             </Form>
         </Drawer>

@@ -1,25 +1,45 @@
-import React, {useState} from 'react';
-import img from "../../../assets/images/swap1.png";
+import React from 'react';
 import gift from "../../../assets/images/gift.svg";
 import {Button, Form, Input, Modal} from "antd";
 import {validateMessages} from "../../../assets/scripts/global.js";
+import defImg from "../../../assets/images/def-img.png";
+import {toast} from "react-hot-toast";
+import {useMutation} from "@tanstack/react-query";
+import {$resp} from "../../../api/config.js";
+
+
+// fetch
+const deposit = async (body) => {
+    const { data } = await $resp.post("/tr-provider/deposit", body)
+    return data
+}
+
 
 const SelectedModal = ({ selItem, setSelItem, setModal }) => {
 
     const [form] = Form.useForm()
 
-    const [loading, setLoading] = useState(false)
 
-    const onFormSubmit = (val) => {
-        console.log(val)
+    // mutate
+    const mutation = useMutation({
+        mutationFn: deposit,
+        onSuccess: (res) => {
+            toast.success(res.message)
 
-        setLoading(true)
-
-        setTimeout(() => {
-            setLoading(false)
             setSelItem(null)
             setModal('success')
-        }, 1000)
+        },
+        onError: (err) => {
+            toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
+        }
+    })
+
+    const onFormSubmit = (val) => {
+       const body = {
+           ...val,
+           provider_id: selItem?.id
+       }
+        mutation.mutate(body)
     }
 
 
@@ -31,16 +51,23 @@ const SelectedModal = ({ selItem, setSelItem, setModal }) => {
             onCancel={() => setSelItem(null)}
             centered
         >
-            <img className='img' src={img} alt="image"/>
-            <p className="title">Пополнить букмекерской конторы 1xbet</p>
+            <img className='img' src={selItem?.logo_id || defImg} alt="image"/>
+            <p className="title">Пополнить букмекерской конторы { selItem?.name }</p>
             <div className="ad d-flex g10">
                 <img src={gift} alt="icon"/>
                 <div>
                     <p className='desc'>Получите бонус 10 000 000 сум на свой первый депозит!</p>
-                    <div className="promo row align-center g10">
+                    <button
+                        className="promo row align-center"
+                        onClick={() => {
+                            navigator.clipboard.writeText('LimonPay')
+                                .then(() => toast.success('Промокод скопирован!'))
+                                .catch(() => toast.error('Ошибка при копировании'));
+                        }}
+                    >
                         <span>Промокод: LimonPay</span>
                         <i className="fa-solid fa-copy"/>
-                    </div>
+                    </button>
                 </div>
             </div>
             <Form
@@ -57,7 +84,7 @@ const SelectedModal = ({ selItem, setSelItem, setModal }) => {
                     <Input placeholder='Ваше ID...' />
                 </Form.Item>
                 <Form.Item
-                    name='price'
+                    name='amount'
                     label='Сумма'
                     rules={[{ required: true }]}
                 >
@@ -69,7 +96,7 @@ const SelectedModal = ({ selItem, setSelItem, setModal }) => {
                 </div>
                 <div className="btns grid">
                     <Button className='btn' htmlType='button' onClick={() => setSelItem(null)}>Закрыть</Button>
-                    <Button className='btn submit' htmlType='submit' loading={loading}>Пополнить</Button>
+                    <Button className='btn submit' htmlType='submit' loading={mutation?.isPending}>Пополнить</Button>
                 </div>
             </Form>
         </Modal>

@@ -2,16 +2,62 @@ import React, {useEffect, useState} from 'react';
 import {Button, Drawer} from "antd";
 import logo from '../../../assets/images/big-logo.svg'
 import timer from '../../../assets/images/timer.svg'
+import {formatCard, formatPrice} from "../../../assets/scripts/global.js";
+import {toast} from "react-hot-toast";
+import {useMutation} from "@tanstack/react-query";
+import {$resp} from "../../../api/config.js";
 
-const DepositDrawer = ({ modal, setModal }) => {
 
-    const [loading, setLoading] = useState(false)
+// fetch
+const completeDeposit = async (body) => {
+    const { data } = await $resp.post("/transaction/deposit/complete", body)
+    return data
+}
 
 
-    // timer
+const DepositDrawer = ({ modal, setModal, drawerCard, setActiveTimer, setSuccessText }) => {
+
     const [active, setActive] = useState(false)
     const [timeLeft, setTimeLeft] = useState(600)
 
+
+    // mutate
+    const mutation = useMutation({
+        mutationFn: completeDeposit,
+        onSuccess: (res) => {
+            toast.success(res.message)
+
+            setSuccessText(res.data.status)
+            setActiveTimer(false)
+            setModal('success')
+
+            setActive(false)       // <-- to‘xtatish
+            setTimeLeft(0)
+        },
+        onError: (err) => {
+            toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
+        }
+    })
+
+    const onFormSubmit = () => {
+        const body = {
+            trans_id: drawerCard.id,
+            status: true
+        }
+
+        mutation.mutate(body)
+    }
+    const onFormReject = () => {
+        const body = {
+            trans_id: drawerCard.id,
+            status: "false"
+        }
+
+        mutation.mutate(body)
+    }
+
+
+    // timer
     useEffect(() => {
         if (!active) return;
 
@@ -36,20 +82,17 @@ const DepositDrawer = ({ modal, setModal }) => {
     }
 
     function startTimer() {
-        setTimeLeft(600)
-        setActive(true)
+        if (!active) {
+            setTimeLeft(600)
+            setActive(true)
+        }
     }
 
-
-    // onFormSubmit
-    const onFormSubmit = () => {
-        setLoading(true)
-
-        setTimeout(() => {
-            setLoading(false)
-            setModal('success')
-        }, 1000)
-    }
+    useEffect(() => {
+        if (modal === 'drawer' && !active) {
+            startTimer()
+        }
+    }, [modal])
 
 
     return (
@@ -67,14 +110,21 @@ const DepositDrawer = ({ modal, setModal }) => {
             <p className="title">Переведите сумму на указанному карту ниже</p>
             <div className="card">
                 <img className='card__img' src={logo} alt="img"/>
-                <div className="card__number row align-center g10">
-                    <span>9860 7816 2413 5860</span>
+                <button
+                    className="card__number row align-center g10"
+                    onClick={() => {
+                        navigator.clipboard.writeText(drawerCard?.card_number)
+                            .then(() => toast.success('Скопирован!'))
+                            .catch(() => toast.error('Ошибка при копировании'));
+                    }}
+                >
+                    <span>{ formatCard(drawerCard?.card_number) }</span>
                     <i className="fa-solid fa-copy"/>
-                </div>
-                <span className="card__name">Rasulov Alijon</span>
+                </button>
+                <span className="card__name">{ drawerCard?.card_name || 'No Name' }</span>
                 <div className="card__price row between">
                     <span className="txt">Сумма</span>
-                    <span className="count">10 000 000 uzs</span>
+                    <span className="count">{ formatPrice(drawerCard?.amount || 0) } uzs</span>
                 </div>
             </div>
             <div className="info">
@@ -93,11 +143,16 @@ const DepositDrawer = ({ modal, setModal }) => {
                     className='btn submit'
                     htmlType='submit'
                     onClick={onFormSubmit}
-                    loading={loading}
+                    loading={mutation.isPending}
                 >
                     Я перевел указанную сумму
                 </Button>
-                <Button className='btn' onClick={() => setModal('close')}>Отменить</Button>
+                <Button
+                    className='btn'
+                    onClick={onFormReject}
+                >
+                    Отменить
+                </Button>
             </div>
         </Drawer>
     );

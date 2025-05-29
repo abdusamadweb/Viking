@@ -46,14 +46,44 @@
 
     .imgs {
       position: relative;
-      margin-bottom: 1rem;
+      margin-bottom: 40px;
 
+      .ant-skeleton {
+        margin: 0 auto;
+      }
       .img {
         width: 100px;
         height: 100px;
+        display: block;
+        margin: 0 auto;
         border-radius: 50%;
+        border: 1px solid #ffffff20;
+
+        img {
+          width: inherit;
+          height: inherit;
+          border-radius: inherit;
+          object-fit: contain;
+        }
       }
 
+      .upload {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+
+        .ant-upload-list {
+          position: relative;
+          top: 33px;
+        }
+        .ant-upload-list-item, .anticon {
+          color: #fff !important;
+        }
+        .ant-upload-list-item-error .anticon {
+          color: #ff4d4f !important;
+        }
+      }
       .upload-btn {
         position: absolute;
         bottom: -6px;

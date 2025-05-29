@@ -1,7 +1,7 @@
-import {$resp} from "../../api/config.js";
-import {API_TEST} from "../../api/api.js";
-import toast from "react-hot-toast";
-import {Upload} from "antd";
+import {$resp} from "../../api/config.js"
+import {API_TEST} from "../../api/api.js"
+import toast from "react-hot-toast"
+import {Upload} from "antd"
 
 
 // form
@@ -42,35 +42,60 @@ export const formatPhone = (str) => {
 }
 
 
+// format card
+export const formatCard = (str) => {
+    const mask = "#### #### #### ####"
+    if (!str) return mask
+    if (!mask) return str
+
+    const numeric = str.replace(/[^\d]/g, "") // faqat raqamlar
+    let idx = 0
+
+    const formatted = mask.split("").map((el) => {
+        if (el === "#") {
+            const digit = numeric[idx]
+            idx++
+            return digit || "" // raqam qolmasa bo‘sh qoldir
+        }
+        return el
+    })
+
+    return formatted.join("").trim() // bo‘sh joylarni tozalash
+}
+
+
 // upload files
 export const uploadProps = {
     name: 'file',
     maxCount: 1,
-    action: API_TEST + '/upload-file',
+    action: API_TEST + '/file/upload',
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('token')
+    },
     beforeUpload: (file) => {
-        const isImageOrPdf = file.type === 'application/pdf' || file.type.startsWith('image/');
+        const isImageOrPdf = file.type === 'application/pdf' || file.type.startsWith('image/')
         if (!isImageOrPdf) {
-            toast.error('Faqat rasm yoki PDF yuklash mumkin! ❌');
-            return Upload.LIST_IGNORE;
+            toast.error('Faqat rasm yoki PDF yuklash mumkin! ❌')
+            return Upload.LIST_IGNORE
         }
 
-        const isLt1M = file.size / 5120 / 5120 < 1;
+        const isLt1M = file.size / 5120 / 5120 < 1
         if (!isLt1M) {
-            toast.error('Fayl hajmi 5MB dan kichik bo‘lishi kerak! ❌');
-            return Upload.LIST_IGNORE;
+            toast.error('Fayl hajmi 5MB dan kichik bo‘lishi kerak! ❌')
+            return Upload.LIST_IGNORE
         }
 
-        return true;
+        return true
     },
     onChange(info) {
         if (info.file.status !== 'uploading') {
-            console.log(info.file);
+            console.log(info.file)
         }
 
         if (info.file.status === 'done') {
-            toast.success(`${info.file.name} yuklandi! ✅`);
+            toast.success(`${info.file.name} yuklandi! ✅`)
         } else if (info.file.status === 'error') {
-            toast.error(`${info.file.name} xatolik! ❌`);
+            toast.error(`${info.file.name} xatolik! ❌`)
         }
     },
 }

@@ -22,7 +22,7 @@ export const $adminResp = axios.create({
 
 
 export const getFile = async (id) => {
-    const response = await $api.get(`/get-file/${id}`, {
+    const response = await $api.get(`/file/get-id/${id}`, {
         responseType: "blob", // 👈 Добавляем, чтобы получить бинарные данные
     })
     return URL.createObjectURL(response.data) // 👈 Создаём URL для <img>

@@ -1,8 +1,6 @@
 import './Swap.scss'
 import React, {useState} from 'react';
-import {Link} from "react-router-dom";
-import img from '../../assets/images/swap1.png'
-import {Empty, Form} from "antd";
+import {Empty} from "antd";
 import SelectedModal from "./modals/SelectedModal.jsx";
 import DepositModal from "./modals/DepositModal.jsx";
 import SuccessModal from "../../components/success-modal/SuccessModal.jsx";
@@ -10,11 +8,13 @@ import DepositDrawer from "./modals/DepositDrawer.jsx";
 import WithdrawDrawer from "./modals/WithdrawDrawer.jsx";
 import {$resp} from "../../api/config.js";
 import {useQuery} from "@tanstack/react-query";
+import defImg from "../../assets/images/def-img.png"
+import {formatPrice} from "../../assets/scripts/global.js";
 
 
 // fetch
 const fetchData = async () => {
-    const { data } = await $resp.post("/provider/f-all")
+    const { data } = await $resp.get("/provider/f-all")
     return data
 }
 
@@ -24,11 +24,18 @@ const Swap = () => {
     const [selItem, setSelItem] = useState(null)
     const [modal, setModal] = useState('close')
 
+    const me = JSON.parse(localStorage.getItem('me'))
+
+    // deposit states
+    const [activeTimer, setActiveTimer] = useState(false)
+    const [drawerCard, setDrawerCard] = useState(null)
+    const [successText, setSuccessText] = useState(false)
+
 
     // fetch
     const { data } = useQuery({
         queryKey: ['provider'],
-        queryFn: fetchData(),
+        queryFn: fetchData,
         keepPreviousData: true,
     })
 
@@ -39,10 +46,10 @@ const Swap = () => {
                 <div className="swap__head">
                     <div className="titles">
                         <span className="sub">Ваш баланс</span>
-                        <p className="title">{'10 000 000'} uzs</p>
+                        <p className="title">{ me ? formatPrice(me?.amount) : 0 } uzs</p>
                     </div>
                     <div className="btns grid">
-                        <button className='btn' onClick={() => setModal('deposit')}>
+                        <button className='btn' onClick={() => setModal(activeTimer ? 'drawer' : 'deposit')}>
                             <i className="fa-solid fa-circle-plus"/>
                             <span>Пополнить</span>
                         </button>
@@ -63,7 +70,7 @@ const Swap = () => {
                                         onClick={() => setSelItem(i)}
                                         key={i.id}
                                     >
-                                        <img src={i?.logo_id} alt="image"/>
+                                        <img src={i?.logo_id || defImg} alt="image"/>
                                     </li>
                                 ))}
                             </ul>
@@ -75,22 +82,28 @@ const Swap = () => {
             <SuccessModal
                 modal={modal}
                 setModal={setModal}
+                successText={successText}
             />
 
             <DepositModal
                 modal={modal}
                 setModal={setModal}
+                setActiveTimer={setActiveTimer}
+                setDrawerCard={setDrawerCard}
             />
             <DepositDrawer
                 modal={modal}
                 setModal={setModal}
+                setActiveTimer={setActiveTimer}
+                drawerCard={drawerCard}
+                setSuccessText={setSuccessText}
             />
 
             <WithdrawDrawer
                 modal={modal}
                 setModal={setModal}
+                setSuccessText={setSuccessText}
             />
-
             <SelectedModal
                 selItem={selItem}
                 setSelItem={setSelItem}

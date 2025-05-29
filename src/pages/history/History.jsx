@@ -3,10 +3,39 @@ import React, {useState} from 'react';
 import logo from '../../assets/images/big-logo.svg'
 import CheckDrawer from "./CheckDrawer.jsx";
 import {Link} from "react-router-dom";
+import {$resp} from "../../api/config.js";
+import {useQuery} from "@tanstack/react-query";
+import {Pagination} from "antd";
+
+// fetch
+const fetchData = async ({ page = 1, limit = 20, from_date, to_date }) => {
+    const query = new URLSearchParams({
+        page: page.toString(),
+        limit: limit.toString(),
+        ...(from_date && { from_date }),
+        ...(to_date && { to_date }),
+    }).toString()
+
+    const { data } = await $resp.get(`/transaction/my-transactions?${query}`)
+    return data
+}
+
 
 const History = () => {
 
     const [selItem, setSelItem] = useState(null)
+
+    const [page, setPage] = useState(1)
+    const [limit, setLimit] = useState(20)
+
+
+    // fetch
+    const { data } = useQuery({
+        queryKey: ['provider', page],
+        queryFn: () => fetchData({ page, limit }),
+        keepPreviousData: true,
+    })
+    console.log(data)
 
 
     return (
@@ -48,37 +77,35 @@ const History = () => {
                         <span className="count">+200 000 сум</span>
                     </div>
                     <ul className="list">
-                        <li className="list__item" onClick={() => setSelItem([])}>
-                            <div className='row align-center g10'>
-                                <div className="imgs grid-center">
-                                    <img src={logo} alt="img"/>
+                        {data?.data?.map(i => (
+                            <li className="list__item" key={i.id} onClick={() => setSelItem([])}>
+                                <div className='row align-center g10'>
+                                    <div className="imgs grid-center">
+                                        <img src={logo} alt="img"/>
+                                    </div>
+                                    <div>
+                                        <span className="txt">Снято с баланса</span>
+                                        <span className='date'>24.04.2025, 11:08</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <span className="txt">Снято с баланса</span>
-                                    <span className='date'>24.04.2025, 11:08</span>
+                                <div className="flexed">
+                                    <span className="count"><span className='green'>+</span> 100 000 сум</span>
+                                    <span className="status accept">Успешно</span>
                                 </div>
-                            </div>
-                            <div className="flexed">
-                                <span className="count"><span className='green'>+</span> 100 000 сум</span>
-                                <span className="status accept">Успешно</span>
-                            </div>
-                        </li>
-                        <li className="list__item" onClick={() => setSelItem([])}>
-                            <div className='row align-center g10'>
-                                <div className="imgs grid-center">
-                                    <img src={logo} alt="img"/>
-                                </div>
-                                <div>
-                                    <span className="txt">Снято с баланса</span>
-                                    <span className='date'>24.04.2025, 11:08</span>
-                                </div>
-                            </div>
-                            <div className="flexed">
-                                <span className="count"><span className='green'>+</span> 100 000 сум</span>
-                                <span className="status reject">Отменено</span>
-                            </div>
-                        </li>
+                            </li>
+                        ))}
                     </ul>
+                    <Pagination
+                        total={data?.pagination?.total}
+                        current={data?.pagination?.page}
+                        pageSize={data?.pagination?.limit}
+                        showTotal={(total) => `Jami: ${total} ta`}
+                        onChange={(page, pageSize) => {
+                            setPage(page)
+                            setLimit(pageSize)
+                            window.scrollTo(0, 0)
+                        }}
+                    />
                 </div>
             </div>
 

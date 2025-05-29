@@ -1,10 +1,7 @@
 import React from 'react';
 import {Button, Modal} from "antd";
 
-const DeleteModal = ({ modal, setModal }) => {
-
-
-
+const DeleteModal = ({ modal, setModal, deleteItem, deleteMutation }) => {
 
     return (
         <Modal
@@ -18,7 +15,13 @@ const DeleteModal = ({ modal, setModal }) => {
             <div className="center">
                 <p className="title">Вы точно хотите удалить данную карту?</p>
                 <div className="btns">
-                    <Button className='btn delete' onClick={() => setModal('close')}>Да, удалить</Button>
+                    <Button
+                        className='btn delete'
+                        onClick={deleteItem}
+                        loading={deleteMutation?.isPending}
+                    >
+                        Да, удалить
+                    </Button>
                     <Button className='btn' onClick={() => setModal('close')}>Нет, выйти</Button>
                 </div>
             </div>
