@@ -5,7 +5,9 @@ import CheckDrawer from "./CheckDrawer.jsx";
 import {Link} from "react-router-dom";
 import {$resp} from "../../api/config.js";
 import {useQuery} from "@tanstack/react-query";
-import {Pagination} from "antd";
+import {Empty, Pagination} from "antd";
+import GetFileDef from "../../components/get-file/GetFileDef.jsx";
+import {formatPrice} from "../../assets/scripts/global.js";
 
 // fetch
 const fetchData = async ({ page = 1, limit = 20, from_date, to_date }) => {
@@ -35,7 +37,6 @@ const History = () => {
         queryFn: () => fetchData({ page, limit }),
         keepPreviousData: true,
     })
-    console.log(data)
 
 
     return (
@@ -76,25 +77,38 @@ const History = () => {
                         <span className="month">Апрель</span>
                         <span className="count">+200 000 сум</span>
                     </div>
-                    <ul className="list">
-                        {data?.data?.map(i => (
-                            <li className="list__item" key={i.id} onClick={() => setSelItem([])}>
-                                <div className='row align-center g10'>
-                                    <div className="imgs grid-center">
-                                        <img src={logo} alt="img"/>
-                                    </div>
-                                    <div>
-                                        <span className="txt">Снято с баланса</span>
-                                        <span className='date'>24.04.2025, 11:08</span>
-                                    </div>
-                                </div>
-                                <div className="flexed">
-                                    <span className="count"><span className='green'>+</span> 100 000 сум</span>
-                                    <span className="status accept">Успешно</span>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
+                    {
+                        data?.data?.length ?
+                            <ul className="list">
+                                {data?.data?.map(i => (
+                                    <li className="list__item" key={i.id} onClick={() => setSelItem(i)}>
+                                        <div className='row align-center g10'>
+                                            <div className="imgs grid-center">
+                                                {
+                                                    i?.provider ?
+                                                        <GetFileDef id={i?.provider?.logo_id} odiy />
+                                                        : <img src={logo} alt="img"/>
+                                                }
+                                            </div>
+                                            <div>
+                                                <span className="txt">{ i?.provider ? i?.provider.name : i.program ? 'Пополнение баланса' : 'Снято с баланса' }</span>
+                                                <span className='date'>{ new Date(i.created_at).toLocaleString() }</span>
+                                            </div>
+                                        </div>
+                                        <div className="flexed">
+                                            <span className="count"><span className={i.program ? 'green' : 'red'}>{ i.program ? '+' : '-' }</span>{ formatPrice(i.amount || 0) } сум</span>
+                                            <span className={`status ${i.status}`}>{
+                                                i.timer > 0 ? 'Ожидает оплату, ' + i.timer
+                                                    : i.status === 'success_pay' ? 'Успешно'
+                                                        : i.status === 'reject' ? 'Отменено'
+                                                            : i.status === 'pending' ? 'Проверяется' : i.status
+                                            }</span>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                            : <Empty className='py3' description={false} />
+                    }
                     <Pagination
                         total={data?.pagination?.total}
                         current={data?.pagination?.page}

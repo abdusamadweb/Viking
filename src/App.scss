@@ -69,7 +69,7 @@
   border-radius: 15px;
   background: #30717D;
 
-  &.accept {
+  &.accept, &.success_pay {
     background: #006800;
   }
   &.reject {
@@ -211,6 +211,12 @@
     .title {
       font-size: 18px;
     }
+  }
+}
+
+.fit-drawer {
+  .ant-drawer-content-wrapper {
+    height: fit-content !important;
   }
 }
 

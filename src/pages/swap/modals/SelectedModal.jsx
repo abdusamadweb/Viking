@@ -1,7 +1,7 @@
 import React from 'react';
 import gift from "../../../assets/images/gift.svg";
 import {Button, Form, Input, Modal} from "antd";
-import {validateMessages} from "../../../assets/scripts/global.js";
+import {formatPrice, validateMessages} from "../../../assets/scripts/global.js";
 import defImg from "../../../assets/images/def-img.png";
 import {toast} from "react-hot-toast";
 import {useMutation} from "@tanstack/react-query";
@@ -18,6 +18,8 @@ const deposit = async (body) => {
 const SelectedModal = ({ selItem, setSelItem, setModal }) => {
 
     const [form] = Form.useForm()
+
+    const me = JSON.parse(localStorage.getItem('me'))
 
 
     // mutate
@@ -92,7 +94,7 @@ const SelectedModal = ({ selItem, setSelItem, setModal }) => {
                 </Form.Item>
                 <div className='balance row between align-center'>
                     <span className='txt'>Ваш баланс</span>
-                    <span className='price'>10 000 000 uzs</span>
+                    <span className='price'>{ formatPrice(me?.amount || 0) } uzs</span>
                 </div>
                 <div className="btns grid">
                     <Button className='btn' htmlType='button' onClick={() => setSelItem(null)}>Закрыть</Button>
