@@ -38,8 +38,24 @@
 .header-modal {
 
   .ant-modal {
-    top: 40px;
-    left: 25px;
+    top: 50px;
+    left: 130px;
+
+    @include breakpoint-down(765px) {
+      top: 45px;
+    }
+    @include breakpoint-down(535px) {
+      left: 90px;
+    }
+    @include breakpoint-down(460px) {
+      left: 70px;
+    }
+    @include phone {
+      left: 25px;
+    }
+    @include breakpoint-down(330px) {
+      left: 0;
+    }
   }
 
   .ant-modal-content {

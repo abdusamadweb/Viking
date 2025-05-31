@@ -106,7 +106,7 @@ const SelectedModal = ({ selItem, setSelItem, setModal }) => {
                     label='Введите ID'
                     rules={[{ required: true }]}
                 >
-                    <Input placeholder='Ваше ID...' />
+                    <Input placeholder='Ваше ID...' type='tel' />
                 </Form.Item>
 
                 {check !== null && (

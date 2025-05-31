@@ -5,6 +5,9 @@
   background: linear-gradient(180deg, #102B52 0%, #200061 47.6%, #000000 100%);
 
   &__head {
+    position: sticky;
+    top: 0;
+    z-index: 10;
 
     .title {
       font-weight: 500;
@@ -13,9 +16,6 @@
     }
 
     .statistics {
-      position: sticky;
-      top: 0;
-      left: 0;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
       padding-bottom: 1rem;
