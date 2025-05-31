@@ -17,7 +17,7 @@ const withdraw = async (body) => {
 }
 
 
-const WithdrawDrawer = ({ modal, setModal, setSuccessText }) => {
+const WithdrawDrawer = ({ modal, setModal, setSuccessText, refetchMe }) => {
 
     const cards = JSON.parse(localStorage.getItem('cards'))
     const me = JSON.parse(localStorage.getItem('me'))
@@ -33,6 +33,7 @@ const WithdrawDrawer = ({ modal, setModal, setSuccessText }) => {
         mutationFn: withdraw,
         onSuccess: (res) => {
             toast.success(res.message)
+            refetchMe()
 
             setSuccessText(res.data.status)
             setModal('success')
@@ -82,7 +83,7 @@ const WithdrawDrawer = ({ modal, setModal, setSuccessText }) => {
                                     className='inp-mask'
                                     mask='0000 0000 0000 0000'
                                     placeholder='0000 - 0000 - 0000 - 0000'
-                                    onChange={(e) => setCard(e.target.value)}
+                                    onChange={(e) => setCard(e.target.value.replace(/\s+/g, ''))}
                                 />
                                 <div className='imgs row align-center'>
                                     <img className='img' src={humo} alt="img"/>

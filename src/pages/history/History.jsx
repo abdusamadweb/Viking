@@ -10,7 +10,7 @@ import GetFileDef from "../../components/get-file/GetFileDef.jsx";
 import {formatPrice} from "../../assets/scripts/global.js";
 
 // fetch
-const fetchData = async ({ page = 1, limit = 20, from_date, to_date }) => {
+const fetchData = async ({ page = 1, limit = 50, from_date, to_date }) => {
     const query = new URLSearchParams({
         page: page.toString(),
         limit: limit.toString(),
@@ -28,12 +28,12 @@ const History = () => {
     const [selItem, setSelItem] = useState(null)
 
     const [page, setPage] = useState(1)
-    const [limit, setLimit] = useState(20)
+    const [limit, setLimit] = useState(50)
 
 
     // fetch
     const { data } = useQuery({
-        queryKey: ['provider', page],
+        queryKey: ['history', page],
         queryFn: () => fetchData({ page, limit }),
         keepPreviousData: true,
     })
@@ -113,7 +113,7 @@ const History = () => {
                         total={data?.pagination?.total}
                         current={data?.pagination?.page}
                         pageSize={data?.pagination?.limit}
-                        showTotal={(total) => `Jami: ${total} ta`}
+                        showTotal={(total) => `Итого: ${total} ta`}
                         onChange={(page, pageSize) => {
                             setPage(page)
                             setLimit(pageSize)

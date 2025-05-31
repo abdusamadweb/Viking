@@ -8,7 +8,6 @@ import LangDrawer from "./modals/LangDrawer.jsx";
 import ThemeDrawer from "./modals/ThemeDrawer.jsx";
 import {formatPrice} from "../../assets/scripts/global.js";
 import GetFile from "../get-file/GetFile.jsx";
-import profile from "../../assets/images/profile-def.png";
 
 const Header = () => {
 

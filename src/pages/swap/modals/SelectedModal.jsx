@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import gift from "../../../assets/images/gift.svg";
 import {Button, Form, Input, Modal} from "antd";
 import {formatPrice, validateMessages} from "../../../assets/scripts/global.js";
@@ -6,6 +6,7 @@ import defImg from "../../../assets/images/def-img.png";
 import {toast} from "react-hot-toast";
 import {useMutation} from "@tanstack/react-query";
 import {$resp} from "../../../api/config.js";
+import GetFileDef from "../../../components/get-file/GetFileDef.jsx";
 
 
 // fetch
@@ -13,11 +14,17 @@ const deposit = async (body) => {
     const { data } = await $resp.post("/tr-provider/deposit", body)
     return data
 }
+const chechId = async (body) => {
+    const { data } = await $resp.post("/tr-provider/check-id", body)
+    return data
+}
 
 
 const SelectedModal = ({ selItem, setSelItem, setModal }) => {
 
     const [form] = Form.useForm()
+
+    const [check, setCheck] = useState(null)
 
     const me = JSON.parse(localStorage.getItem('me'))
 
@@ -35,14 +42,30 @@ const SelectedModal = ({ selItem, setSelItem, setModal }) => {
             toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
         }
     })
+    const muCheck = useMutation({
+        mutationFn: chechId,
+        onSuccess: (res) => {
+            toast.success(res.message)
+
+            setCheck(res.player.Name)
+        },
+        onError: (err) => {
+            toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
+        }
+    })
 
     const onFormSubmit = (val) => {
        const body = {
            ...val,
            provider_id: selItem?.id
        }
-        mutation.mutate(body)
+       if (check === null) {
+           muCheck.mutate(body)
+       } else {
+            mutation.mutate(body)
+        }
     }
+    console.log(check)
 
 
     return (
@@ -53,7 +76,7 @@ const SelectedModal = ({ selItem, setSelItem, setModal }) => {
             onCancel={() => setSelItem(null)}
             centered
         >
-            <img className='img' src={selItem?.logo_id || defImg} alt="image"/>
+            <GetFileDef className='img' id={selItem?.logo_id} defImg={defImg} odiy />
             <p className="title">Пополнить букмекерской конторы { selItem?.name }</p>
             <div className="ad d-flex g10">
                 <img src={gift} alt="icon"/>
@@ -85,6 +108,11 @@ const SelectedModal = ({ selItem, setSelItem, setModal }) => {
                 >
                     <Input placeholder='Ваше ID...' />
                 </Form.Item>
+
+                {check !== null && (
+                    <p className='player'>{ check }</p>
+                )}
+
                 <Form.Item
                     name='amount'
                     label='Сумма'

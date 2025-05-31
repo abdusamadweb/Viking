@@ -10,6 +10,7 @@ import {$resp} from "../../api/config.js";
 import {useQuery} from "@tanstack/react-query";
 import defImg from "../../assets/images/def-img.png"
 import {formatPrice} from "../../assets/scripts/global.js";
+import GetFileDef from "../../components/get-file/GetFileDef.jsx";
 
 
 // fetch
@@ -19,7 +20,7 @@ const fetchData = async () => {
 }
 
 
-const Swap = () => {
+const Swap = ({ refetchMe }) => {
 
     const [selItem, setSelItem] = useState(null)
     const [modal, setModal] = useState('close')
@@ -70,7 +71,7 @@ const Swap = () => {
                                         onClick={() => setSelItem(i)}
                                         key={i.id}
                                     >
-                                        <img src={i?.logo_id || defImg} alt="image"/>
+                                        <GetFileDef id={i?.logo_id} defImg={defImg} odiy />
                                     </li>
                                 ))}
                             </ul>
@@ -97,12 +98,14 @@ const Swap = () => {
                 setActiveTimer={setActiveTimer}
                 drawerCard={drawerCard}
                 setSuccessText={setSuccessText}
+                refetchMe={refetchMe}
             />
 
             <WithdrawDrawer
                 modal={modal}
                 setModal={setModal}
                 setSuccessText={setSuccessText}
+                refetchMe={refetchMe}
             />
             <SelectedModal
                 selItem={selItem}

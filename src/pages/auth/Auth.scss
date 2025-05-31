@@ -1,0 +1,139 @@
+@use "/src/scss" as *;
+
+.auth {
+  min-height: 100vh;
+  padding-block: 2rem 1rem;
+  background: linear-gradient(180deg, #002A61 0%, #200061 60.6%, #000000 100%);
+
+  &__titles {
+    text-align: center;
+
+    .logo {
+      margin-bottom: 1rem;
+    }
+
+    .title {
+      font-weight: 500;
+      font-size: 24px;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .inp-mask {
+    height: 43px;
+    font-size: 15px;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid #FFFFFF33;
+    outline: none;
+    color: #fff;
+    background: #FFFFFF2E;
+  }
+
+  .reset {
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+
+  .btns {
+    margin-top: 20px;
+
+    .btn {
+      width: 100%;
+      height: unset;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 500;
+      font-size: 18px;
+      padding: 14px 1rem;
+      margin-bottom: 1rem;
+      border-radius: 12px;
+      border: none;
+      color: #fff;
+      background: #323F59 !important;
+
+      &.submit {
+        background: $main-color !important;
+      }
+
+      i {
+        position: absolute;
+        right: 1rem;
+      }
+    }
+  }
+
+  .ant-form {
+    .ant-form-item {
+      margin-bottom: 12px;
+    }
+
+    .ant-form-item-label label {
+      color: #fff;
+    }
+
+    .ant-input-outlined {
+      border: 1px solid #FFFFFF33;
+      background: #FFFFFF2E;
+    }
+    .ant-input {
+      background: transparent !important;
+
+      &::placeholder {
+        height: 12px;
+      }
+    }
+    .ant-input-status-error {
+      background: unset !important;
+    }
+
+    .anticon {
+      color: #FFFFFF;
+    }
+  }
+}
+
+.sms {
+
+  &__head {
+    margin-bottom: 2rem;
+
+    .navigate i {
+      font-size: 22px;
+      color: #fff;
+    }
+
+    .title {
+      font-weight: 500;
+      font-size: 20px;
+    }
+  }
+
+  &__body {
+
+    .phone {
+      font-weight: 500;
+      font-size: 24px;
+      margin-bottom: 1rem;
+    }
+    .desc {
+      line-height: 1.3;
+      color: #FFFFFFCC;
+      margin-bottom: 40px;
+    }
+
+    .ant-otp {
+      width: 100%;
+      column-gap: 10px;
+      margin-bottom: 30px;
+
+      .ant-input {
+        border-color: #FFFFFF33;
+        background: #FFFFFF2E !important;
+      }
+    }
+  }
+}

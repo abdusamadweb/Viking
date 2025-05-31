@@ -40,8 +40,8 @@ const AddDrawer = ({ modal, setModal, selItem, setSelItem, refetch }) => {
     const onFormSubmit = (values) => {
         const body = {
             ...values,
+            number: values.number.replace(/\s+/g, '')
         }
-        console.log(body)
 
         addOrEditMutation.mutate({
             values: body,

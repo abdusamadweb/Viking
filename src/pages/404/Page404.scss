@@ -1,0 +1,21 @@
+@use "/src/scss" as *;
+
+.p404 {
+  min-height: calc(100vh - 164px);
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #102B52 0%, #002A61 15%, #200061 70.6%, #000000 100%);
+
+  .ant-result-title {
+    color: #fff;
+  }
+  .ant-result-subtitle {
+    color: #fff;
+  }
+
+  .ant-result-icon {
+    svg g g path {
+      fill: #ffffff30;
+    }
+  }
+}

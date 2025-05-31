@@ -11,6 +11,7 @@ import {useMutation, useQuery} from "@tanstack/react-query";
 import CardEmpty from "./CardEmpty.jsx";
 import {deleteDataUser} from "../../api/crud.js";
 import {toast} from "react-hot-toast";
+import {formatCard} from "../../assets/scripts/global.js";
 
 
 // fetch
@@ -88,7 +89,7 @@ const Card = () => {
                                                 </div>
                                                 <div>
                                                     <p className="name">{ i.name || 'Основная карта' }</p>
-                                                    <span className="number">{ i.number }</span>
+                                                    <span className="number">{ formatCard(i.number) }</span>
                                                 </div>
                                             </div>
                                             <div className="btns">

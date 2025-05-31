@@ -3,18 +3,12 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {uploadProps, validateMessages} from "../../assets/scripts/global.js";
 import {Button, DatePicker, Form, Input, Upload} from "antd";
-import {useMutation, useQuery} from "@tanstack/react-query";
+import {useMutation} from "@tanstack/react-query";
 import {$resp} from "../../api/config.js";
 import {toast} from "react-hot-toast";
 import profile from "../../assets/images/profile-def.png";
 import GetFile from "../../components/get-file/GetFile.jsx";
 
-
-// fetch
-const fetchMe = async () => {
-    const { data } = await $resp.post("/user/me")
-    return data
-}
 
 const updateProfile = async (body) => {
     const { data } = await $resp.post("/user/update-profile", body)
@@ -22,23 +16,17 @@ const updateProfile = async (body) => {
 }
 
 
-const Profile = () => {
+const Profile = ({ refetchMe }) => {
 
     const [form] = Form.useForm()
     const navigate = useNavigate()
 
+    const me = JSON.parse(localStorage.getItem('me'))
+
     const [file, setFile] = useState(null)
-
-
-    // fetch
-    const { data: me } = useQuery({
-        queryKey: ['me'],
-        queryFn: fetchMe,
-        keepPreviousData: true,
-    })
-    useEffect(() => {
-        if (me) localStorage.setItem('me', JSON.stringify(me?.data))
-    }, [me])
+    
+    
+    useEffect(() => refetchMe, [])
 
 
     // mutate
@@ -46,6 +34,7 @@ const Profile = () => {
         mutationFn: updateProfile,
         onSuccess: (res) => {
             toast.success(res.message)
+            refetchMe()
         },
         onError: (err) => {
             toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
@@ -57,8 +46,8 @@ const Profile = () => {
     const onFormSubmit = (values) => {
         const body = {
             ...values,
-            birthday: new Date(values.birth_date).toLocaleDateString(),
-            logo_id: file ? file?.file.response.files[0].id : me?.data?.logo_id,
+            birthday: new Date(values.birthday).toLocaleDateString(),
+            logo_id: file ? file?.file.response.files[0].id : me?.logo_id,
         }
 
         muUpdate.mutate(body)
@@ -68,7 +57,7 @@ const Profile = () => {
     // form
     useEffect(() => {
         if (me) {
-            form.setFieldsValue(me?.data)
+            form.setFieldsValue(me)
         } else {
             form.resetFields()
         }
@@ -94,7 +83,7 @@ const Profile = () => {
                         form={form}
                     >
                         <div className="imgs">
-                            <GetFile className='img' id={file ? file?.file?.response?.files?.[0]?.id : me?.data?.logo_id} defImg={profile} />
+                            <GetFile className='img' id={file ? file?.file?.response?.files?.[0]?.id : me?.logo_id} defImg={profile} />
                             <Upload
                                 className='upload'
                                 {...uploadProps}

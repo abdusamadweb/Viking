@@ -15,7 +15,7 @@ const completeDeposit = async (body) => {
 }
 
 
-const DepositDrawer = ({ modal, setModal, drawerCard, setActiveTimer, setSuccessText }) => {
+const DepositDrawer = ({ modal, setModal, drawerCard, setActiveTimer, setSuccessText, refetchMe }) => {
 
     const [active, setActive] = useState(false)
     const [timeLeft, setTimeLeft] = useState(600)
@@ -26,6 +26,7 @@ const DepositDrawer = ({ modal, setModal, drawerCard, setActiveTimer, setSuccess
         mutationFn: completeDeposit,
         onSuccess: (res) => {
             toast.success(res.message)
+            refetchMe()
 
             setSuccessText(res.data.status)
             setActiveTimer(false)
@@ -105,6 +106,7 @@ const DepositDrawer = ({ modal, setModal, drawerCard, setActiveTimer, setSuccess
             open={modal === 'drawer'}
             key='bottom'
             height={585}
+            maskClosable={false}
         >
             <span className='line'/>
             <p className="title">Переведите сумму на указанному карту ниже</p>
