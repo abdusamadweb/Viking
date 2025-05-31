@@ -16,6 +16,7 @@ const CheckDrawer = ({ selItem, setSelItem }) => {
             onClose={() => setSelItem(null)}
             open={selItem}
             key='bottom'
+            height={505}
         >
             <span className='line'/>
             <div className="titles row between align-center">

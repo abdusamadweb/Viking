@@ -64,9 +64,6 @@ export const antdConfig = () => {
                 colorBgContainer: '#272F71',
                 colorTextDisabled: '#777',
             },
-            Result: {
-                colorFillAlter: '#111'
-            }
         }
     }
 }

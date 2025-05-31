@@ -47,7 +47,7 @@ const SelectedModal = ({ selItem, setSelItem, setModal }) => {
         onSuccess: (res) => {
             toast.success(res.message)
 
-            setCheck(res.player.Name)
+            setCheck(res?.player?.Name)
         },
         onError: (err) => {
             toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
@@ -59,7 +59,7 @@ const SelectedModal = ({ selItem, setSelItem, setModal }) => {
            ...val,
            provider_id: selItem?.id
        }
-       if (check === null) {
+       if (!check) {
            muCheck.mutate(body)
        } else {
             mutation.mutate(body)
