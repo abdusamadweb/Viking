@@ -23,6 +23,7 @@ import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
 import RegisterSms from "./pages/auth/RegisterSms.jsx";
 import Page404 from "./pages/404/Page404.jsx";
+import Admin from "./pages/admin/Admin.jsx";
 
 const Wrapper = ({ children }) => {
     const location = useLocation()
@@ -114,7 +115,7 @@ function App() {
                     <Route path='/*' element={<Page404 />} />
 
                     <Route element={<AuthAdmin />}>
-                        <Route path='/' element={<Home />} />
+                        <Route path='/' element={<Admin />} />
                     </Route>
 
                 </Routes>

@@ -7,7 +7,7 @@ import {$resp} from "../../../api/config.js";
 import {toast} from "react-hot-toast";
 import {useMutation} from "@tanstack/react-query";
 import cardI from "../../../assets/images/card-icon.svg";
-import {formatPrice} from "../../../assets/scripts/global.js";
+import {formatCard, formatPrice} from "../../../assets/scripts/global.js";
 
 
 // fetch
@@ -108,7 +108,7 @@ const WithdrawDrawer = ({ modal, setModal, setSuccessText, refetchMe }) => {
                                                 <img className='img' src={i.card_img === 'humo' ? humo : i.card_img === 'uzcard' ? uzcard : cardI} alt="humo"/>
                                                 <div>
                                                     <p className='name'>{ i.name }</p>
-                                                    <span className='number'>{ i.number }</span>
+                                                    <span className='number'>{ formatCard(i.number) }</span>
                                                 </div>
                                             </div>
                                         </div>
