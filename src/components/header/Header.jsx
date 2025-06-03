@@ -7,7 +7,6 @@ import HeaderModal from "./modals/HeaderModal.jsx";
 import LangDrawer from "./modals/LangDrawer.jsx";
 import ThemeDrawer from "./modals/ThemeDrawer.jsx";
 import {formatPrice} from "../../assets/scripts/global.js";
-import GetFile from "../get-file/GetFile.jsx";
 
 const Header = () => {
 

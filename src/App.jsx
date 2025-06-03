@@ -24,6 +24,10 @@ import Register from "./pages/auth/Register.jsx";
 import RegisterSms from "./pages/auth/RegisterSms.jsx";
 import Page404 from "./pages/404/Page404.jsx";
 import Admin from "./pages/admin/Admin.jsx";
+import AdminLogin from "./pages/admin/login/AdminLogin.jsx";
+import AdminHeader from "./components/admin/header/AdminHeader.jsx";
+import {antdConfigAdmin} from "./config/antd/antdConfigAdmin.js";
+import AdminCards from "./pages/admin/cards/AdminCards.jsx";
 
 const Wrapper = ({ children }) => {
     const location = useLocation()
@@ -112,11 +116,26 @@ function App() {
                     <Route path='/profile' element={<Profile refetchMe={refetchMe} />} />
                     <Route path='/cards' element={<Card />} />
 
-                    <Route path='/*' element={<Page404 />} />
+                    <Route path='/games' element={<Page404 />} />
+
+                </Routes>
+
+            </ConfigProvider>
+
+            <ConfigProvider theme={antdConfigAdmin()}>
+
+                <AdminHeader />
+
+                <Routes>
 
                     <Route element={<AuthAdmin />}>
-                        <Route path='/' element={<Admin />} />
+
+                        <Route path='/admin' element={<Admin />} />
+                        <Route path='/admin/cards' element={<AdminCards />} />
+
                     </Route>
+
+                    <Route path='/admin/login' element={<AdminLogin />} />
 
                 </Routes>
 

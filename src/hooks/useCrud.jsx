@@ -6,6 +6,11 @@ export const logout = () => {
     localStorage.clear()
     setTimeout(() => window.location.href = '/admin/login', 1000)
 }
+export const logoutAdmin = () => {
+    localStorage.clear()
+    setTimeout(() => window.location.href = '/admin/login', 1000)
+}
+
 
 export const getRequest = async (url, config = {}) => {
     try {
@@ -21,6 +26,22 @@ export const getRequest = async (url, config = {}) => {
         throw error
     }
 }
+
+export const getRequestAdmin = async (url, config = {}) => {
+    try {
+        const { data } = await $adminResp.get(url, config)
+        return data
+    } catch (error) {
+        if (error?.response?.status === 403) {
+            toast.error("Sessiya tugagan. Qayta kiring.")
+            logoutAdmin()
+        } else {
+            toast.error("Xatolik yuz berdi")
+        }
+        throw error
+    }
+}
+
 
 export const useCrud = (key, options) => {
 
