@@ -12,12 +12,12 @@ import {$adminResp} from "../../../api/config.js";
 
 // fetches
 const fetchData = async (body) => {
-    const { data } = await $adminResp.get(`/card/all?page=${body.page}&limit=${body.limit}`, body)
+    const { data } = await $adminResp.post(`/transaction/filter?page=${body.page}&limit=${body.limit}`, body)
     return data
 }
 
 
-const AdminCards = () => {
+const AdminTrans = () => {
 
     const [form] = Form.useForm()
 
@@ -31,85 +31,61 @@ const AdminCards = () => {
         limit: 30,
     })
 
-    const { data, refetch, isLoading } = useQuery({
-        queryKey: ['admin-cards', JSON.stringify(body)],
+    const { data, isLoading } = useQuery({
+        queryKey: ['admin-transaction', JSON.stringify(body)],
         queryFn: () => fetchData(body),
         keepPreviousData: true,
     })
 
 
-    // add & edit
-    const {
-        addOrEditMutation,
-        deleteMutation
-    } = useCrud('card', {
-        refetch,
-        form,
-        setModal,
-        setSelectedItem,
-        addOrEdit,
-        deleteData
-    })
-
-    const onFormSubmit = (values) => {
-        const body = {
-            ...values,
-            status: 'active'
-        }
-
-        addOrEditMutation.mutate({
-            values: body,
-            selectedItem
-        })
-    }
-
-    const deleteItem = (id) => {
-        deleteMutation.mutate(id)
-    }
-
-
-    // form
-    useEffect(() => {
-        if (selectedItem) {
-            form.setFieldsValue(selectedItem)
-        } else {
-            form.resetFields()
-        }
-    }, [form, selectedItem])
-
-
     // table
     const columns = [
-        tableCols.id,
+        {
+            title: '№',
+            dataIndex: 'index',
+            key: 'index',
+            render: (_, __, index) => (
+                <span>{(body.page - 1) * body.limit + index + 1}</span>
+            )
+        },
         {
             title: 'Имя карты',
-            dataIndex: 'name',
-            key: 'name'
+            dataIndex: 'card_name',
+            key: 'card_name',
+            render: (_, i) => (
+                <span>{ i.card_name ? i.card_name : i.type }</span>
+            )
         },
         {
             title: 'Номер карты',
-            dataIndex: 'number',
-            key: 'number',
+            dataIndex: 'card_number',
+            key: 'card_number',
             render: (_, i) => (
-                <span>{ formatCard(i.number) }</span>
+                <span>{ i.card_number ? i.card_number : `Bet provider: ${i.bet_provider}` }</span>
             )
         },
         {
-            title: 'Лимит',
-            dataIndex: 'limit',
-            key: 'limit',
+            title: 'Сумма',
+            dataIndex: 'amount',
+            key: 'amount',
             render: (_, i) => (
-                <span>{ formatPrice(i.limit || 0) } сум</span>
+                <span className={`fw600 ${i.program ? 'green' : 'red'}`}>
+                    { i.program ? '+' : '-' }{ formatPrice(i.amount || 0) } сум
+                </span>
             )
         },
         {
-            ...tableCols.actions,
-            render: (_, i) => <Actions
-                setModal={setModal}
-                setSelectedItem={setSelectedItem}
-                deleteItem={deleteItem}
-                i={i}
-            />
+            title: 'Описание',
+            dataIndex: 'desc',
+            key: 'desc'
+        },
+        {
+            title: 'Статус',
+            dataIndex: 'status',
+            key: 'status',
+            render: (_, i) => (
+                <span className={`status white ${i.status}`}>{ i.status }</span>
+            )
         },
     ]
 
@@ -125,11 +101,7 @@ const AdminCards = () => {
     return (
         <div className="other page">
             <div className="container">
-                <Title
-                    title="Карты"
-                    setModal={setModal}
-                    btn
-                />
+                <Title title="Транзакции" />
                 <div className="content">
                     <Table
                         columns={columns}
@@ -163,41 +135,9 @@ const AdminCards = () => {
                     setModal('close')
                     setSelectedItem(null)
                 }}
-            >
-                <Form
-                    onFinish={onFormSubmit}
-                    layout='vertical'
-                    validateMessages={validateMessages}
-                    form={form}
-                >
-                    {fields.map((item) => (
-                        <Form.Item
-                            key={item.name}
-                            name={item.name}
-                            label={item.label}
-                            rules={[{ required: item.required }]}
-                        >
-                            <Input
-                                placeholder={item.label}
-                                type={item.type}
-                            />
-                        </Form.Item>
-                    ))}
-
-                    <div className='end mt1'>
-                        <Button
-                            type="primary"
-                            htmlType="submit"
-                            size='large'
-                            loading={addOrEditMutation?.isPending}
-                        >
-                            Tasdiqlash
-                        </Button>
-                    </div>
-                </Form>
-            </Modal>
+                ></Modal>
         </div>
     );
 };
 
-export default AdminCards
+export default AdminTrans

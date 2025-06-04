@@ -28,6 +28,7 @@ import AdminLogin from "./pages/admin/login/AdminLogin.jsx";
 import AdminHeader from "./components/admin/header/AdminHeader.jsx";
 import {antdConfigAdmin} from "./config/antd/antdConfigAdmin.js";
 import AdminCards from "./pages/admin/cards/AdminCards.jsx";
+import AdminTrans from "./pages/admin/transactions/AdminTrans.jsx";
 
 const Wrapper = ({ children }) => {
     const location = useLocation()
@@ -132,6 +133,7 @@ function App() {
 
                         <Route path='/admin' element={<Admin />} />
                         <Route path='/admin/cards' element={<AdminCards />} />
+                        <Route path='/admin/transactions' element={<AdminTrans />} />
 
                     </Route>
 

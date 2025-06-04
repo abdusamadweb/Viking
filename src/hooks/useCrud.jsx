@@ -75,7 +75,7 @@ export const useCrud = (key, options) => {
             toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
 
             if (err.status === 403) {
-                logout()
+                // logout()
             }
         }
     })
@@ -90,7 +90,7 @@ export const useCrud = (key, options) => {
             toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
 
             if (err.status === 403) {
-                logout()
+                // logout()
             }
         }
     })

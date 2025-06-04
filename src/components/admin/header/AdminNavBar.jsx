@@ -18,6 +18,10 @@ const AdminNavBar = ({ openMenu, setOpenMenu }) => {
             name: 'Карты',
             link: '/admin/cards'
         },
+        {
+            name: 'Транзакции',
+            link: '/admin/transactions'
+        },
     ]
 
     const navManager = [
