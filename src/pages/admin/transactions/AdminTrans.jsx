@@ -1,12 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Title from "../../../components/admin/title/Title.jsx";
-import {Button, Form, Input, Modal, Pagination, Table} from "antd";
-import {formatCard, formatPrice, validateMessages} from "../../../assets/scripts/global.js";
-import {addOrEdit, deleteData} from "../../../api/crud.js";
+import {Form, Modal, Pagination, Table} from "antd";
+import {formatPrice} from "../../../assets/scripts/global.js";
 import {useQuery} from "@tanstack/react-query";
-import {tableCols} from "../../../components/admin/table/columns.js";
-import Actions from "../../../components/admin/table/Actions.jsx";
-import {useCrud} from "../../../hooks/useCrud.jsx";
 import {$adminResp} from "../../../api/config.js";
 
 
@@ -18,8 +14,6 @@ const fetchData = async (body) => {
 
 
 const AdminTrans = () => {
-
-    const [form] = Form.useForm()
 
     const [modal, setModal] = useState('close')
     const [selectedItem, setSelectedItem] = useState(null)
@@ -87,14 +81,6 @@ const AdminTrans = () => {
                 <span className={`status white ${i.status}`}>{ i.status }</span>
             )
         },
-    ]
-
-
-    // form fields
-    const fields = [
-        { name: 'name', label: 'Имя карты', type: 'text', required: true },
-        { name: 'number', label: 'Номер карты', type: 'number', required: true },
-        { name: 'limit', label: 'Лимит', type: 'number', required: true },
     ]
 
 
