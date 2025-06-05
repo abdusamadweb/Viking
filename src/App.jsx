@@ -29,6 +29,9 @@ import AdminHeader from "./components/admin/header/AdminHeader.jsx";
 import {antdConfigAdmin} from "./config/antd/antdConfigAdmin.js";
 import AdminCards from "./pages/admin/cards/AdminCards.jsx";
 import AdminTrans from "./pages/admin/transactions/AdminTrans.jsx";
+import AdminProviders from "./pages/admin/providers/AdminProviders.jsx";
+import AdminSlider from "./pages/admin/slider/AdminSlider.jsx";
+import AdminUsers from "./pages/admin/users/AdminUsers.jsx";
 
 const Wrapper = ({ children }) => {
     const location = useLocation()
@@ -60,6 +63,8 @@ function App() {
 
     const [loading, setLoading] = useState(true)
     const path = window.location.pathname
+
+    console.log(window.Telegram, 'TELEGRAM')
 
 
     // fetch
@@ -132,8 +137,11 @@ function App() {
                     <Route element={<AuthAdmin />}>
 
                         <Route path='/admin' element={<Admin />} />
+                        <Route path='/admin/users' element={<AdminUsers />} />
                         <Route path='/admin/cards' element={<AdminCards />} />
                         <Route path='/admin/transactions' element={<AdminTrans />} />
+                        <Route path='/admin/providers' element={<AdminProviders />} />
+                        <Route path='/admin/slider' element={<AdminSlider />} />
 
                     </Route>
 

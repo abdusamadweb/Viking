@@ -16,14 +16,14 @@ const GetFile = ({ id, className, defImg, odiy }) => {
         defImg ? (
             <img className={`get-file-img ${className}`} src={defImg} alt="img" />
         ) : (
-            <Skeleton className={`get-file-sk ${className}`} active shape="circle" title={false} />
+            <Skeleton rootClassName={`get-file-sk ${className}`} active shape="circle" title={false} />
         )
     ) : isLoading ? (
-        <Skeleton className={`get-file-sk ${className}`} active shape="circle" title={false} />
+        <Skeleton rootClassName={`get-file-sk ${className}`} active shape="circle" title={false} />
     ) : odiy ? (
         <img className={`get-file-img ${className}`} src={data} alt="img" />
     ) : (
-        <Image className={`get-file-img ${className}`} src={data} alt="img" />
+        <Image rootClassName={`get-file-img ${className}`} src={data} alt="img" />
     )
 }
 

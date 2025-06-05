@@ -9,15 +9,34 @@ import {Carousel} from "antd";
 import ban1 from '../../assets/images/banner1.png'
 import ban2 from '../../assets/images/banner2.png'
 import ban3 from '../../assets/images/banner3.png'
+import {$resp} from "../../api/config.js";
+import {useQuery} from "@tanstack/react-query";
+import GetFileDef from "../../components/get-file/GetFileDef.jsx";
+
+
+// fetch
+const fetchSlider = async () => {
+    const { data } = await $resp.get("/slider/all")
+    return data
+}
+
 
 const Home = ({ refetchMe }) => {
 
     const [modal, setModal] = useState('close')
 
     // deposit states
-    const [activeTimer, setActiveTimer] = useState(false)
+    const [_, setActiveTimer] = useState(false)
     const [drawerCard, setDrawerCard] = useState(null)
     const [successText, setSuccessText] = useState(false)
+
+
+    // fetch
+    const { data } = useQuery({
+        queryKey: ['slider'],
+        queryFn: fetchSlider,
+        keepPreviousData: true,
+    })
 
 
     return (
@@ -27,16 +46,21 @@ const Home = ({ refetchMe }) => {
                     <Carousel
                         autoplay
                         dots={false}
+                        lazyLoad={data?.data}
                     >
-                        <div className='item'>
-                            <img className='banner' src={ban1} alt="banner"/>
-                        </div>
-                        <div className='item'>
-                            <img className='banner' src={ban2} alt="banner"/>
-                        </div>
-                        <div className='item'>
-                            <img className='banner' src={ban3} alt="banner"/>
-                        </div>
+                        {
+                            data?.data?.map(i => (
+                                <a
+                                    className='item'
+                                    key={i.id}
+                                    href={i.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <GetFileDef className='banner' id={i.photo_id} />
+                                </a>
+                            ))
+                        }
                     </Carousel>
                     <div className="how">
                         <div className="how__titles row align-center g10">

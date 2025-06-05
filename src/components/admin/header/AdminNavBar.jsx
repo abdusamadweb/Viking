@@ -22,6 +22,14 @@ const AdminNavBar = ({ openMenu, setOpenMenu }) => {
             name: 'Транзакции',
             link: '/admin/transactions'
         },
+        {
+            name: 'Провайдеры',
+            link: '/admin/providers'
+        },
+        {
+            name: 'Слайдер',
+            link: '/admin/slider'
+        },
     ]
 
     const navManager = [

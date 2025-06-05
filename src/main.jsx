@@ -25,12 +25,18 @@ initializeTelegramSDK()
 const queryClient = new QueryClient()
 
 
-createRoot(document.getElementById('root')).render(
-    <StrictMode>
-        <QueryClientProvider client={queryClient}>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        </QueryClientProvider>
-    </StrictMode>,
-)
+const startApp = async () => {
+    await initializeTelegramSDK()
+
+    createRoot(document.getElementById('root')).render(
+        <StrictMode>
+            <QueryClientProvider client={queryClient}>
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            </QueryClientProvider>
+        </StrictMode>
+    )
+}
+
+startApp()

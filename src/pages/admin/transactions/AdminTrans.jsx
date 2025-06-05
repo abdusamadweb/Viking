@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Title from "../../../components/admin/title/Title.jsx";
 import {Form, Modal, Pagination, Table} from "antd";
-import {formatPrice} from "../../../assets/scripts/global.js";
+import {formatCard, formatPrice} from "../../../assets/scripts/global.js";
 import {useQuery} from "@tanstack/react-query";
 import {$adminResp} from "../../../api/config.js";
 
@@ -14,10 +14,6 @@ const fetchData = async (body) => {
 
 
 const AdminTrans = () => {
-
-    const [modal, setModal] = useState('close')
-    const [selectedItem, setSelectedItem] = useState(null)
-
 
     // filter data
     const [body, setBody] = useState({
@@ -55,7 +51,7 @@ const AdminTrans = () => {
             dataIndex: 'card_number',
             key: 'card_number',
             render: (_, i) => (
-                <span>{ i.card_number ? i.card_number : `Bet provider: ${i.bet_provider}` }</span>
+                <span>{ i.card_number ? formatCard(i.card_number) : `Bet provider: ${i.bet_provider}` }</span>
             )
         },
         {
@@ -112,16 +108,6 @@ const AdminTrans = () => {
                     />
                 </div>
             </div>
-            <Modal
-                rootClassName='admin-modal'
-                className='main-modal'
-                title={modal === 'add' ? "Qo'shish" : "O'zgartirish"}
-                open={modal !== 'close'}
-                onCancel={() => {
-                    setModal('close')
-                    setSelectedItem(null)
-                }}
-                ></Modal>
         </div>
     );
 };
