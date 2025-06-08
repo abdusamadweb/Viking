@@ -3,13 +3,50 @@ import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {Segmented, Select} from "antd";
 import Charts from "./Charts.jsx";
+import {$resp} from "../../api/config.js";
+import {useQuery} from "@tanstack/react-query";
+import {formatPrice} from "../../assets/scripts/global.js";
+
+
+// fetch
+const getStatistic = async (body) => {
+    const { data } = await $resp.post("/statics/my-statics", body)
+    return data
+}
+
 
 const Monitoring = () => {
 
     const navigate = useNavigate()
 
     const [nav, setNav] = useState(false)
-    const [days, setDays] = useState(1)
+    const [days, setDays] = useState('30')
+
+
+    // fetch
+    const { data, refetch } = useQuery({
+        queryKey: ['statistic', {last_days: days, program: String(nav)}],
+        queryFn: ({ queryKey }) => {
+            const [_key, body] = queryKey
+            return getStatistic(body)
+        },
+        keepPreviousData: true,
+    })
+
+    const items = data?.data?.labels.map((label, index) => {
+        const value = data?.data?.label_data[index]
+        const percent = data?.data?.total ? Math.round((value / data?.data?.total) * 100) : 0
+
+        return (
+            <li className='list__item'>
+                <div className="row align-center g10">
+                    <span className="percent">{ percent }%</span>
+                    <span className="txt">{ label }</span>
+                </div>
+                <div className="value">{ value.toLocaleString() } сум</div>
+            </li>
+        )
+    })
 
 
     return (
@@ -24,12 +61,18 @@ const Monitoring = () => {
                     </div>
                     <Segmented
                         options={['Пополнение', 'Снятие']}
-                        onChange={() => setNav(!nav)}
+                        onChange={() => {
+                            setNav(!nav)
+                            refetch()
+                        }}
                     />
                     <Select
                         className="select"
-                        defaultValue='За последний 1 дней'
-                        onChange={(e) => setDays(e.currentTarget.value)}
+                        defaultValue='30'
+                        onChange={(e) => {
+                            setDays(e)
+                            refetch()
+                        }}
                         options={[
                             { value: '1', label: 'За последний 1 дней' },
                             { value: '7', label: 'За последний 7 дней' },
@@ -38,26 +81,13 @@ const Monitoring = () => {
                     />
                 </div>
                 <div className='monitoring__body'>
-                    <Charts />
+                    <Charts data={data} />
                     <div className="summary row between align-center">
                         <span className="txt">{ !nav ? 'Общее пополнение' : 'Общее снятие' }</span>
-                        <span className="value">10 000 000 сум</span>
+                        <span className="value">{ formatPrice(data?.data?.total || 0) } сум</span>
                     </div>
                     <ul className='list'>
-                        <li className='list__item'>
-                            <div className="row align-center g10">
-                                <span className="percent">10%</span>
-                                <span className="txt">Marafon</span>
-                            </div>
-                            <div className="value">5 000 000 сум</div>
-                        </li>
-                        <li className='list__item'>
-                            <div className="row align-center g10">
-                                <span className="percent">8%</span>
-                                <span className="txt">Winline</span>
-                            </div>
-                            <div className="value">3 000 000 сум</div>
-                        </li>
+                        {items}
                     </ul>
                 </div>
             </div>

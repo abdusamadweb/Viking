@@ -6,9 +6,6 @@ import DepositDrawer from "../swap/modals/DepositDrawer.jsx";
 import WithdrawDrawer from "../swap/modals/WithdrawDrawer.jsx";
 import {Link} from "react-router-dom";
 import {Carousel} from "antd";
-import ban1 from '../../assets/images/banner1.png'
-import ban2 from '../../assets/images/banner2.png'
-import ban3 from '../../assets/images/banner3.png'
 import {$resp} from "../../api/config.js";
 import {useQuery} from "@tanstack/react-query";
 import GetFileDef from "../../components/get-file/GetFileDef.jsx";
@@ -57,7 +54,7 @@ const Home = ({ refetchMe }) => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <GetFileDef className='banner' id={i.photo_id} />
+                                    <GetFileDef className='banner' id={i.photo_id} odiy />
                                 </a>
                             ))
                         }

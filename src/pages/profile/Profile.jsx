@@ -46,8 +46,10 @@ const Profile = ({ refetchMe }) => {
     const onFormSubmit = (values) => {
         const body = {
             ...values,
-            birthday: new Date(values.birthday).toLocaleDateString(),
             logo_id: file ? file?.file.response.files[0].id : me?.logo_id,
+            birthday: new Date(values.birthday)
+                .toLocaleDateString('ru-RU')
+                .replace(/\./g, '-')
         }
 
         muUpdate.mutate(body)

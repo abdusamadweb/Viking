@@ -49,7 +49,7 @@ const Swap = ({ refetchMe }) => {
                         <span className="sub">Ваш баланс</span>
                         <p className="title">{ me ? formatPrice(me?.amount) : 0 } uzs</p>
                     </div>
-                    <div className="btns grid">
+                    <div className="btns grid d-none">
                         <button className='btn' onClick={() => setModal(activeTimer ? 'drawer' : 'deposit')}>
                             <i className="fa-solid fa-circle-plus"/>
                             <span>Пополнить</span>

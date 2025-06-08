@@ -42,6 +42,7 @@
     padding-block: 1rem;
 
     .ant-carousel {
+      min-height: 150px;
       margin-bottom: 25px;
 
       .item {
@@ -68,9 +69,13 @@
 
       &__iframe {
         width: 100%;
-        height: unset;
+        height: 250px;
         border-radius: 15px;
         border: 1px solid #373841;
+
+        @include mobile {
+          height: 44vw;
+        }
       }
     }
   }

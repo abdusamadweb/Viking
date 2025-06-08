@@ -22,6 +22,11 @@ const fetchData = async ({ page = 1, limit = 50, from_date, to_date }) => {
     return data
 }
 
+const getStatistic = async (body) => {
+    const { data } = await $resp.post("/statics/my-statics", body)
+    return data
+}
+
 
 const History = () => {
 
@@ -35,6 +40,23 @@ const History = () => {
     const { data } = useQuery({
         queryKey: ['history', page],
         queryFn: () => fetchData({ page, limit }),
+        keepPreviousData: true,
+    })
+
+    const { data: minus } = useQuery({
+        queryKey: ['statistic', {last_days: 365, program: String(false)}],
+        queryFn: ({ queryKey }) => {
+            const [_key, body] = queryKey
+            return getStatistic(body)
+        },
+        keepPreviousData: true,
+    })
+    const { data: plus } = useQuery({
+        queryKey: ['statistic', {last_days: 365, program: String(true)}],
+        queryFn: ({ queryKey }) => {
+            const [_key, body] = queryKey
+            return getStatistic(body)
+        },
         keepPreviousData: true,
     })
 
@@ -64,11 +86,11 @@ const History = () => {
                     <div className="statistics grid">
                         <div className="statistics__item">
                             <div className="sub">Пополнено на</div>
-                            <span className="count"><span className='green'>+</span> 10 000 000 сум</span>
+                            <span className="count"><span className='green'>+</span> {formatPrice(minus?.data?.total || 0)} сум</span>
                         </div>
                         <div className="statistics__item">
                             <div className="sub">Снято на</div>
-                            <span className="count"><span className='red'>-</span> 10 000 000 сум</span>
+                            <span className="count"><span className='red'>-</span> {formatPrice(plus?.data?.total || 0)} сум</span>
                         </div>
                     </div>
                 </div>
