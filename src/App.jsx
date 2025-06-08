@@ -36,7 +36,7 @@ import AdminUsers from "./pages/admin/users/AdminUsers.jsx";
 const Wrapper = ({ children }) => {
     const location = useLocation()
     useLayoutEffect(() => {
-        document.documentElement.scrollTo(0, 0)
+        document.documentElement.scrollTo(0, 5)
     }, [location.pathname])
     return children
 }
@@ -94,6 +94,11 @@ function App() {
         keepPreviousData: true,
         enabled: path === '/'
     })
+
+
+    useEffect(() => {
+        document.documentElement.scrollTo(0, 5)
+    }, [])
 
 
     return (
