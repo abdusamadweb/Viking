@@ -123,7 +123,9 @@ const History = () => {
                                                         </span>
                                                         <span className={`status ${item.status}`}>
                                                             {
-                                                                item.timer > 0 ? `Ожидает оплату, ${<Timer initialSeconds={item.timer} />}`
+                                                                item.timer > 0 ? (
+                                                                        <>Ожидает оплату, <Timer initialSeconds={item.timer} /></>
+                                                                    )
                                                                     : item.status === 'success_pay' ? 'Успешно'
                                                                         : item.status === 'reject' ? 'Отменено'
                                                                             : item.status === 'pending' ? 'Проверяется' : item.status
