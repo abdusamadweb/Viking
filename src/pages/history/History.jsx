@@ -8,6 +8,7 @@ import {useQuery} from "@tanstack/react-query";
 import {Empty, Pagination} from "antd";
 import GetFileDef from "../../components/get-file/GetFileDef.jsx";
 import {formatPrice} from "../../assets/scripts/global.js";
+import Timer from "./Timer.jsx";
 
 // fetch
 const fetchData = async ({ page = 1, limit = 50, from_date, to_date }) => {
@@ -26,6 +27,10 @@ const getStatistic = async (body) => {
     const { data } = await $resp.post("/statics/my-statics", body)
     return data
 }
+const getWD = async () => {
+    const { data } = await $resp.get("/statics/my-deposits-withdraws")
+    return data
+}
 
 
 const History = () => {
@@ -42,21 +47,9 @@ const History = () => {
         queryFn: () => fetchData({ page, limit }),
         keepPreviousData: true,
     })
-
-    const { data: minus } = useQuery({
-        queryKey: ['statistic', {last_days: 365, program: String(false)}],
-        queryFn: ({ queryKey }) => {
-            const [_key, body] = queryKey
-            return getStatistic(body)
-        },
-        keepPreviousData: true,
-    })
-    const { data: plus } = useQuery({
-        queryKey: ['statistic', {last_days: 365, program: String(true)}],
-        queryFn: ({ queryKey }) => {
-            const [_key, body] = queryKey
-            return getStatistic(body)
-        },
+    const { data: WD } = useQuery({
+        queryKey: ['withdraw-deposit', page],
+        queryFn: () => getWD(),
         keepPreviousData: true,
     })
 
@@ -85,51 +78,59 @@ const History = () => {
                     </div>
                     <div className="statistics grid">
                         <div className="statistics__item">
-                            <div className="sub">Пополнено на</div>
-                            <span className="count"><span className='green'>+</span> {formatPrice(minus?.data?.total || 0)} сум</span>
+                            <div className="sub">Пополнено</div>
+                            <span className="count"><span className='green'>+</span> {formatPrice(WD?.data?.deposit || 0)} сум</span>
                         </div>
                         <div className="statistics__item">
-                            <div className="sub">Снято на</div>
-                            <span className="count"><span className='red'>-</span> {formatPrice(plus?.data?.total || 0)} сум</span>
+                            <div className="sub">Снято</div>
+                            <span className="count"><span className='red'>-</span> {formatPrice(WD?.data?.withdraw || 0)} сум</span>
                         </div>
                     </div>
                 </div>
                 <div className="history__body">
-                    <div className="titles row between align-center">
-                        <span className="month">Апрель</span>
-                        <span className="count">+200 000 сум</span>
-                    </div>
                     {
                         data?.data?.length ?
                             <ul className="list">
-                                {data?.data?.map(i => (
-                                    <li className="list__item" key={i.id} onClick={() => setSelItem(i)}>
-                                        <div className='row align-center g10'>
-                                            <div className="imgs grid-center">
-                                                {
-                                                    i?.provider ?
-                                                        <GetFileDef id={i?.provider?.logo_id} odiy />
-                                                        : <img src={logo} alt="img"/>
-                                                }
-                                            </div>
-                                            <div>
-                                                <span className="txt">{ i?.provider ? i?.provider.name : i.program ? 'Пополнение баланса' : 'Снято с баланса' }</span>
-                                                <span className='date'>{ new Date(i.created_at).toLocaleString() }</span>
-                                            </div>
+                                {data?.data?.map((i, index) => (
+                                    <li key={index}>
+                                        <div className="titles row between align-center">
+                                            <span className="month">{ i.date }</span>
                                         </div>
-                                        <div className="flexed">
-                                            <span className="count"><span className={i.program ? 'green' : 'red'}>{ i.program ? '+' : '-' }</span>{ formatPrice(i.amount || 0) } сум</span>
-                                            <span className={`status ${i.status}`}>{
-                                                i.timer > 0 ? 'Ожидает оплату, ' + i.timer
-                                                    : i.status === 'success_pay' ? 'Успешно'
-                                                        : i.status === 'reject' ? 'Отменено'
-                                                            : i.status === 'pending' ? 'Проверяется' : i.status
-                                            }</span>
-                                        </div>
+                                        {
+                                            i?.transactions?.map(item => (
+                                                <div className="list__item" key={item.id} onClick={() => setSelItem(item)}>
+                                                    <div className='row align-center g10'>
+                                                        <div className="imgs grid-center">
+                                                            {
+                                                                item?.provider ?
+                                                                    <GetFileDef id={item?.provider?.logo_id} odiy/>
+                                                                    : <img src={logo} alt="img"/>
+                                                            }
+                                                        </div>
+                                                        <div>
+                                                    <span
+                                                        className="txt">{item?.provider ? item?.provider.name : item.program ? 'Пополнение баланса' : 'Снято с баланса'}</span>
+                                                            <span
+                                                                className='date'>{new Date(item.created_at).toLocaleString()}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flexed">
+                                                <span className="count"><span
+                                                    className={item.program ? 'green' : 'red'}>{item.program ? '+' : '-'}</span>{formatPrice(item.amount || 0)} сум</span>
+                                                        <span className={`status ${item.status}`}>{
+                                                            item.timer > 0 ? 'Ожидает оплату, ' + <Timer initialSeconds={item.timer} />
+                                                                : item.status === 'success_pay' ? 'Успешно'
+                                                                    : item.status === 'reject' ? 'Отменено'
+                                                                        : item.status === 'pending' ? 'Проверяется' : item.status
+                                                        }</span>
+                                                    </div>
+                                                </div>
+                                            ))
+                                        }
                                     </li>
                                 ))}
                             </ul>
-                            : <Empty className='py3' description={false} />
+                            : <Empty className='py3' description={false}/>
                     }
                     <Pagination
                         total={data?.pagination?.total}

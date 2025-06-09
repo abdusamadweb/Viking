@@ -89,13 +89,13 @@ const Home = ({ refetchMe }) => {
                         </div>
                         <i className="fa-solid fa-chevron-right"/>
                     </button>
-                    <Link className='btn' to='/swap'>
-                        <div className="row align-center g10">
-                            <i className="fa-solid fa-futbol"/>
-                            <span>Пополнить букмекера</span>
-                        </div>
-                        <i className="fa-solid fa-chevron-right"/>
-                    </Link>
+                    {/*<Link className='btn' to='/swap'>*/}
+                    {/*    <div className="row align-center g10">*/}
+                    {/*        <i className="fa-solid fa-futbol"/>*/}
+                    {/*        <span>Пополнить букмекера</span>*/}
+                    {/*    </div>*/}
+                    {/*    <i className="fa-solid fa-chevron-right"/>*/}
+                    {/*</Link>*/}
                 </div>
             </div>
 
