@@ -2,7 +2,7 @@ import './History.scss'
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {Segmented, Select} from "antd";
-import Charts from "./Charts.jsx";
+import Charts from "./other/Charts.jsx";
 import {$resp} from "../../api/config.js";
 import {useQuery} from "@tanstack/react-query";
 import {formatPrice} from "../../assets/scripts/global.js";

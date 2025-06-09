@@ -1,14 +1,16 @@
 import './History.scss'
 import React, {useState} from 'react';
 import logo from '../../assets/images/big-logo.svg'
-import CheckDrawer from "./CheckDrawer.jsx";
+import CheckDrawer from "./other/CheckDrawer.jsx";
 import {Link} from "react-router-dom";
 import {$resp} from "../../api/config.js";
 import {useQuery} from "@tanstack/react-query";
 import {Empty, Pagination} from "antd";
 import GetFileDef from "../../components/get-file/GetFileDef.jsx";
 import {formatPrice} from "../../assets/scripts/global.js";
-import Timer from "./Timer.jsx";
+import Timer from "./other/Timer.jsx";
+import SuccessModal from "../../components/success-modal/SuccessModal.jsx";
+import DepositDrawer from "./other/DepositDrawer.jsx";
 
 // fetch
 const fetchData = async ({ page = 1, limit = 50, from_date, to_date }) => {
@@ -23,10 +25,6 @@ const fetchData = async ({ page = 1, limit = 50, from_date, to_date }) => {
     return data
 }
 
-const getStatistic = async (body) => {
-    const { data } = await $resp.post("/statics/my-statics", body)
-    return data
-}
 const getWD = async () => {
     const { data } = await $resp.get("/statics/my-deposits-withdraws")
     return data
@@ -35,14 +33,17 @@ const getWD = async () => {
 
 const History = () => {
 
+    const [modal, setModal] = useState('close')
     const [selItem, setSelItem] = useState(null)
+
+    const [successText, setSuccessText] = useState(false)
 
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(50)
 
 
     // fetch
-    const { data } = useQuery({
+    const { data, refetch } = useQuery({
         queryKey: ['history', page],
         queryFn: () => fetchData({ page, limit }),
         keepPreviousData: true,
@@ -98,8 +99,11 @@ const History = () => {
                                         </div>
                                         {
                                             i?.transactions?.map(item => (
-                                                <div className="list__item" key={item.id} onClick={() => setSelItem(item)}>
-                                                    <div className='row align-center g10'>
+                                                <div className="list__item" key={item.id} onClick={() => {
+                                                    setSelItem(item)
+                                                    setModal(item.timer > 0 ? 'drawer' : 'check')
+                                                }}>
+                                                    <div className='d-flex align-center g10'>
                                                         <div className="imgs grid-center">
                                                             {
                                                                 item?.provider ?
@@ -157,6 +161,22 @@ const History = () => {
             <CheckDrawer
                 selItem={selItem}
                 setSelItem={setSelItem}
+                modal={modal}
+                setModal={setModal}
+            />
+
+            <DepositDrawer
+                selItem={selItem}
+                setSelItem={setSelItem}
+                modal={modal}
+                setModal={setModal}
+                setSuccessText={setSuccessText}
+                refetch={refetch}
+            />
+            <SuccessModal
+                modal={modal}
+                setModal={setModal}
+                successText={successText}
             />
         </div>
     );

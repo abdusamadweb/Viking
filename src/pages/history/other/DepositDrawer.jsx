@@ -6,6 +6,7 @@ import {formatCard, formatPrice} from "../../../assets/scripts/global.js";
 import {toast} from "react-hot-toast";
 import {useMutation} from "@tanstack/react-query";
 import {$resp} from "../../../api/config.js";
+import Timer from "./Timer.jsx";
 
 
 // fetch
@@ -15,10 +16,7 @@ const completeDeposit = async (body) => {
 }
 
 
-const DepositDrawer = ({ modal, setModal, drawerCard, setActiveTimer, setSuccessText, refetchMe }) => {
-
-    const [active, setActive] = useState(false)
-    const [timeLeft, setTimeLeft] = useState(600)
+const DepositDrawer = ({ selItem, setSelItem, modal, setModal, setSuccessText, refetch }) => {
 
 
     // mutate
@@ -26,14 +24,12 @@ const DepositDrawer = ({ modal, setModal, drawerCard, setActiveTimer, setSuccess
         mutationFn: completeDeposit,
         onSuccess: (res) => {
             toast.success(res.message)
-            refetchMe()
 
             setSuccessText(res.data.status)
-            setActiveTimer(false)
             setModal('success')
+            setSelItem(null)
 
-            setActive(false)       // <-- to‘xtatish
-            setTimeLeft(0)
+            refetch()
         },
         onError: (err) => {
             toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
@@ -42,7 +38,7 @@ const DepositDrawer = ({ modal, setModal, drawerCard, setActiveTimer, setSuccess
 
     const onFormSubmit = () => {
         const body = {
-            trans_id: drawerCard.id,
+            trans_id: selItem.id,
             status: true
         }
 
@@ -50,7 +46,7 @@ const DepositDrawer = ({ modal, setModal, drawerCard, setActiveTimer, setSuccess
     }
     const onFormReject = () => {
         const body = {
-            trans_id: drawerCard.id,
+            trans_id: selItem.id,
             status: "false"
         }
 
@@ -58,55 +54,19 @@ const DepositDrawer = ({ modal, setModal, drawerCard, setActiveTimer, setSuccess
     }
 
 
-    // timer
-    useEffect(() => {
-        if (!active) return;
-
-        const timer = setInterval(() => {
-            setTimeLeft((prev) => {
-                if (prev <= 1) {
-                    clearInterval(timer)
-                    setActive(false)
-                    return 0
-                }
-                return prev - 1
-            })
-        }, 1000)
-
-        return () => clearInterval(timer)
-    }, [active])
-
-    const formatTime = (seconds) => {
-        const minutes = String(Math.floor(seconds / 60)).padStart(2, '0')
-        const secs = String(seconds % 60).padStart(2, '0')
-        return `${minutes}:${secs}`
-    }
-
-    function startTimer() {
-        if (!active) {
-            setTimeLeft(600)
-            setActive(true)
-        }
-    }
-
-    useEffect(() => {
-        if (modal === 'drawer' && !active) {
-            startTimer()
-        }
-    }, [modal])
-
-
     return (
         <Drawer
             rootClassName='main-modal main-drawer'
             className='deposit-drawer'
-            placement='bottom'
             closable={false}
-            onClose={() => setModal('close')}
+            placement='bottom'
+            onClose={() => {
+                setModal('close')
+                setSelItem(false)
+            }}
             open={modal === 'drawer'}
             key='bottom'
-            height={555}
-            maskClosable={false}
+            height={545}
         >
             <span className='line'/>
             <p className="title">Переведите сумму на указанному карту ниже</p>
@@ -115,18 +75,18 @@ const DepositDrawer = ({ modal, setModal, drawerCard, setActiveTimer, setSuccess
                 <button
                     className="card__number row align-center g10"
                     onClick={() => {
-                        navigator.clipboard.writeText(drawerCard?.card_number)
+                        navigator.clipboard.writeText(selItem?.card_number)
                             .then(() => toast.success('Скопирован!'))
                             .catch(() => toast.error('Ошибка при копировании'));
                     }}
                 >
-                    <span>{ formatCard(drawerCard?.card_number) }</span>
+                    <span>{ formatCard(selItem?.card_number) }</span>
                     <i className="fa-solid fa-copy"/>
                 </button>
-                <span className="card__name">{ drawerCard?.card_name || 'No Name' }</span>
+                <span className="card__name">{ selItem?.card_name || 'No Name' }</span>
                 <div className="card__price row between">
                     <span className="txt">Сумма</span>
-                    <span className="count">{ formatPrice(drawerCard?.amount || 0) } uzs</span>
+                    <span className="count">{ formatPrice(selItem?.amount || 0) } uzs</span>
                 </div>
             </div>
             <div className="info">
@@ -138,7 +98,7 @@ const DepositDrawer = ({ modal, setModal, drawerCard, setActiveTimer, setSuccess
             </div>
             <div className="timer center row align-center g10">
                 <img src={timer} alt="icon"/>
-                <span>{formatTime(timeLeft)}</span>
+                <span>{ <Timer initialSeconds={selItem?.timer} /> }</span>
             </div>
             <div className="btns">
                 <Button

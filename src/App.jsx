@@ -47,7 +47,6 @@ const fetchMe = async () => {
     const { data } = await $resp.post("/user/me")
     return data
 }
-
 const fetchCards = async () => {
     const { data } = await $resp.get(`/user-card/my-cards?page=1&limit=30`)
     return data
@@ -55,6 +54,18 @@ const fetchCards = async () => {
 
 const fetchTrans = async () => {
     const { data } = await $resp.get(`/transaction/my-transactions?page=1&limit=50`)
+    return data
+}
+const getWD = async () => {
+    const { data } = await $resp.get("/statics/my-deposits-withdraws")
+    return data
+}
+const fetchSlider = async () => {
+    const { data } = await $resp.get("/slider/all")
+    return data
+}
+const fetchProvider = async () => {
+    const { data } = await $resp.get("/provider/f-all")
     return data
 }
 
@@ -72,7 +83,6 @@ function App() {
         queryKey: ['me'],
         queryFn: fetchMe,
         keepPreviousData: true,
-        enabled: path === '/'
     })
     useEffect(() => {
         if (me) localStorage.setItem('me', JSON.stringify(me?.data))
@@ -82,7 +92,6 @@ function App() {
         queryKey: ['cards'],
         queryFn: fetchCards,
         keepPreviousData: true,
-        enabled: path === '/'
     })
     useEffect(() => {
         if (cards) localStorage.setItem('cards', JSON.stringify(cards?.data))
@@ -90,9 +99,23 @@ function App() {
 
     const { data: _ } = useQuery({
         queryKey: ['history'],
-        queryFn: () => fetchTrans(),
+        queryFn: fetchTrans,
         keepPreviousData: true,
-        enabled: path === '/'
+    })
+    const { data: __ } = useQuery({
+        queryKey: ['withdraw-deposit'],
+        queryFn: getWD,
+        keepPreviousData: true,
+    })
+    const { data: ___ } = useQuery({
+        queryKey: ['slider'],
+        queryFn: fetchSlider,
+        keepPreviousData: true,
+    })
+    const { data: ____ } = useQuery({
+        queryKey: ['provider'],
+        queryFn: fetchProvider,
+        keepPreviousData: true,
     })
 
 

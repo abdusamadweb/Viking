@@ -1,20 +1,21 @@
 import React from 'react';
 import {Button, Drawer} from "antd";
-import {formatCard, formatPrice} from "../../assets/scripts/global.js";
+import {formatCard, formatPrice} from "../../../assets/scripts/global.js";
+import Timer from "./Timer.jsx";
 
-const CheckDrawer = ({ selItem, setSelItem }) => {
-
-    console.log(selItem)
-
+const CheckDrawer = ({ selItem, setSelItem, modal, setModal }) => {
 
     return (
         <Drawer
             rootClassName='main-modal main-drawer fit-drawer'
             className='check-drawer'
-            placement='bottom'
             closable={false}
-            onClose={() => setSelItem(null)}
-            open={selItem}
+            placement='bottom'
+            onClose={() => {
+                setSelItem(null)
+                setModal('close')
+            }}
+            open={modal === 'check'}
             key='bottom'
             height={505}
         >
@@ -22,7 +23,9 @@ const CheckDrawer = ({ selItem, setSelItem }) => {
             <div className="titles row between align-center">
                 <div className="title">О транзакции</div>
                 <span className={`status ${selItem?.status}`}>{
-                    selItem?.timer > 0 ? 'Ожидает оплату, ' + selItem?.timer
+                    selItem?.timer > 0 ? (
+                            <>Ожидает оплату, <Timer initialSeconds={selItem.timer} /></>
+                        )
                         : selItem?.status === 'success_pay' ? 'Успешно'
                             : selItem?.status === 'reject' ? 'Отменено'
                                 : selItem?.status === 'pending' ? 'Проверяется' : selItem?.status
@@ -71,7 +74,10 @@ const CheckDrawer = ({ selItem, setSelItem }) => {
                 </li>
             </ul>
             <div className="btns">
-                <Button className='btn w100' onClick={() => setSelItem(null)}>Закрыть</Button>
+                <Button className='btn w100' onClick={() => {
+                    setModal('close')
+                    setSelItem(null)
+                }}>Закрыть</Button>
             </div>
         </Drawer>
     );
