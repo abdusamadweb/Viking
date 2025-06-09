@@ -115,14 +115,20 @@ const History = () => {
                                                         </div>
                                                     </div>
                                                     <div className="flexed">
-                                                <span className="count"><span
-                                                    className={item.program ? 'green' : 'red'}>{item.program ? '+' : '-'}</span>{formatPrice(item.amount || 0)} сум</span>
-                                                        <span className={`status ${item.status}`}>{
-                                                            item.timer > 0 ? 'Ожидает оплату, ' + <Timer initialSeconds={item.timer} />
-                                                                : item.status === 'success_pay' ? 'Успешно'
-                                                                    : item.status === 'reject' ? 'Отменено'
-                                                                        : item.status === 'pending' ? 'Проверяется' : item.status
-                                                        }</span>
+                                                        <span className="count">
+                                                            <span className={item.program ? 'green' : 'red'}>
+                                                                {item.program ? '+' : '-'}
+                                                            </span>
+                                                            {formatPrice(item.amount || 0)} сум
+                                                        </span>
+                                                        <span className={`status ${item.status}`}>
+                                                            {
+                                                                item.timer > 0 ? `Ожидает оплату, ${<Timer initialSeconds={item.timer} />}`
+                                                                    : item.status === 'success_pay' ? 'Успешно'
+                                                                        : item.status === 'reject' ? 'Отменено'
+                                                                            : item.status === 'pending' ? 'Проверяется' : item.status
+                                                            }
+                                                        </span>
                                                     </div>
                                                 </div>
                                             ))

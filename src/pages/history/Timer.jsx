@@ -13,7 +13,13 @@ const Timer = ({ initialSeconds }) => {
         return () => clearInterval(interval) // очистка интервала
     }, [seconds])
 
-    return seconds
+    const formatTime = (totalSeconds) => {
+        const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0')
+        const secs = String(totalSeconds % 60).padStart(2, '0')
+        return `${minutes}:${secs}`
+    }
+
+    return formatTime(seconds)
 }
 
 export default Timer
