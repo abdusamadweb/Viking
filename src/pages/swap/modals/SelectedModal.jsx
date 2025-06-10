@@ -65,7 +65,6 @@ const SelectedModal = ({ selItem, setSelItem, setModal }) => {
             mutation.mutate(body)
         }
     }
-    console.log(check)
 
 
     return (

@@ -192,8 +192,29 @@
     width: 100%;
   }
 }
+.video-modal {
+
+  .title {
+    margin-bottom: 1rem;
+  }
+
+  .iframe {
+    width: 100%;
+    height: 250px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    border: 1px solid #373841;
+
+    @include mobile {
+      height: 44vw;
+    }
+  }
+}
 
 .main-drawer {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
 
   .line {
     width: 50px;

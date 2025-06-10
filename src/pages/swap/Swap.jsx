@@ -11,6 +11,9 @@ import {useQuery} from "@tanstack/react-query";
 import defImg from "../../assets/images/def-img.png"
 import {formatPrice} from "../../assets/scripts/global.js";
 import GetFileDef from "../../components/get-file/GetFileDef.jsx";
+import WithdrawNew from "./new-modals/WithdrawNew.jsx";
+import VideoModal from "./new-modals/VideoModal.jsx";
+import DepositNew from "./new-modals/DepositNew.jsx";
 
 
 // fetch
@@ -24,12 +27,12 @@ const Swap = ({ refetchMe }) => {
 
     const [selItem, setSelItem] = useState(null)
     const [modal, setModal] = useState('close')
+    const [modal2, setModal2] = useState('close')
 
     const me = JSON.parse(localStorage.getItem('me'))
 
     // deposit states
     const [activeTimer, setActiveTimer] = useState(false)
-    const [drawerCard, setDrawerCard] = useState(null)
     const [successText, setSuccessText] = useState(false)
 
 
@@ -49,7 +52,7 @@ const Swap = ({ refetchMe }) => {
                         <span className="sub">Ваш баланс</span>
                         <p className="title">{ me ? formatPrice(me?.amount) : 0 } uzs</p>
                     </div>
-                    <div className="btns grid d-none">
+                    <div className="btns grid">
                         <button className='btn' onClick={() => setModal(activeTimer ? 'drawer' : 'deposit')}>
                             <i className="fa-solid fa-circle-plus"/>
                             <span>Пополнить</span>
@@ -61,22 +64,19 @@ const Swap = ({ refetchMe }) => {
                     </div>
                 </div>
                 <div className="swap__body">
-                    <p className="title">Пополнить букмекерской конторы</p>
-                    {
-                        data?.length ?
-                            <ul className='list'>
-                                {data?.map(i => (
-                                    <li
-                                        className='item'
-                                        onClick={() => setSelItem(i)}
-                                        key={i.id}
-                                    >
-                                        <GetFileDef id={i?.logo_id} defImg={defImg} odiy />
-                                    </li>
-                                ))}
-                            </ul>
-                            : <Empty description={false} />
-                    }
+                    <p className="title">Правила пополнения и вывода букмекерской конторы</p>
+                    <div className="mb2">
+                        <p className="sub-title">Пополнение</p>
+                        <p className="desc">
+                            <span>Минимальная сумма пополнения составляет 5 000 сум.</span> Пополнения на сумму меньше не принимаются и автоматически отклоняются системой.
+                        </p>
+                    </div>
+                    <div>
+                        <p className="sub-title">Вывод средств</p>
+                        <p className="desc">
+                            <span>Минимальная сумма вывода средств составляет 9999999 сум.</span> Запросы на меньшие суммы не обрабатываются.
+                        </p>
+                    </div>
                 </div>
             </div>
 
@@ -86,31 +86,24 @@ const Swap = ({ refetchMe }) => {
                 successText={successText}
             />
 
-            <DepositModal
+            <WithdrawNew
+                data={data}
                 modal={modal}
                 setModal={setModal}
-                setActiveTimer={setActiveTimer}
-                setDrawerCard={setDrawerCard}
+                setModal2={setModal2}
+                refetchMe={refetchMe}
             />
-            <DepositDrawer
+            <DepositNew
+                data={data}
                 modal={modal}
                 setModal={setModal}
-                setActiveTimer={setActiveTimer}
-                drawerCard={drawerCard}
-                setSuccessText={setSuccessText}
+                me={me}
                 refetchMe={refetchMe}
             />
 
-            <WithdrawDrawer
-                modal={modal}
-                setModal={setModal}
-                setSuccessText={setSuccessText}
-                refetchMe={refetchMe}
-            />
-            <SelectedModal
-                selItem={selItem}
-                setSelItem={setSelItem}
-                setModal={setModal}
+            <VideoModal
+                modal={modal2}
+                setModal={setModal2}
             />
         </div>
     );
