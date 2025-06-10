@@ -3,12 +3,19 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {uploadProps, validateMessages} from "../../assets/scripts/global.js";
 import {Button, DatePicker, Form, Input, Upload} from "antd";
-import {useMutation} from "@tanstack/react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {$resp} from "../../api/config.js";
 import {toast} from "react-hot-toast";
 import profile from "../../assets/images/profile-def.png";
 import GetFile from "../../components/get-file/GetFile.jsx";
+import dayjs from 'dayjs'
 
+
+// fetch
+const fetchMe = async () => {
+    const { data } = await $resp.post("/user/me")
+    return data
+}
 
 const updateProfile = async (body) => {
     const { data } = await $resp.post("/user/update-profile", body)
@@ -16,17 +23,24 @@ const updateProfile = async (body) => {
 }
 
 
-const Profile = ({ refetchMe }) => {
+const Profile = () => {
 
     const [form] = Form.useForm()
     const navigate = useNavigate()
 
-    const me = JSON.parse(localStorage.getItem('me'))
-
     const [file, setFile] = useState(null)
-    
-    
-    useEffect(() => refetchMe, [])
+
+
+    // fetch
+    const { data, refetch: refetchMe } = useQuery({
+        queryKey: ['me'],
+        queryFn: fetchMe,
+        keepPreviousData: true,
+    })
+    useEffect(() => {
+        if (data) localStorage.setItem('me', JSON.stringify(data?.data))
+    }, [data])
+    const me = data?.data
 
 
     // mutate
@@ -34,6 +48,7 @@ const Profile = ({ refetchMe }) => {
         mutationFn: updateProfile,
         onSuccess: (res) => {
             toast.success(res.message)
+            
             refetchMe()
         },
         onError: (err) => {
@@ -47,9 +62,7 @@ const Profile = ({ refetchMe }) => {
         const body = {
             ...values,
             logo_id: file ? file?.file.response.files[0].id : me?.logo_id,
-            birthday: new Date(values.birthday)
-                .toLocaleDateString('ru-RU')
-                .replace(/\./g, '-')
+            birthday: values.birthday.format('YYYY-MM-DD')
         }
 
         muUpdate.mutate(body)
@@ -59,7 +72,11 @@ const Profile = ({ refetchMe }) => {
     // form
     useEffect(() => {
         if (me) {
-            form.setFieldsValue(me)
+            const initial = {
+                ...me,
+                birthday: me.birthday ? dayjs(me.birthday) : null
+            }
+            form.setFieldsValue(initial)
         } else {
             form.resetFields()
         }
@@ -120,7 +137,7 @@ const Profile = ({ refetchMe }) => {
                             <DatePicker size='large' placeholder='Дата рождение' />
                         </Form.Item>
 
-                        <Button className='btn' htmlType='submit'>Сохранить</Button>
+                        <Button className='btn' htmlType='submit' loading={muUpdate.isPending}>Сохранить</Button>
                     </Form>
                 </div>
             </div>
