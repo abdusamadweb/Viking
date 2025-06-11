@@ -67,8 +67,7 @@ const DepositDrawer = ({ selItem, setSelItem, modal, setModal, setSuccessText, r
             }}
             open={modal === 'drawer'}
             key='bottom'
-            // height={545}
-            height={'auto'}
+            height={545}
         >
             <span className='line'/>
             <p className="title"><Tr val='Переведите сумму на указанному карту ниже' /></p>

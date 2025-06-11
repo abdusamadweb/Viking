@@ -18,7 +18,7 @@ const CheckDrawer = ({ selItem, setSelItem, modal, setModal }) => {
             }}
             open={modal === 'check'}
             key='bottom'
-            height={'auto'}
+            height={505}
         >
             <span className='line'/>
             <div className="titles row between align-center">

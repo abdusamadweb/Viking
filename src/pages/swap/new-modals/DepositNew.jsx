@@ -98,8 +98,7 @@ const DepositNew = ({ data, modal, setModal, me, refetchMe }) => {
             onClose={closeModal}
             open={modal === 'deposit'}
             key='bottom'
-            // height={nav === 2 ? 600 : 433}
-            height={'auto'}
+            height={nav === 2 ? 600 : 433}
         >
             <div className="bgc">
                 <span className='line'/>

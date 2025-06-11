@@ -64,8 +64,7 @@ const WithdrawDrawer = ({ modal, setModal, setSuccessText, refetchMe }) => {
             onClose={() => setModal('close')}
             open={modal === 'withdraw'}
             key='bottom'
-            // height={616}
-            height={'auto'}
+            height={616}
         >
             <div className='bgc'>
                 <span className='line'/>

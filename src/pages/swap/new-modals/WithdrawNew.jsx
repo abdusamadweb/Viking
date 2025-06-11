@@ -103,8 +103,7 @@ const WithdrawNew = ({ data, modal, setModal, setModal2, refetchMe }) => {
             onClose={closeModal}
             open={modal === 'withdraw'}
             key='bottom'
-            // height={464}
-            height={'auto'}
+            height={464}
         >
             <div className="bgc">
                 <span className='line'/>

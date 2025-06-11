@@ -106,8 +106,7 @@ const DepositDrawer = ({ modal, setModal, drawerCard, setActiveTimer, setSuccess
             onClose={() => setModal('close')}
             open={modal === 'drawer'}
             key='bottom'
-            // height={555}
-            height={'auto'}
+            height={555}
             maskClosable={false}
         >
             <span className='line'/>
