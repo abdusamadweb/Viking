@@ -68,6 +68,17 @@ const History = () => {
 
         return `${day} - ${trans(month)}`
     }
+    function formatDate(str) {
+        const date = new Date(str)
+        const year = date.getFullYear()
+        const monthNames = [
+            'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+            'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+        ]
+        const month = monthNames[date.getMonth()] // getMonth() возвращает от 0 до 11
+
+        return `${trans(month)} ${year}`
+    }
 
 
     return (
@@ -109,8 +120,11 @@ const History = () => {
                             <ul className="list">
                                 {data?.data?.map((i, index) => (
                                     <li key={index}>
-                                        <div className="titles row between align-center">
-                                            <span className="month">{ formatDateToRussian(i.date) }</span>
+                                        {/*<div className="titles row between align-center">*/}
+                                        {/*    <span className="month">{formatDate(i.date)}</span>*/}
+                                        {/*</div>*/}
+                                        <div className="titles margin row between align-center">
+                                            <span className="month">{formatDateToRussian(i.date)}</span>
                                         </div>
                                         {
                                             i?.transactions?.map(item => (
@@ -143,7 +157,8 @@ const History = () => {
                                                         <span className={`status ${item.status}`}>
                                                             {
                                                                 item.timer > 0 ? (
-                                                                        <>Ожидает оплату, <Timer initialSeconds={item.timer} /></>
+                                                                        <>Ожидает оплату, <Timer
+                                                                            initialSeconds={item.timer}/></>
                                                                     )
                                                                     : item.status === 'success_pay' ? 'Успешно'
                                                                         : item.status === 'reject' ? 'Отменено'

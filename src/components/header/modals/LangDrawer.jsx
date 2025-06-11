@@ -23,6 +23,7 @@ const LangDrawer = ({ modal, setModal }) => {
             onClose={() => setModal('close')}
             open={modal === 'lang'}
             key='bottom'
+            height={266}
         >
             <span className='line'/>
             <p className="title">

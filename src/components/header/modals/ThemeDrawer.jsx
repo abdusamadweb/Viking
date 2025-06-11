@@ -16,6 +16,7 @@ const ThemeDrawer = ({ modal, setModal }) => {
             onClose={() => setModal('close')}
             open={modal === 'theme'}
             key='bottom'
+            height={210}
         >
             <span className='line'/>
             <p className="title">

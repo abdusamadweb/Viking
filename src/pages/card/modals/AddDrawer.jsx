@@ -73,6 +73,7 @@ const AddDrawer = ({ modal, setModal, selItem, setSelItem, refetch }) => {
             }}
             open={modal === 'add' || modal === 'edit'}
             key='bottom'
+            height={454}
         >
             <span className="line"/>
             <p className="title">
