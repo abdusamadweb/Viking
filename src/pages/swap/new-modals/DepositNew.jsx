@@ -7,6 +7,7 @@ import {toast} from "react-hot-toast";
 import {useMutation} from "@tanstack/react-query";
 import {$resp} from "../../../api/config.js";
 import gift from "../../../assets/images/gift.svg";
+import {Tr, trans} from "../../../components/translator/Tr.js";
 
 
 // fetch
@@ -97,13 +98,14 @@ const DepositNew = ({ data, modal, setModal, me, refetchMe }) => {
             onClose={closeModal}
             open={modal === 'deposit'}
             key='bottom'
-            height={nav === 2 ? 600 : 433}
+            // height={nav === 2 ? 600 : 433}
+            height={'auto'}
         >
             <div className="bgc">
                 <span className='line'/>
                 <p className="title">
-                    {nav === 1 && 'Пополнение букмекерской конторы'}
-                    {nav === 2 && 'Введите данные'}
+                    {nav === 1 && trans('Пополнение букмекерской конторы')}
+                    {nav === 2 && trans('Введите данные')}
                 </p>
                 <div className="dots">
                     <span className={`dot ${nav === 1 ? 'active' : ''}`}/>
@@ -142,11 +144,11 @@ const DepositNew = ({ data, modal, setModal, me, refetchMe }) => {
                         >
                             <Form.Item
                                 name='id'
-                                label='Введите ID'
+                                label={trans('Введите ID')}
                                 rules={[{ required: true }]}
                             >
                                 <Input
-                                    placeholder='Ваше ID...'
+                                    placeholder={trans('Ваше ID...')}
                                     type="tel"
                                     inputMode="numeric"
                                     pattern="[0-9]*"
@@ -159,11 +161,11 @@ const DepositNew = ({ data, modal, setModal, me, refetchMe }) => {
 
                             <Form.Item
                                 name='amount'
-                                label='Сумма вывода'
+                                label={trans('Сумма ввода')}
                                 rules={[{ required: true }]}
                             >
                                 <Input
-                                    placeholder='Сумма вывода'
+                                    placeholder={trans('Сумма ввода')}
                                     type="tel"
                                     inputMode="numeric"
                                     pattern="[0-9]*"
@@ -173,7 +175,7 @@ const DepositNew = ({ data, modal, setModal, me, refetchMe }) => {
                             <div className='balance row between align-center'>
                                 <div className="txt row align-center g10">
                                     <i className="fa-solid fa-wallet"></i>
-                                    <span className='txt'>Ваш баланс</span>
+                                    <span className='txt'><Tr val='Ваш баланс' /></span>
                                 </div>
                                 <span className='price'>{ formatPrice(me?.amount | 0) } uzs</span>
                             </div>
@@ -184,16 +186,16 @@ const DepositNew = ({ data, modal, setModal, me, refetchMe }) => {
                         <div className="ad d-flex g10">
                             <img src={gift} alt="icon"/>
                             <div>
-                                <p className='desc'>Получите бонус 10 000 000 сум на свой первый депозит!</p>
+                                <p className='desc'><Tr val='Получите бонус 10 000 000 сум на свой первый депозит!' /></p>
                                 <button
                                     className="promo row align-center"
                                     onClick={() => {
                                         navigator.clipboard.writeText('LimonPay')
-                                            .then(() => toast.success('Промокод скопирован!'))
-                                            .catch(() => toast.error('Ошибка при копировании'));
+                                            .then(() => toast.success(trans('Скопирован!')))
+                                            .catch(() => toast.error(trans('Ошибка при копировании')))
                                     }}
                                 >
-                                    <span>Промокод: LimonPay</span>
+                                    <span><Tr val='Промокод' />: LimonPay</span>
                                     <i className="fa-solid fa-copy"/>
                                 </button>
                             </div>
@@ -207,7 +209,7 @@ const DepositNew = ({ data, modal, setModal, me, refetchMe }) => {
                             htmlType='submit'
                             loading={nav === 2 ? muCheck.isPending : mutation.isPending}
                         >
-                            Пополнить
+                            <Tr val='Пополнить' />
                         </Button>
                     </div>
                 </>

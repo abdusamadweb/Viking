@@ -10,6 +10,8 @@ import {formatPrice} from "../../assets/scripts/global.js";
 
 const Header = () => {
 
+    const [theme, setTheme] = useState(1)
+
     const [modal, setModal] = useState('close')
     const [modal2, setModal2] = useState('close')
 
@@ -48,6 +50,7 @@ const Header = () => {
             </div>
 
             <HeaderModal
+                theme={theme}
                 modal={modal}
                 setModal={setModal}
                 setModal2={setModal2}
@@ -58,6 +61,8 @@ const Header = () => {
                 setModal={setModal2}
             />
             <ThemeDrawer
+                theme={theme}
+                setTheme={setTheme}
                 modal={modal2}
                 setModal={setModal2}
             />

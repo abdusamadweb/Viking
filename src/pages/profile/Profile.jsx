@@ -9,6 +9,7 @@ import {toast} from "react-hot-toast";
 import profile from "../../assets/images/profile-def.png";
 import GetFile from "../../components/get-file/GetFile.jsx";
 import dayjs from 'dayjs'
+import {Tr, trans} from "../../components/translator/Tr.js";
 
 
 // fetch
@@ -91,7 +92,7 @@ const Profile = () => {
                         <button className='back' onClick={() => navigate(-1)}>
                             <i className="fa-solid fa-circle-chevron-left"/>
                         </button>
-                        <span>Профиль</span>
+                        <span><Tr val='Профиль' /></span>
                     </div>
                 </div>
                 <div className="profile__body">
@@ -117,27 +118,27 @@ const Profile = () => {
 
                         <Form.Item
                             name='first_name'
-                            label='Имя'
+                            label={trans('Имя')}
                             rules={[{required: true}]}
                         >
-                            <Input placeholder='Имя...'/>
+                            <Input placeholder={trans('Имя...')}/>
                         </Form.Item>
                         <Form.Item
                             name='last_name'
-                            label='Фамилия'
+                            label={trans('Фамилия')}
                             rules={[{required: true}]}
                         >
-                            <Input placeholder='Фамилия...'/>
+                            <Input placeholder={trans('Фамилия...')}/>
                         </Form.Item>
                         <Form.Item
                             name='birthday'
-                            label='Дата рождение'
+                            label={trans('Дата рождение')}
                             rules={[{required: true}]}
                         >
-                            <DatePicker size='large' placeholder='Дата рождение' />
+                            <DatePicker size='large' placeholder={trans('Дата рождение')} />
                         </Form.Item>
 
-                        <Button className='btn' htmlType='submit' loading={muUpdate.isPending}>Сохранить</Button>
+                        <Button className='btn' htmlType='submit' loading={muUpdate.isPending}><Tr val='Сохранить' /></Button>
                     </Form>
                 </div>
             </div>

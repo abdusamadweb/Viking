@@ -253,6 +253,9 @@
     height: fit-content;
   }
 }
+.ant-drawer-content-wrapper {
+  transition: height 0.3s ease;
+}
 
 
 // admin

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Modal} from "antd";
+import {Tr} from "../../../components/translator/Tr.js";
 
 const VideoModal = ({ modal, setModal }) => {
     return (
@@ -12,7 +13,7 @@ const VideoModal = ({ modal, setModal }) => {
             closeIcon={false}
         >
             <div>
-                <p className="title">Как получить код?</p>
+                <p className="title"><Tr val='Как получить код?' /></p>
                 <iframe
                     className='iframe'
                     allowFullScreen
@@ -22,7 +23,7 @@ const VideoModal = ({ modal, setModal }) => {
                     referrerPolicy="strict-origin-when-cross-origin"
                 />
                 <div className="btns">
-                    <button className='btn' onClick={() => setModal('close')}>Закрыть</button>
+                    <button className='btn' onClick={() => setModal('close')}><Tr val='Закрыть' /></button>
                 </div>
             </div>
         </Modal>

@@ -7,6 +7,7 @@ import {formatPrice} from "../../assets/scripts/global.js";
 import WithdrawNew from "./new-modals/WithdrawNew.jsx";
 import VideoModal from "./new-modals/VideoModal.jsx";
 import DepositNew from "./new-modals/DepositNew.jsx";
+import {Tr} from "../../components/translator/Tr.js";
 
 
 // fetch
@@ -39,32 +40,32 @@ const Swap = ({ refetchMe }) => {
             <div className="container p0">
                 <div className="swap__head">
                     <div className="titles">
-                        <span className="sub">Ваш баланс</span>
+                        <span className="sub"><Tr val='Ваш баланс' /></span>
                         <p className="title">{ me ? formatPrice(me?.amount) : 0 } uzs</p>
                     </div>
                     <div className="btns grid">
                         <button className='btn' onClick={() => setModal('deposit')}>
                             <i className="fa-solid fa-circle-plus"/>
-                            <span>Пополнить</span>
+                            <span><Tr val='Пополнить' /></span>
                         </button>
                         <button className='btn' onClick={() => setModal('withdraw')}>
                             <i className="fa-solid fa-circle-arrow-up"/>
-                            <span>Вывести</span>
+                            <span><Tr val='Вывести' /></span>
                         </button>
                     </div>
                 </div>
                 <div className="swap__body">
-                    <p className="title">Правила пополнения и вывода букмекерской конторы</p>
+                    <p className="title"><Tr val='Правила пополнения и вывода букмекерской конторы' /></p>
                     <div className="mb2">
-                        <p className="sub-title">Пополнение</p>
+                        <p className="sub-title"><Tr val='Пополнение' /></p>
                         <p className="desc">
-                            <span>Минимальная сумма пополнения составляет 5 000 сум.</span> Пополнения на сумму меньше не принимаются и автоматически отклоняются системой.
+                            <span><Tr val='Минимальная сумма пополнения составляет 5 000 сум' />.</span> <Tr val='Пополнения на сумму меньше не принимаются и автоматически отклоняются системой' />.
                         </p>
                     </div>
                     <div>
-                        <p className="sub-title">Вывод средств</p>
+                        <p className="sub-title"><Tr val='Вывод средств' /></p>
                         <p className="desc">
-                            <span>Минимальная сумма вывода средств составляет 9 999 999 сум.</span> Запросы на меньшие суммы не обрабатываются.
+                            <span><Tr val='Минимальная сумма вывода средств составляет 9 999 999 сум' />.</span> <Tr val='Запросы на меньшие суммы не обрабатываются' />.
                         </p>
                     </div>
                 </div>

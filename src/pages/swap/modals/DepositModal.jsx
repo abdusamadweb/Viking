@@ -4,6 +4,7 @@ import {formatPrice, validateMessages} from "../../../assets/scripts/global.js";
 import {$resp} from "../../../api/config.js";
 import {toast} from "react-hot-toast";
 import {useMutation} from "@tanstack/react-query";
+import {Tr, trans} from "../../../components/translator/Tr.js";
 
 
 // fetch
@@ -50,7 +51,7 @@ const DepositModal = ({ modal, setModal, setActiveTimer, setDrawerCard }) => {
             centered
             closeIcon={false}
         >
-            <p className="title">На какую сумму хотите пополнить баланс?</p>
+            <p className="title"><Tr val={'На какую сумму хотите пополнить баланс?'} /></p>
 
             <Form
                 onFinish={onFormSubmit}
@@ -63,20 +64,22 @@ const DepositModal = ({ modal, setModal, setActiveTimer, setDrawerCard }) => {
                     label='Сумма'
                     rules={[{ required: true }]}
                 >
-                    <Input placeholder='Сумма оплаты' type='tel' />
+                    <Input placeholder={trans('Сумма оплаты')} type="tel"
+                           inputMode="numeric"
+                           pattern="[0-9]*" />
                 </Form.Item>
                 <div className='balance row between align-center'>
-                    <span className='txt'>Ваш баланс</span>
+                    <span className='txt'><Tr val={'Ваш баланс'} /></span>
                     <span className='price'>{ formatPrice(me?.amount | 0) } uzs</span>
                 </div>
                 <div className="btns grid">
-                    <Button className='btn' htmlType='button' onClick={() => setModal('close')}>Закрыть</Button>
+                    <Button className='btn' htmlType='button' onClick={() => setModal('close')}><Tr val={'Закрыть'} /></Button>
                     <Button
                         className='btn submit'
                         htmlType='submit'
                         loading={mutation.isPending}
                     >
-                        Пополнить
+                        <Tr val={'Пополнить'} />
                     </Button>
                 </div>
             </Form>

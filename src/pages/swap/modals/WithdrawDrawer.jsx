@@ -8,6 +8,7 @@ import {toast} from "react-hot-toast";
 import {useMutation} from "@tanstack/react-query";
 import cardI from "../../../assets/images/card-icon.svg";
 import {formatCard, formatPrice} from "../../../assets/scripts/global.js";
+import {Tr, trans} from "../../../components/translator/Tr.js";
 
 
 // fetch
@@ -63,22 +64,23 @@ const WithdrawDrawer = ({ modal, setModal, setSuccessText, refetchMe }) => {
             onClose={() => setModal('close')}
             open={modal === 'withdraw'}
             key='bottom'
-            height={616}
+            // height={616}
+            height={'auto'}
         >
             <div className='bgc'>
                 <span className='line'/>
-                <p className="title">Вывести деньги</p>
+                <p className="title"><Tr val={'Вывести деньги'} /></p>
             </div>
             <div className="cards div">
                 <Segmented
-                    options={['Новая карта', 'Сохраненные карты']}
+                    options={[trans('Новая карта'), trans('Сохраненные карты')]}
                     onChange={() => setNav(!nav)}
                 />
                 {
                     !nav ?
                         <div>
                             <div className="cards__number">
-                                <span className='txt'>Номер карты</span>
+                                <span className='txt'><Tr val={'Номер карты'} /></span>
                                 <IMaskInput
                                     className='inp-mask'
                                     mask='0000 0000 0000 0000'
@@ -119,16 +121,18 @@ const WithdrawDrawer = ({ modal, setModal, setSuccessText, refetchMe }) => {
                 }
             </div>
             <div className="price div">
-                <span className='txt'>Сумма вывода</span>
+                <span className='txt'><Tr val={'Сумма вывода'} /></span>
                 <Input
-                    placeholder='Введите сумму'
-                    type='tel'
+                    placeholder={trans('Введите сумму')}
+                    type="tel"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     onChange={(e) => setAmount(e.target.value)}
                 />
                 <div className="balance row between align-center">
                     <div className='row align-center'>
                         <i className="fa-solid fa-wallet"/>
-                        <span>Ваш баланс</span>
+                        <span><Tr val='Ваш баланс' /></span>
                     </div>
                     <span className='count'>{ formatPrice(me?.amount || 0) } uzs</span>
                 </div>
@@ -136,9 +140,11 @@ const WithdrawDrawer = ({ modal, setModal, setSuccessText, refetchMe }) => {
             <div className="info">
                 <div className="title row align-center g10">
                     <i className="fa-solid fa-circle-info"/>
-                    <span>Примечание</span>
+                    <span><Tr val='Примечание' /></span>
                 </div>
-                <p className="desc">Укажите только карты Uzcard и Humo, на Visa и кошелки перевод не может быть осушествлён!</p>
+                <p className="desc">
+                    <Tr val='Укажите только карты Uzcard и Humo, на Visa и кошелки перевод не может быть осушествлён!' />
+                </p>
             </div>
             <div className="btns">
                 <Button
@@ -146,7 +152,7 @@ const WithdrawDrawer = ({ modal, setModal, setSuccessText, refetchMe }) => {
                     onClick={onFormSubmit}
                     loading={mutation.isPending}
                 >
-                    Вывести
+                    <Tr val='Вывести' />
                 </Button>
             </div>
         </Drawer>

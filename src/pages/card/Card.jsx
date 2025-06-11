@@ -12,6 +12,7 @@ import CardEmpty from "./CardEmpty.jsx";
 import {deleteDataUser} from "../../api/crud.js";
 import {toast} from "react-hot-toast";
 import {formatCard} from "../../assets/scripts/global.js";
+import {Tr} from "../../components/translator/Tr.js";
 
 
 // fetch
@@ -69,7 +70,7 @@ const Card = () => {
                             <button className='back' onClick={() => navigate(-1)}>
                                 <i className="fa-solid fa-circle-chevron-left"/>
                             </button>
-                            <span>Мои карты</span>
+                            <span><Tr val='Мои карты' /></span>
                         </div>
                         <button className="btn" onClick={() => setModal('add')}>
                             <i className="fa-solid fa-circle-plus"/>

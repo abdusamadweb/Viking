@@ -8,6 +8,7 @@ import uzcard from '../../../assets/images/uzcard-icon.svg'
 import {addOrEditUser} from "../../../api/crud.js";
 import {useMutation} from "@tanstack/react-query";
 import {toast} from "react-hot-toast";
+import {Tr, trans} from "../../../components/translator/Tr.js";
 
 const AddDrawer = ({ modal, setModal, selItem, setSelItem, refetch }) => {
 
@@ -75,11 +76,10 @@ const AddDrawer = ({ modal, setModal, selItem, setSelItem, refetch }) => {
         >
             <span className="line"/>
             <p className="title">
-                { modal === 'add' ? 'Добавление карты' : 'Редактирование карты' }
+                { modal === 'add' ? trans('Добавление карты') : trans('Редактирование карты') }
             </p>
             <Form
                 onFinish={onFormSubmit}
-                onFinishFailed={() => console.log('Xato: form to‘liq emas')}
                 layout='vertical'
                 validateMessages={validateMessages}
                 form={form}
@@ -87,14 +87,14 @@ const AddDrawer = ({ modal, setModal, selItem, setSelItem, refetch }) => {
                 <div className="card-form">
                     <Form.Item
                         name='name'
-                        label='Название карты'
+                        label={trans('Название карты')}
                         rules={[{ required: true, message: '' }]}
                     >
-                        <Input placeholder='Введите название'/>
+                        <Input placeholder={trans('Введите название')}/>
                     </Form.Item>
                     <Form.Item
                         name='number'
-                        label='Номер карты'
+                        label={trans('Номер карты')}
                         rules={[{ required: true, message: '' }]}
                     >
                         <IMaskInput
@@ -105,7 +105,7 @@ const AddDrawer = ({ modal, setModal, selItem, setSelItem, refetch }) => {
                     </Form.Item>
                 </div>
                 <div className="choose">
-                    <p className="choose__title">Выберите иконки</p>
+                    <p className="choose__title"><Tr val='Выберите иконки' /></p>
                     <Form.Item
                         name='card_img'
                     >
@@ -141,7 +141,7 @@ const AddDrawer = ({ modal, setModal, selItem, setSelItem, refetch }) => {
                         htmlType='submit'
                         loading={addOrEditMutation?.isPending}
                     >
-                        Сохранить
+                        <Tr val='Сохранить' />
                     </Button>
                 </div>
             </Form>

@@ -9,6 +9,7 @@ import {Carousel} from "antd";
 import {$resp} from "../../api/config.js";
 import {useQuery} from "@tanstack/react-query";
 import GetFileDef from "../../components/get-file/GetFileDef.jsx";
+import {Tr} from "../../components/translator/Tr.js";
 
 
 // fetch
@@ -62,7 +63,7 @@ const Home = ({ refetchMe }) => {
                     <div className="how">
                         <div className="how__titles row align-center g10">
                             <i className="fa-solid fa-circle-info"/>
-                            <span>Как пользоваться ботом?</span>
+                            <span><Tr val={'Как пользоваться ботом?'} /></span>
                         </div>
                         <iframe
                             className='how__iframe'
@@ -78,14 +79,14 @@ const Home = ({ refetchMe }) => {
                     <button className='btn' onClick={() => setModal('deposit')}>
                         <div className="row align-center g10">
                             <i className="fa-solid fa-circle-plus"/>
-                            <span>Пополнить бот</span>
+                            <span><Tr val={'Пополнить бот'} /></span>
                         </div>
                         <i className="fa-solid fa-chevron-right"/>
                     </button>
                     <button className='btn' onClick={() => setModal('withdraw')}>
                         <div className="row align-center g10">
                             <i className="fa-solid fa-circle-arrow-up"/>
-                            <span>Вывести с бота</span>
+                            <span><Tr val={'Вывести с бота'} /></span>
                         </div>
                         <i className="fa-solid fa-chevron-right"/>
                     </button>

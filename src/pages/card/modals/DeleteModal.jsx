@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button, Modal} from "antd";
+import {Tr} from "../../../components/translator/Tr.js";
 
 const DeleteModal = ({ modal, setModal, deleteItem, deleteMutation }) => {
 
@@ -13,16 +14,16 @@ const DeleteModal = ({ modal, setModal, deleteItem, deleteMutation }) => {
             closeIcon={false}
         >
             <div className="center">
-                <p className="title">Вы точно хотите удалить данную карту?</p>
+                <p className="title"><Tr val='Вы точно хотите удалить данную карту?' /></p>
                 <div className="btns">
                     <Button
                         className='btn delete'
                         onClick={deleteItem}
                         loading={deleteMutation?.isPending}
                     >
-                        Да, удалить
+                        <Tr val='Да, удалить' />
                     </Button>
-                    <Button className='btn' onClick={() => setModal('close')}>Нет, выйти</Button>
+                    <Button className='btn' onClick={() => setModal('close')}><Tr val='Нет, выйти' /></Button>
                 </div>
             </div>
         </Modal>

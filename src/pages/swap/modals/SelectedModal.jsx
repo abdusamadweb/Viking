@@ -7,6 +7,7 @@ import {toast} from "react-hot-toast";
 import {useMutation} from "@tanstack/react-query";
 import {$resp} from "../../../api/config.js";
 import GetFileDef from "../../../components/get-file/GetFileDef.jsx";
+import {trans} from "../../../components/translator/Tr.js";
 
 
 // fetch
@@ -85,8 +86,8 @@ const SelectedModal = ({ selItem, setSelItem, setModal }) => {
                         className="promo row align-center"
                         onClick={() => {
                             navigator.clipboard.writeText('LimonPay')
-                                .then(() => toast.success('Промокод скопирован!'))
-                                .catch(() => toast.error('Ошибка при копировании'));
+                                .then(() => toast.success(trans('Скопирован!')))
+                                .catch(() => toast.error(trans('Ошибка при копировании')))
                         }}
                     >
                         <span>Промокод: LimonPay</span>
@@ -105,7 +106,12 @@ const SelectedModal = ({ selItem, setSelItem, setModal }) => {
                     label='Введите ID'
                     rules={[{ required: true }]}
                 >
-                    <Input placeholder='Ваше ID...' type='tel' />
+                    <Input
+                       placeholder='Ваше ID...'
+                       type="tel"
+                       inputMode="numeric"
+                       pattern="[0-9]*"
+                    />
                 </Form.Item>
 
                 {check !== null && (
@@ -117,7 +123,9 @@ const SelectedModal = ({ selItem, setSelItem, setModal }) => {
                     label='Сумма'
                     rules={[{ required: true }]}
                 >
-                    <Input placeholder='Сумма оплаты' type='tel' />
+                    <Input placeholder='Сумма оплаты' type="tel"
+                           inputMode="numeric"
+                           pattern="[0-9]*" />
                 </Form.Item>
                 <div className='balance row between align-center'>
                     <span className='txt'>Ваш баланс</span>

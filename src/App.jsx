@@ -32,6 +32,7 @@ import AdminTrans from "./pages/admin/transactions/AdminTrans.jsx";
 import AdminProviders from "./pages/admin/providers/AdminProviders.jsx";
 import AdminSlider from "./pages/admin/slider/AdminSlider.jsx";
 import AdminUsers from "./pages/admin/users/AdminUsers.jsx";
+import i18n from "i18next";
 
 const Wrapper = ({ children }) => {
     const location = useLocation()
@@ -121,6 +122,20 @@ function App() {
 
     useEffect(() => {
         document.documentElement.scrollTo(0, 5)
+    }, [])
+
+
+    useEffect(() => {
+        if (!localStorage.getItem('i18nextLng')) {
+            const lang = navigator.language.slice(0, 2)
+            const supported = ['en', 'ru', 'uz']
+
+            if (supported.includes(lang)) {
+                i18n.changeLanguage(lang)
+            } else {
+                i18n.changeLanguage('ru') // fallback
+            }
+        }
     }, [])
 
 

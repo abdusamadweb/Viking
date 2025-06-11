@@ -1,11 +1,17 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Drawer, Radio} from "antd";
 import uz from '../../../assets/images/uz.svg'
 import ru from '../../../assets/images/ru.svg'
+import en from '../../../assets/images/en.png'
+import {useTranslation} from "react-i18next"
+import {Tr} from "../../translator/Tr.js";
 
 const LangDrawer = ({ modal, setModal }) => {
 
-    const [value, setValue] = useState(null)
+
+    // lang
+    const { i18n } = useTranslation()
+    const currentLang = i18n.language.split('-')[0]
 
 
     return (
@@ -19,14 +25,25 @@ const LangDrawer = ({ modal, setModal }) => {
             key='bottom'
         >
             <span className='line'/>
-            <p className="title">Тема</p>
+            <p className="title">
+                <Tr val={'Язык'} />
+            </p>
             <div className="cards-list">
                 <Radio.Group
-                    onChange={(e) => setValue(e.target.value)}
-                    value={value}
+                    onChange={(e) => i18n.changeLanguage(e.target.value)}
+                    value={currentLang}
                     options={[
                         {
-                            value: 1,
+                            value: 'ru',
+                            label: <div className='item'>
+                                <div className="row align-center g1">
+                                    <img src={ru} alt="ru"/>
+                                    <span className="item__title">Русский</span>
+                                </div>
+                            </div>,
+                        },
+                        {
+                            value: 'uz',
                             label: <div className='item'>
                                 <div className="row align-center g1">
                                     <img src={uz} alt="uz"/>
@@ -35,11 +52,11 @@ const LangDrawer = ({ modal, setModal }) => {
                             </div>,
                         },
                         {
-                            value: 2,
+                            value: 'en',
                             label: <div className='item'>
                                 <div className="row align-center g1">
-                                    <img src={ru} alt="ru"/>
-                                    <span className="item__title">Русский</span>
+                                    <img src={en} alt="en"/>
+                                    <span className="item__title">English</span>
                                 </div>
                             </div>,
                         },

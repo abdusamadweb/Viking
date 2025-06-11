@@ -4,6 +4,7 @@ import App from './App.jsx'
 import { init, miniApp } from '@telegram-apps/sdk';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter } from "react-router-dom";
+import './i18n.js'
 
 
 const initializeTelegramSDK = async () => {

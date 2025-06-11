@@ -6,6 +6,7 @@ import Charts from "./other/Charts.jsx";
 import {$resp} from "../../api/config.js";
 import {useQuery} from "@tanstack/react-query";
 import {formatPrice} from "../../assets/scripts/global.js";
+import {Tr, trans} from "../../components/translator/Tr.js";
 
 
 // fetch
@@ -43,7 +44,7 @@ const Monitoring = () => {
                     <span className="percent">{ percent }%</span>
                     <span className="txt">{ label }</span>
                 </div>
-                <div className="value">{ value.toLocaleString() } сум</div>
+                <div className="value">{ value.toLocaleString() } uzs</div>
             </li>
         )
     })
@@ -57,10 +58,10 @@ const Monitoring = () => {
                         <button className='back' onClick={() => navigate(-1)}>
                             <i className="fa-solid fa-circle-chevron-left"/>
                         </button>
-                        <span>Мониторинг</span>
+                        <span><Tr val='Мониторинг' /></span>
                     </div>
                     <Segmented
-                        options={['Пополнение', 'Снятие']}
+                        options={[trans('Пополнение'), trans('Снятие')]}
                         onChange={() => {
                             setNav(!nav)
                             refetch()
@@ -74,17 +75,17 @@ const Monitoring = () => {
                             refetch()
                         }}
                         options={[
-                            { value: '1', label: 'За последний 1 дней' },
-                            { value: '7', label: 'За последний 7 дней' },
-                            { value: '30', label: 'За последний 30 дней' },
+                            { value: '1', label: trans('За последний 1 дней') },
+                            { value: '7', label: trans('За последний 7 дней') },
+                            { value: '30', label: trans('За последний 30 дней') },
                         ]}
                     />
                 </div>
                 <div className='monitoring__body'>
                     <Charts data={data} />
                     <div className="summary row between align-center">
-                        <span className="txt">{ !nav ? 'Общее пополнение' : 'Общее снятие' }</span>
-                        <span className="value">{ formatPrice(data?.data?.total || 0) } сум</span>
+                        <span className="txt">{ !nav ? trans('Общее пополнение') : trans('Общее снятие') }</span>
+                        <span className="value">{ formatPrice(data?.data?.total || 0) } uzs</span>
                     </div>
                     <ul className='list'>
                         {items}

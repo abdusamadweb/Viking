@@ -53,7 +53,9 @@ const Auth = () => {
                             },
                         ]}
                     >
-                        <Input placeholder='Telefon raqam' type='tel' />
+                        <Input placeholder='Telefon raqam' type="tel"
+                               inputMode="numeric"
+                               pattern="[0-9]*" />
                     </Form.Item>
                     <Form.Item
                         label="Parol"

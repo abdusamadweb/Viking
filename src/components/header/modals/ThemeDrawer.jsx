@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Drawer, Radio} from "antd";
+import {Tr} from "../../translator/Tr.js";
 
 const ThemeDrawer = ({ modal, setModal }) => {
 
@@ -17,18 +18,31 @@ const ThemeDrawer = ({ modal, setModal }) => {
             key='bottom'
         >
             <span className='line'/>
-            <p className="title">Тема</p>
+            <p className="title">
+                <Tr val={'Тема'} />
+            </p>
             <div className="cards-list">
                 <Radio.Group
                     onChange={(e) => setValue(e.target.value)}
                     value={value}
                     options={[
+                        // {
+                        //     value: 1,
+                        //     label: <div className='item'>
+                        //         <div className="row align-center g1">
+                        //             <i className="fa-solid fa-mobile-screen-button"/>
+                        //             <span className="item__title">Системный</span>
+                        //         </div>
+                        //     </div>,
+                        // },
                         {
                             value: 1,
                             label: <div className='item'>
                                 <div className="row align-center g1">
-                                    <i className="fa-solid fa-mobile-screen-button"/>
-                                    <span className="item__title">Системный</span>
+                                    <i className="fa-solid fa-moon"/>
+                                    <span className="item__title">
+                                        <Tr val={'Ночь'} />
+                                    </span>
                                 </div>
                             </div>,
                         },
@@ -36,17 +50,10 @@ const ThemeDrawer = ({ modal, setModal }) => {
                             value: 2,
                             label: <div className='item'>
                                 <div className="row align-center g1">
-                                    <i className="fa-solid fa-moon"/>
-                                    <span className="item__title">Ночь</span>
-                                </div>
-                            </div>,
-                        },
-                        {
-                            value: 3,
-                            label: <div className='item'>
-                                <div className="row align-center g1">
                                     <i className="fa-solid fa-sun"/>
-                                    <span className="item__title">День</span>
+                                    <span className="item__title">
+                                        <Tr val={'День'} />
+                                    </span>
                                 </div>
                             </div>,
                         },

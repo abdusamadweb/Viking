@@ -11,6 +11,7 @@ import {formatPrice} from "../../assets/scripts/global.js";
 import Timer from "./other/Timer.jsx";
 import SuccessModal from "../../components/success-modal/SuccessModal.jsx";
 import DepositDrawer from "./other/DepositDrawer.jsx";
+import {Tr, trans} from "../../components/translator/Tr.js";
 
 // fetch
 const fetchData = async ({ page = 1, limit = 50, from_date, to_date }) => {
@@ -65,7 +66,7 @@ const History = () => {
         ]
         const month = monthNames[date.getMonth()] // getMonth() возвращает от 0 до 11
 
-        return `${day} - ${month}`
+        return `${day} - ${trans(month)}`
     }
 
 
@@ -89,16 +90,16 @@ const History = () => {
                                 </clipPath>
                             </defs>
                         </svg>
-                        <span>История</span>
+                        <span><Tr val='История' /></span>
                     </div>
                     <div className="statistics grid">
                         <div className="statistics__item">
-                            <div className="sub">Пополнено</div>
-                            <span className="count"><span className='green'>+</span> {formatPrice(WD?.data?.deposit || 0)} сум</span>
+                            <div className="sub"><Tr val='Пополнено' /></div>
+                            <span className="count"><span className='green'>+</span> {formatPrice(WD?.data?.deposit || 0)} uzs</span>
                         </div>
                         <div className="statistics__item">
-                            <div className="sub">Снято</div>
-                            <span className="count"><span className='red'>-</span> {formatPrice(WD?.data?.withdraw || 0)} сум</span>
+                            <div className="sub"><Tr val='Снято' /></div>
+                            <span className="count"><span className='red'>-</span> {formatPrice(WD?.data?.withdraw || 0)} uzs</span>
                         </div>
                     </div>
                 </div>
@@ -127,7 +128,7 @@ const History = () => {
                                                         </div>
                                                         <div>
                                                     <span
-                                                        className="txt">{item?.provider ? item?.provider.name : item.program ? 'Пополнение баланса' : 'Снято с баланса'}</span>
+                                                        className="txt">{item?.provider ? item?.provider.name : item.program ? trans('Пополнение баланса') : trans('Снято с баланса')}</span>
                                                             <span
                                                                 className='date'>{new Date(item.created_at).toLocaleString()}</span>
                                                         </div>
@@ -137,7 +138,7 @@ const History = () => {
                                                             <span className={item.program ? 'green' : 'red'}>
                                                                 {item.program ? '+' : '-'}
                                                             </span>
-                                                            {formatPrice(item.amount || 0)} сум
+                                                            {formatPrice(item.amount || 0)} uzs
                                                         </span>
                                                         <span className={`status ${item.status}`}>
                                                             {

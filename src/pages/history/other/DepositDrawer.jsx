@@ -7,6 +7,7 @@ import {toast} from "react-hot-toast";
 import {useMutation} from "@tanstack/react-query";
 import {$resp} from "../../../api/config.js";
 import Timer from "./Timer.jsx";
+import {Tr, trans} from "../../../components/translator/Tr.js";
 
 
 // fetch
@@ -25,11 +26,11 @@ const DepositDrawer = ({ selItem, setSelItem, modal, setModal, setSuccessText, r
         onSuccess: (res) => {
             toast.success(res.message)
 
+            refetch()
+
             setSuccessText(res.data.status)
             setModal('success')
             setSelItem(null)
-
-            refetch()
         },
         onError: (err) => {
             toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
@@ -66,18 +67,19 @@ const DepositDrawer = ({ selItem, setSelItem, modal, setModal, setSuccessText, r
             }}
             open={modal === 'drawer'}
             key='bottom'
-            height={545}
+            // height={545}
+            height={'auto'}
         >
             <span className='line'/>
-            <p className="title">Переведите сумму на указанному карту ниже</p>
+            <p className="title"><Tr val='Переведите сумму на указанному карту ниже' /></p>
             <div className="card">
                 <img className='card__img' src={logo} alt="img"/>
                 <button
                     className="card__number row align-center g10"
                     onClick={() => {
                         navigator.clipboard.writeText(selItem?.card_number)
-                            .then(() => toast.success('Скопирован!'))
-                            .catch(() => toast.error('Ошибка при копировании'));
+                            .then(() => toast.success(trans('Скопирован!')))
+                            .catch(() => toast.error(trans('Ошибка при копировании')))
                     }}
                 >
                     <span>{ formatCard(selItem?.card_number) }</span>
@@ -85,16 +87,16 @@ const DepositDrawer = ({ selItem, setSelItem, modal, setModal, setSuccessText, r
                 </button>
                 <span className="card__name">{ selItem?.card_name || 'No Name' }</span>
                 <div className="card__price row between">
-                    <span className="txt">Сумма</span>
+                    <span className="txt"><Tr val='Сумма' /></span>
                     <span className="count">{ formatPrice(selItem?.amount || 0) } uzs</span>
                 </div>
             </div>
             <div className="info">
                 <div className="title row align-center g10">
                     <i className="fa-solid fa-circle-info"/>
-                    <span>Примечание</span>
+                    <span><Tr val='Примечание' /></span>
                 </div>
-                <p className="desc">Сумма нужно перевести точно, не меньше, не больше!</p>
+                <p className="desc"><Tr val='Сумма нужно перевести точно, не меньше, не больше!' /></p>
             </div>
             <div className="timer center row align-center g10">
                 <img src={timer} alt="icon"/>
@@ -107,13 +109,13 @@ const DepositDrawer = ({ selItem, setSelItem, modal, setModal, setSuccessText, r
                     onClick={onFormSubmit}
                     loading={mutation.isPending}
                 >
-                    Я перевел указанную сумму
+                    <Tr val='Я перевел указанную сумму' />
                 </Button>
                 <Button
                     className='btn'
                     onClick={onFormReject}
                 >
-                    Отменить
+                    <Tr val='Отменить' />
                 </Button>
             </div>
         </Drawer>

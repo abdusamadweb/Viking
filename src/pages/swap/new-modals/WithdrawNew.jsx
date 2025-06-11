@@ -6,6 +6,7 @@ import {validateMessages} from "../../../assets/scripts/global.js";
 import {toast} from "react-hot-toast";
 import {useMutation} from "@tanstack/react-query";
 import {$resp} from "../../../api/config.js";
+import {Tr, trans} from "../../../components/translator/Tr.js";
 
 
 // fetch
@@ -102,13 +103,14 @@ const WithdrawNew = ({ data, modal, setModal, setModal2, refetchMe }) => {
             onClose={closeModal}
             open={modal === 'withdraw'}
             key='bottom'
-            height={464}
+            // height={464}
+            height={'auto'}
         >
             <div className="bgc">
                 <span className='line'/>
                 <p className="title">
-                    {nav === 1 && 'Пополнение букмекерской конторы'}
-                    {nav === 2 && 'Введите данные'}
+                    {nav === 1 && trans('Вывод денег из букмекерской конторы')}
+                    {nav <= 2 && trans('Введите данные')}
                 </p>
                 <div className="dots">
                     <span className={`dot ${nav === 1 ? 'active' : ''}`}/>
@@ -143,11 +145,11 @@ const WithdrawNew = ({ data, modal, setModal, setModal2, refetchMe }) => {
                         <div>
                             <Form.Item
                                 name='id'
-                                label='Введите ID'
+                                label={trans('Введите ID')}
                                 rules={[{ required: true }]}
                             >
                                 <Input
-                                    placeholder='Ваше ID...'
+                                    placeholder={trans('Ваше ID...')}
                                     type="tel"
                                     inputMode="numeric"
                                     pattern="[0-9]*"
@@ -163,11 +165,11 @@ const WithdrawNew = ({ data, modal, setModal, setModal2, refetchMe }) => {
                             <>
                                 <Form.Item
                                     name='code'
-                                    label='Код'
+                                    label={trans('Код')}
                                     rules={[{ required: true }]}
                                 >
                                     <Input
-                                        placeholder='Код'
+                                        placeholder={trans('Код')}
                                         type="tel"
                                         inputMode="numeric"
                                         pattern="[0-9]*"
@@ -179,7 +181,7 @@ const WithdrawNew = ({ data, modal, setModal, setModal2, refetchMe }) => {
                                     onClick={() => setModal2('video')}
                                 >
                                     <i className="fa-solid fa-circle-info"/>
-                                    <span>Как получить код?</span>
+                                    <span><Tr val='Как получить код?' /></span>
                                 </button>
                             </>
                         )}
@@ -190,7 +192,7 @@ const WithdrawNew = ({ data, modal, setModal, setModal2, refetchMe }) => {
                                 htmlType='submit'
                                 loading={nav === 2 ? loading : mutation.isPending}
                             >
-                                Пополнить
+                                <Tr val='Пополнить' />
                             </Button>
                         </div>
                     </Form>

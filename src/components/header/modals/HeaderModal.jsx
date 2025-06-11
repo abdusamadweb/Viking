@@ -4,12 +4,19 @@ import profile from '../../../assets/images/profile-def.png'
 import {useNavigate} from "react-router-dom";
 import {formatPhone} from "../../../assets/scripts/global.js";
 import GetFile from "../../get-file/GetFile.jsx";
+import {Tr, trans} from "../../translator/Tr.js";
+import {useTranslation} from "react-i18next";
 
-const HeaderModal = ({ modal, setModal, setModal2 }) => {
+const HeaderModal = ({ modal, setModal, setModal2, theme }) => {
 
     const navigate = useNavigate()
 
     const me = JSON.parse(localStorage.getItem('me'))
+
+
+    // lang
+    const { i18n } = useTranslation()
+    const currentLang = i18n.language.split('-')[0]
 
 
     return (
@@ -34,7 +41,7 @@ const HeaderModal = ({ modal, setModal, setModal2 }) => {
                 }}>
                     <div className="row align-center g10">
                         <i className="fa-solid fa-user"/>
-                        <span>Профиль</span>
+                        <span><Tr val={'Профиль'} /></span>
                     </div>
                     <i className="fa-solid fa-chevron-right"/>
                 </li>
@@ -44,34 +51,40 @@ const HeaderModal = ({ modal, setModal, setModal2 }) => {
                 }}>
                     <div className="row align-center g10">
                         <i className="fa-solid fa-credit-card"/>
-                        <span>Мои карты</span>
+                        <span><Tr val={'Мои карты'} /></span>
                     </div>
                     <i className="fa-solid fa-chevron-right"/>
                 </li>
                 <li className="list__item" onClick={() => setModal2('lang')}>
                     <div className="row align-center g10">
                         <i className="fa-solid fa-globe"/>
-                        <span>Язык</span>
+                        <span><Tr val={'Язык'} /></span>
                     </div>
                     <div className="aa row align-center">
-                        <span className='txt'>Русский</span>
+                        <span className='txt'>
+                            {currentLang === 'ru' && 'Русский'}
+                            {currentLang === 'uz' && 'O’zbekcha'}
+                            {currentLang === 'en' && 'English'}
+                        </span>
                         <i className="icon fa-solid fa-chevron-right"/>
                     </div>
                 </li>
-                {/*<li className="list__item" onClick={() => setModal2('theme')}>*/}
-                {/*    <div className="row align-center g10">*/}
-                {/*        <i className="fa-solid fa-palette"/>*/}
-                {/*        <span>Тема</span>*/}
-                {/*    </div>*/}
-                {/*    <div className="aa row align-center">*/}
-                {/*        <span className='txt'>Темный</span>*/}
-                {/*        <i className="icon fa-solid fa-chevron-right"/>*/}
-                {/*    </div>*/}
-                {/*</li>*/}
+                <li className="list__item" onClick={() => setModal2('theme')}>
+                    <div className="row align-center g10">
+                        <i className="fa-solid fa-palette"/>
+                        <span><Tr val={'Тема'} /></span>
+                    </div>
+                    <div className="aa row align-center">
+                        <span className='txt'>
+                            { trans(theme === 1 ? 'Темный' : 'Светлый') }
+                        </span>
+                        <i className="icon fa-solid fa-chevron-right"/>
+                    </div>
+                </li>
                 <li className="list__item">
                     <div className="row align-center g10">
                         <i className="fa-solid fa-volume-high"/>
-                        <span>Звук</span>
+                        <span><Tr val={'Звук'} /></span>
                     </div>
                     <Switch defaultChecked />
                 </li>
