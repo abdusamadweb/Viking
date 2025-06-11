@@ -102,11 +102,14 @@ const WithdrawNew = ({ data, modal, setModal, setModal2, refetchMe }) => {
             onClose={closeModal}
             open={modal === 'withdraw'}
             key='bottom'
-            height={nav === 3 ? 355 : 433}
+            height={464}
         >
             <div className="bgc">
                 <span className='line'/>
-                <p className="title">Переведите сумму на указанному карту ниже</p>
+                <p className="title">
+                    {nav === 1 && 'Пополнение букмекерской конторы'}
+                    {nav === 2 && 'Введите данные'}
+                </p>
                 <div className="dots">
                     <span className={`dot ${nav === 1 ? 'active' : ''}`}/>
                     <span className={`dot ${nav === 2 ? 'active' : ''}`}/>
@@ -137,7 +140,7 @@ const WithdrawNew = ({ data, modal, setModal, setModal2, refetchMe }) => {
                         validateMessages={validateMessages}
                         form={form}
                     >
-                        <div className={nav === 2 ? 'd-block' : 'd-none'}>
+                        <div>
                             <Form.Item
                                 name='id'
                                 label='Введите ID'
@@ -154,19 +157,6 @@ const WithdrawNew = ({ data, modal, setModal, setModal2, refetchMe }) => {
                             {check !== null && (
                                 <p className='player'>{ check }</p>
                             )}
-
-                            <Form.Item
-                                name='amount'
-                                label='Сумма вывода'
-                                rules={[{ required: true }]}
-                            >
-                                <Input
-                                    placeholder='Сумма вывода'
-                                    type="tel"
-                                    inputMode="numeric"
-                                    pattern="[0-9]*"
-                                />
-                            </Form.Item>
                         </div>
 
                         {nav === 3 && (

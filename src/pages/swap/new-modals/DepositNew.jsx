@@ -24,7 +24,7 @@ const DepositNew = ({ data, modal, setModal, me, refetchMe }) => {
 
     const [form] = Form.useForm()
 
-    const [selItem, setSelItem] = useState()
+    const [selItem, setSelItem] = useState(null)
     const [nav, setNav] = useState(1)
 
     const [check, setCheck] = useState(null)
@@ -101,7 +101,10 @@ const DepositNew = ({ data, modal, setModal, me, refetchMe }) => {
         >
             <div className="bgc">
                 <span className='line'/>
-                <p className="title">Переведите сумму на указанному карту ниже</p>
+                <p className="title">
+                    {nav === 1 && 'Пополнение букмекерской конторы'}
+                    {nav === 2 && 'Введите данные'}
+                </p>
                 <div className="dots">
                     <span className={`dot ${nav === 1 ? 'active' : ''}`}/>
                     <span className={`dot ${nav === 2 ? 'active' : ''}`}/>

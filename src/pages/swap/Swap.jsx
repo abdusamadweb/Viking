@@ -1,16 +1,9 @@
 import './Swap.scss'
 import React, {useState} from 'react';
-import {Empty} from "antd";
-import SelectedModal from "./modals/SelectedModal.jsx";
-import DepositModal from "./modals/DepositModal.jsx";
 import SuccessModal from "../../components/success-modal/SuccessModal.jsx";
-import DepositDrawer from "./modals/DepositDrawer.jsx";
-import WithdrawDrawer from "./modals/WithdrawDrawer.jsx";
 import {$resp} from "../../api/config.js";
 import {useQuery} from "@tanstack/react-query";
-import defImg from "../../assets/images/def-img.png"
 import {formatPrice} from "../../assets/scripts/global.js";
-import GetFileDef from "../../components/get-file/GetFileDef.jsx";
 import WithdrawNew from "./new-modals/WithdrawNew.jsx";
 import VideoModal from "./new-modals/VideoModal.jsx";
 import DepositNew from "./new-modals/DepositNew.jsx";
@@ -25,15 +18,12 @@ const fetchData = async () => {
 
 const Swap = ({ refetchMe }) => {
 
-    const [selItem, setSelItem] = useState(null)
+    const me = JSON.parse(localStorage.getItem('me'))
+
     const [modal, setModal] = useState('close')
     const [modal2, setModal2] = useState('close')
 
-    const me = JSON.parse(localStorage.getItem('me'))
-
-    // deposit states
-    const [activeTimer, setActiveTimer] = useState(false)
-    const [successText, setSuccessText] = useState(false)
+    const [successText, _] = useState(false)
 
 
     // fetch
@@ -53,7 +43,7 @@ const Swap = ({ refetchMe }) => {
                         <p className="title">{ me ? formatPrice(me?.amount) : 0 } uzs</p>
                     </div>
                     <div className="btns grid">
-                        <button className='btn' onClick={() => setModal(activeTimer ? 'drawer' : 'deposit')}>
+                        <button className='btn' onClick={() => setModal('deposit')}>
                             <i className="fa-solid fa-circle-plus"/>
                             <span>Пополнить</span>
                         </button>
@@ -74,7 +64,7 @@ const Swap = ({ refetchMe }) => {
                     <div>
                         <p className="sub-title">Вывод средств</p>
                         <p className="desc">
-                            <span>Минимальная сумма вывода средств составляет 9999999 сум.</span> Запросы на меньшие суммы не обрабатываются.
+                            <span>Минимальная сумма вывода средств составляет 9 999 999 сум.</span> Запросы на меньшие суммы не обрабатываются.
                         </p>
                     </div>
                 </div>

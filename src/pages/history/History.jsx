@@ -55,6 +55,20 @@ const History = () => {
     })
 
 
+    // date to Russian
+    function formatDateToRussian(str) {
+        const date = new Date(str)
+        const day = date.getDate() // без ведущего нуля
+        const monthNames = [
+            'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+            'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+        ]
+        const month = monthNames[date.getMonth()] // getMonth() возвращает от 0 до 11
+
+        return `${day} - ${month}`
+    }
+
+
     return (
         <div className="history page">
             <div className="container">
@@ -95,7 +109,7 @@ const History = () => {
                                 {data?.data?.map((i, index) => (
                                     <li key={index}>
                                         <div className="titles row between align-center">
-                                            <span className="month">{ i.date }</span>
+                                            <span className="month">{ formatDateToRussian(i.date) }</span>
                                         </div>
                                         {
                                             i?.transactions?.map(item => (
