@@ -1,10 +1,19 @@
 @use "/src/scss" as *;
 
+:root {
+  --p404-bg: linear-gradient(180deg, #102B52 0%, #002A61 15%, #200061 70.6%, #000000 100%);
+  --p404-svg: #ffffff30;
+}
+.light {
+  --p404-bg: var(--bg-color);
+  --p404-svg: #add7ec;
+}
+
 .p404 {
   min-height: calc(100vh - 164px);
   display: grid;
   place-items: center;
-  background: linear-gradient(180deg, #102B52 0%, #002A61 15%, #200061 70.6%, #000000 100%);
+  background: var(--p404-bg);
 
   .ant-result-title {
     color: var(--text-color);
@@ -15,7 +24,7 @@
 
   .ant-result-icon {
     svg g g path {
-      fill: #ffffff30;
+      fill: var(--p404-svg);
     }
   }
 }

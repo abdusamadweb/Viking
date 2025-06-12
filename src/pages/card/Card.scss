@@ -1,9 +1,24 @@
 @use "/src/scss" as *;
 
+:root {
+  --card-bg: linear-gradient(180deg, #002A61 0%, #200061 47.6%, #000000 100%);
+  --card-plus-icon: var(--text-color);
+  --card-item-bg: #FFFFFF1A;
+  --card-item-btn-bg: #FFFFFF1A;
+  --card-item-img-bg: #FFFFFF1A;
+}
+.light {
+  --card-bg: linear-gradient(180deg, #F6FAFF 0%, #E8F7FF 73.49%, #cbdcf1 100%);
+  --card-plus-icon: #0095FF;
+  --card-item-bg: #fff;
+  --card-item-btn-bg: #EFF3F6;
+  --card-item-img-bg: #9aafc2;
+}
+
 .card-page {
   min-height: 100vh;
   padding-block: 25px;
-  background: linear-gradient(180deg, #002A61 0%, #200061 47.6%, #000000 100%);
+  background: var(--card-bg);
 
   &__head {
     .titles {
@@ -13,7 +28,11 @@
 
       i {
         font-size: 24px;
-        color: #fff;
+        color: var(--text-color);
+      }
+      .fa-circle-plus {
+        font-size: 28px;
+        color: var(--card-plus-icon);
       }
     }
   }
@@ -28,7 +47,7 @@
         align-items: center;
         padding: 10px 12px;
         border-radius: 12px;
-        background: #FFFFFF1A;
+        background: var(--card-item-bg);
 
         .imgs {
           width: 50px;
@@ -36,7 +55,7 @@
           display: grid;
           place-items: center;
           border-radius: 12px;
-          background: #FFFFFF1A;
+          background: var(--card-item-img-bg);
 
           img {
             width: 30px;
@@ -53,7 +72,7 @@
         }
 
         i {
-          color: #fff;
+          color: var(--text-color);
         }
 
         .btns {
@@ -67,7 +86,7 @@
             display: grid;
             place-items: center;
             border-radius: 8px;
-            background: #FFFFFF1A;
+            background: var(--card-item-btn-bg);
           }
 
           i {
@@ -105,7 +124,8 @@
         .desc {
           font-size: 12px;
           margin-bottom: 1rem;
-          color: #FFFFFF99;
+          color: var(--text-color);
+          opacity: 0.8;
         }
 
         .btn {
@@ -147,6 +167,7 @@
 
     .ant-input, .inp-mask {
       border: 1px solid #FFFFFF4D !important;
+      color: #fff !important;
       background: #FFFFFF4D !important;
       backdrop-filter: blur(10px) !important;
 
@@ -172,7 +193,7 @@
       font-weight: 500;
       font-size: 18px;
       margin-bottom: 6px;
-      color: #fff;
+      color: var(--text-color);
     }
 
     .ant-radio-group {
@@ -186,7 +207,7 @@
         place-items: center;
         border-radius: 50%;
         border: none;
-        background: #323F59;
+        background: var(--history-drawer-dots);
 
         &.ant-radio-button-wrapper-checked {
           background: $main-color;
@@ -234,6 +255,7 @@
     gap: 10px;
     
     .delete {
+      color: #fff;
       background: #FF4C4C !important;
     }
   }

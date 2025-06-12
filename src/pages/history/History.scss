@@ -7,6 +7,7 @@
   --history-month-bg: #2B2770;
   --history-item-border: #301A5D;
   --history-drawer-dots: #323F59;
+  --monitoring-summary: #2C1A51;
 }
 .light {
   --history-bg: linear-gradient(180deg, #F6FAFF 0%, #E8F7FF 73.49%, #F6FAFF 100%);
@@ -15,6 +16,7 @@
   --history-month-bg: #fff;
   --history-item-border: #D2E6F5;
   --history-drawer-dots: #ccd9ec;
+  --monitoring-summary: #fff;
 }
 
 .history {
@@ -73,7 +75,7 @@
       }
 
       .month {
-        font-size: 14px;
+        font-size: 16px;
         color: #9593B7;
       }
       .count {
@@ -241,7 +243,7 @@
 
       i {
         font-size: 24px;
-        color: #fff;
+        color: var(--text-color);
       }
     }
 
@@ -249,6 +251,7 @@
       width: 100%;
       display: block;
       margin-bottom: 1rem;
+      background: var(--img-card-bg);
 
       &-item {
         border-radius: 10px;
@@ -264,7 +267,8 @@
       margin-bottom: 1rem;
 
       .ant-select-selector {
-        border-color: #3D4171;
+        border-color: var(--bg-nav-modal-border);
+        background: var(--img-card-bg);
       }
 
       .ant-select-arrow {
@@ -279,7 +283,7 @@
       padding: 10px;
       margin-block: 1rem;
       border-radius: 12px;
-      background: #2C1A51;
+      background: var(--monitoring-summary);
 
       .txt {
         color: #ABA3B9;
@@ -308,6 +312,7 @@
           place-items: center;
           font-size: 14px;
           border-radius: 20px;
+          color: #fff;
           background: linear-gradient(145deg, #0f409a, #4DA3E6);
         }
 

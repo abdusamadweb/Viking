@@ -1,8 +1,19 @@
 @use "/src/scss" as *;
 
+:root {
+  --profile-input: #120644;
+  --profile-input-border: var(--bg-nav-modal-border);
+}
+.light {
+  --profile-bg: linear-gradient(180deg, #F6FAFF 0%, #E8F7FF 73.49%, #c5d6ee 100%);
+  --profile-input: #fff;
+  --profile-input-border: #D2E6F5;
+}
+
 .profile {
   min-height: 100vh;
   padding-block: 25px;
+  background: var(--profile-bg);
 
   &__head {
     .titles {
@@ -12,7 +23,7 @@
 
       i {
         font-size: 24px;
-        color: #fff;
+        color: var(--text-color);
       }
     }
   }
@@ -23,24 +34,25 @@
       text-align: center;
 
       .ant-form-item-required {
-        color: #fff;
+        color: var(--text-color);
       }
 
       .ant-input, .ant-picker {
         width: 100%;
         height: 43px;
-        background: #120644 !important;
+        border-color: var(--profile-input-border) !important;
+        background: var(--profile-input) !important;
       }
 
       .ant-picker-input {
-        color: #fff !important;
+        color: var(--text-color) !important;
 
         input::placeholder {
           color: #5d667c !important;
         }
       }
-      .ant-picker-suffix {
-        color: #fff;
+      .ant-picker-suffix, .ant-picker-clear {
+        color: var(--text-color);
       }
     }
 
@@ -78,7 +90,7 @@
           top: 33px;
         }
         .ant-upload-list-item, .anticon {
-          color: #fff !important;
+          color: var(--text-color) !important;
         }
         .ant-upload-list-item-error .anticon {
           color: #ff4d4f !important;
