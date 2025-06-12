@@ -120,10 +120,10 @@ const SelectedModal = ({ selItem, setSelItem, setModal }) => {
 
                 <Form.Item
                     name='amount'
-                    label='Сумма'
+                    label={trans('Сумма')}
                     rules={[{ required: true }]}
                 >
-                    <Input placeholder='Сумма оплаты' type="tel"
+                    <Input placeholder={trans('Сумма оплаты')} type="tel"
                            inputMode="numeric"
                            pattern="[0-9]*" />
                 </Form.Item>

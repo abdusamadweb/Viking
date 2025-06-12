@@ -1,5 +1,15 @@
 @use "/src/scss" as *;
 
+:root {
+  --nav-bg: #1A1A1E;
+  --nav-icon-color: #8C8C8E;
+}
+
+.light {
+  --nav-bg: #fff;
+  --nav-icon-color: #85A4B9;
+}
+
 .nav-bar {
   position: fixed;
   bottom: 0;
@@ -9,7 +19,7 @@
   padding: 16px 8px 20px;
   margin: 0 auto;
   border-radius: 22px 22px 0 0;
-  background: #1A1A1E;
+  background: var(--nav-bg);
   box-shadow: 0px -5px 40px -5px #33333395;
 
   @include breakpoint-down(310px) {
@@ -27,18 +37,22 @@
         align-items: center;
         flex-direction: column;
         gap: 4px;
-        color: #8C8C8E;
+        color: var(--nav-icon-color);
 
         .txt {
           font-size: 12px;
           margin-top: 4px;
         }
 
+        svg path {
+          fill: var(--nav-icon-color);
+        }
+
         &.active {
-          color: #fff;
+          color: var(--text-color);
 
           path {
-            fill: #fff;
+            fill: var(--text-color);
           }
           .active {
             fill: $main-color;

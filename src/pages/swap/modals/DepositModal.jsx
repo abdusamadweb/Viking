@@ -61,7 +61,7 @@ const DepositModal = ({ modal, setModal, setActiveTimer, setDrawerCard }) => {
             >
                 <Form.Item
                     name='amount'
-                    label='Сумма'
+                    label={trans('Сумма')}
                     rules={[{ required: true }]}
                 >
                     <Input placeholder={trans('Сумма оплаты')} type="tel"

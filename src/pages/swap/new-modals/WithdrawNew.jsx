@@ -44,6 +44,7 @@ const WithdrawNew = ({ data, modal, setModal, setModal2, refetchMe }) => {
             }, 1500)
         },
         onError: (err) => {
+            setLoading(false)
             toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
         }
     })
@@ -103,13 +104,13 @@ const WithdrawNew = ({ data, modal, setModal, setModal2, refetchMe }) => {
             onClose={closeModal}
             open={modal === 'withdraw'}
             key='bottom'
-            height={464}
+            height={nav === 3 ? 480 : 464}
         >
             <div className="bgc">
                 <span className='line'/>
                 <p className="title">
                     {nav === 1 && trans('Вывод денег из букмекерской конторы')}
-                    {nav <= 2 && trans('Введите данные')}
+                    {nav >= 2 && trans('Введите данные')}
                 </p>
                 <div className="dots">
                     <span className={`dot ${nav === 1 ? 'active' : ''}`}/>

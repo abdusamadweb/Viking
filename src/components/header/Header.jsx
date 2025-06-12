@@ -3,13 +3,16 @@ import './Header.scss'
 import {Link, useHref} from "react-router-dom";
 import {hiddenRoutes} from "../../assets/scripts/mockAPI.js";
 import logo from '../../assets/images/logo.svg'
+import logoLight from '../../assets/images/logo-light.png'
 import HeaderModal from "./modals/HeaderModal.jsx";
 import LangDrawer from "./modals/LangDrawer.jsx";
 import ThemeDrawer from "./modals/ThemeDrawer.jsx";
 import {formatPrice} from "../../assets/scripts/global.js";
+import {useTheme} from "../../context/ThemeContext.jsx";
 
-const Header = () => {
+const Header = ({ setEffect }) => {
 
+    const { theme: themeL } = useTheme()
     const [theme, setTheme] = useState(1)
 
     const [modal, setModal] = useState('close')
@@ -26,7 +29,7 @@ const Header = () => {
             <div className="container">
                 <div className="header__inner row between align-center g10">
                     <Link className='logo' to='/'>
-                        <img src={logo} alt="logo"/>
+                        <img src={themeL === 'dark' ? logo : logoLight} alt="logo"/>
                     </Link>
                     <div className='d-flex align-center g1'>
                         {
@@ -59,9 +62,9 @@ const Header = () => {
             <LangDrawer
                 modal={modal2}
                 setModal={setModal2}
+                setEffect={setEffect}
             />
             <ThemeDrawer
-                theme={theme}
                 setTheme={setTheme}
                 modal={modal2}
                 setModal={setModal2}

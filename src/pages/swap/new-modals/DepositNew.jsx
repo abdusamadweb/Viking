@@ -38,6 +38,7 @@ const DepositNew = ({ data, modal, setModal, me, refetchMe }) => {
             toast.success(res.message)
 
             setCheck(res?.player?.Name)
+            setNav(3)
         },
         onError: (err) => {
             toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
@@ -98,17 +99,17 @@ const DepositNew = ({ data, modal, setModal, me, refetchMe }) => {
             onClose={closeModal}
             open={modal === 'deposit'}
             key='bottom'
-            height={nav === 2 ? 600 : 433}
+            height={nav >= 2 ? 565 : 433}
         >
             <div className="bgc">
                 <span className='line'/>
                 <p className="title">
                     {nav === 1 && trans('Пополнение букмекерской конторы')}
-                    {nav === 2 && trans('Введите данные')}
+                    {nav >= 2 && trans('Введите данные')}
                 </p>
                 <div className="dots">
                     <span className={`dot ${nav === 1 ? 'active' : ''}`}/>
-                    <span className={`dot ${nav === 2 ? 'active' : ''}`}/>
+                    <span className={`dot ${nav >= 2 ? 'active' : ''}`}/>
                 </div>
             </div>
             {nav === 1 && (
@@ -131,7 +132,7 @@ const DepositNew = ({ data, modal, setModal, me, refetchMe }) => {
                     </div>
             )}
 
-            {nav === 2 && (
+            {nav >= 2 && (
                 <>
                     <div className="div">
                         <Form

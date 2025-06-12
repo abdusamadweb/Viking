@@ -1,6 +1,22 @@
 @use '/src/scss' as *;
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
+:root {
+  --text-color: #fff;
+  --bg-color: linear-gradient(180deg, #011D42 0%, #002061 47.6%, #000000 100%);
+  --modal-bg1: #1C2A47;
+  --modal-bg2: #141D32;
+  --input-bg: var(--modal-bg2);
+}
+
+.light {
+  --text-color: #191B1C;
+  --bg-color: linear-gradient(180deg, #F9F9F9 0%, #F6FAFF 15%, #E8F7FF 53.85%, #F6FAFF 100%);
+  --modal-bg1: #FFF;
+  --modal-bg2: #EFF3F6;
+  --input-bg: #EFF3F6;
+}
+
 .App {
   position: relative;
   max-width: 600px;
@@ -8,14 +24,18 @@
   width: 100%;
   font-family: "Nunito", sans-serif !important;
   margin: 0 auto;
-  color: #fff;
-  background: linear-gradient(180deg, #011D42 0%, #002061 47.6%, #000000 100%);
+  color: var(--text-color);
+  background: var(--bg-color);
 }
 
 .page {
   min-height: calc(100vh - 85px);
   padding-bottom: 90px;
   margin-top: -2px;
+}
+
+.toast {
+
 }
 
 .loader {
@@ -54,8 +74,10 @@
   object-fit: cover;
 }
 
-.ant-input {
-  background-color: #141D32 !important;
+.ant-input, .inp-mask {
+  border-color: var(--bg-nav-modal-border) !important;
+  color: var(--text-color) !important;
+  background-color: var(--input-bg) !important;
 
   &::placeholder {
     color: #727784;
@@ -73,7 +95,7 @@
     background: #006800;
   }
   &.reject {
-    background: #7D3030;
+    background: #9a3535;
   }
   &.pending {
     background: #5E307D;
@@ -111,18 +133,25 @@
   .ant-modal-content {
     padding: 1rem;
     border-radius: 15px;
-    color: #fff;
-    background: $bg-content1;
+    color: var(--text-color);
+    background: var(--modal-bg1);
+
+    .title {
+      font-weight: 600;
+      font-size: 20px;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
 
     .anticon {
-      color: #fff;
+      color: var(--text-color);
     }
 
     .ant-form-item {
       margin-bottom: 12px;
 
-      .ant-form-item-label label {
-        color: #fff;
+      .ant-form-item-label, .ant-form-item-label label {
+        color: var(--text-color);
       }
     }
 
@@ -135,6 +164,10 @@
     width: 100%;
   }
 
+  .ant-input {
+
+  }
+
   .balance {
     font-size: 16px;
     margin-bottom: 1rem;
@@ -143,7 +176,7 @@
       color: #8D94A3;
     }
     .price {
-      color: #fff;
+      color: var(--text-color);
     }
   }
 
@@ -158,10 +191,15 @@
       padding: 12px 1rem;
       border-radius: 12px;
       border: none;
-      color: #fff;
-      background: #323F59 !important;
+      color: var(--text-color);
+      background: var(--bg-drawer-input) !important;
+
+      &:hover, &:focus {
+        color: var(--text-color);
+      }
 
       &.submit {
+        color: #fff;
         background: $main-color !important;
       }
     }
@@ -185,7 +223,7 @@
     font-size: 16px;
     line-height: 1.2;
     margin-bottom: 1rem;
-    color: #D2D4DA;
+    color: #9d9fa4;
   }
 
   .btn {
@@ -232,15 +270,16 @@
   .ant-drawer-body {
     padding: 10px 1rem 20px;
     border-radius: 20px 20px 0 0;
-    color: #fff;
-    background: #1C2A47;
+    color: var(--text-color);
+    background: var(--modal-bg1);
   }
 
   .info {
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 20px;
-    border: 1px solid #2E3B55;
+    border: 1px solid var(--bg-nav-modal-border);
+    color: var(--text-color);
 
     .title {
       font-size: 18px;

@@ -5,6 +5,9 @@ import { init, miniApp } from '@telegram-apps/sdk';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter } from "react-router-dom";
 import './i18n.js'
+import i18n from './i18n.js'
+import {I18nextProvider} from "react-i18next";
+import {ThemeProvider} from "./context/ThemeContext.jsx";
 
 
 const initializeTelegramSDK = async () => {
@@ -21,8 +24,6 @@ const initializeTelegramSDK = async () => {
     }
 }
 
-initializeTelegramSDK()
-
 const queryClient = new QueryClient()
 
 
@@ -31,11 +32,15 @@ const startApp = async () => {
 
     createRoot(document.getElementById('root')).render(
         <StrictMode>
-            <QueryClientProvider client={queryClient}>
-                <BrowserRouter>
-                    <App />
-                </BrowserRouter>
-            </QueryClientProvider>
+            <ThemeProvider>
+                <QueryClientProvider client={queryClient}>
+                    <BrowserRouter>
+                        <I18nextProvider i18n={i18n}>
+                            <App />
+                        </I18nextProvider>
+                    </BrowserRouter>
+                </QueryClientProvider>
+            </ThemeProvider>
         </StrictMode>
     )
 }

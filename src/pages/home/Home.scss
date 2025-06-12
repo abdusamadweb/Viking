@@ -1,7 +1,17 @@
 @use '/src/scss' as *;
 
+:root {
+  --home-item-bg: #FFFFFF1A;
+  --home-item-icon-color: #fff;
+}
+
+.light {
+  --home-item-bg: #fff;
+  --home-item-icon-color: #0095FF;
+}
+
 .home {
-  background: linear-gradient(180deg,#102B52 0%, #002A61 10%, #200061 60%, #000000 100%);
+  background: var(--bg-color);
 
   .container {
     padding: 0;
@@ -17,7 +27,7 @@
       align-items: center;
       padding: 12px 1rem;
       border-radius: 15px;
-      background: #FFFFFF1A;
+      background: var(--home-item-bg);
 
       i {
         color: #838BA9;
@@ -25,13 +35,13 @@
 
       .row {
         i {
-          font-size: 22px;
-          color: #fff;
+          font-size: 24px;
+          color: var(--home-item-icon-color);
         }
         span {
           font-weight: 500;
           font-size: 17px;
-          color: #fff;
+          color: var(--text-color);
         }
       }
     }

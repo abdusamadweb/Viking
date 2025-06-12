@@ -6,12 +6,20 @@ import en from '../../../assets/images/en.png'
 import {useTranslation} from "react-i18next"
 import {Tr} from "../../translator/Tr.js";
 
-const LangDrawer = ({ modal, setModal }) => {
+const LangDrawer = ({ modal, setModal, setEffect }) => {
 
 
     // lang
     const { i18n } = useTranslation()
     const currentLang = i18n.language.split('-')[0]
+
+    const changeLang = async (e) => {
+        const lang = e.target.value
+        await i18n.changeLanguage(lang)
+        localStorage.setItem('i18nextLng', lang) // <-- bu muhim
+
+        setEffect(prev => !prev)
+    }
 
 
     return (
@@ -31,7 +39,7 @@ const LangDrawer = ({ modal, setModal }) => {
             </p>
             <div className="cards-list">
                 <Radio.Group
-                    onChange={(e) => i18n.changeLanguage(e.target.value)}
+                    onChange={changeLang}
                     value={currentLang}
                     options={[
                         {

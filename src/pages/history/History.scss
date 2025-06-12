@@ -1,8 +1,25 @@
 @use "/src/scss" as *;
 
+:root {
+  --history-bg: linear-gradient(180deg, #102B52 0%, #200061 47.6%, #000000 100%);
+  --history-bg-head: linear-gradient(180deg, #102B52 0%, #112853 100%);
+  --history-head-card-bg: #272F71;
+  --history-month-bg: #2B2770;
+  --history-item-border: #301A5D;
+  --history-drawer-dots: #323F59;
+}
+.light {
+  --history-bg: linear-gradient(180deg, #F6FAFF 0%, #E8F7FF 73.49%, #F6FAFF 100%);
+  --history-bg-head: linear-gradient(180deg, #F9F9F9 0%, #f3faff 44%, #e9f0f5 100%);
+  --history-head-card-bg: #fff;
+  --history-month-bg: #fff;
+  --history-item-border: #D2E6F5;
+  --history-drawer-dots: #ccd9ec;
+}
+
 .history {
   padding-block: 0 120px;
-  background: linear-gradient(180deg, #102B52 0%, #200061 47.6%, #000000 100%);
+  background: var(--history-bg);
 
   &__head {
     position: sticky;
@@ -12,7 +29,7 @@
     padding-inline: 1rem;
     margin-left: -1rem;
     z-index: 10;
-    background: linear-gradient(180deg, #102B52 0%, #112853 100%);
+    background: var(--history-bg-head);
 
     .title {
       font-weight: 500;
@@ -28,7 +45,7 @@
       &__item {
         padding: 10px;
         border-radius: 12px;
-        background: #272F71;
+        background: var(--history-head-card-bg);
 
         .sub {
           font-size: 12px;
@@ -49,7 +66,7 @@
       width: calc(100% + 2rem);
       padding: 8px 1rem;
       margin-left: -1rem;
-      background: #2B2770;
+      background: var(--history-month-bg);
 
       &.margin {
         margin-bottom: 2px;
@@ -57,11 +74,12 @@
 
       .month {
         font-size: 14px;
+        color: #9593B7;
       }
       .count {
-        font-weight: 500;
-        font-size: 14px;
-        color: #9593B7;
+        font-weight: 600;
+        font-size: 16px;
+        color: var(--text-color);
       }
     }
 
@@ -75,7 +93,7 @@
         cursor: pointer;
 
         &:not(:last-child) {
-          border-bottom: 1px solid #301A5D;
+          border-bottom: 1px solid var(--history-item-border);
         }
 
         .imgs {
@@ -117,6 +135,7 @@
         .status {
           font-size: 12px;
           padding: 3px 10px;
+          color: #fff;
         }
       }
     }
@@ -126,9 +145,42 @@
       align-items: center;
       padding-top: 10px;
 
+      .ant-pagination-item {
+        background: var(--modal-bg2);
+
+        a {
+          color: var(--text-color);
+        }
+      }
+      .ant-pagination-item-active a {
+        color: $main-color;
+      }
+
+      .anticon {
+        color: #b3aadc;
+      }
+
       .ant-pagination-total-text {
         color: #b3aadc;
       }
+
+      .ant-select-selector {
+        border: none;
+        color: var(--text-color);
+        background: var(--modal-bg2);
+      }
+    }
+  }
+}
+
+.ant-select-dropdown {
+  background: var(--modal-bg2);
+
+  .ant-select-item-option {
+    color: var(--text-color);
+
+    &.ant-select-item-option-active, &.ant-select-item-option-selected {
+      background: #b3aadc;
     }
   }
 }
@@ -144,6 +196,7 @@
     }
     .status {
       font-size: 16px;
+      color: #fff;
     }
   }
 
@@ -154,7 +207,7 @@
       padding-block: 10px;
 
       &:not(:last-child) {
-        border-bottom: 1px dotted #323F59;
+        border-bottom: 1px dashed var(--history-drawer-dots);
       }
 
       .txt {

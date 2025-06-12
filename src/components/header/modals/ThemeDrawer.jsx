@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Drawer, Radio} from "antd";
 import {Tr} from "../../translator/Tr.js";
+import {useTheme} from "../../../context/ThemeContext.jsx";
 
 const ThemeDrawer = ({ modal, setModal }) => {
 
-    const [value, setValue] = useState(null)
+    const { theme, changeTheme } = useTheme()
 
 
     return (
@@ -24,18 +25,9 @@ const ThemeDrawer = ({ modal, setModal }) => {
             </p>
             <div className="cards-list">
                 <Radio.Group
-                    onChange={(e) => setValue(e.target.value)}
-                    value={value}
+                    value={theme === 'dark' ? 1 : 2}
+                    onChange={(e) => changeTheme(e.target.value)}
                     options={[
-                        // {
-                        //     value: 1,
-                        //     label: <div className='item'>
-                        //         <div className="row align-center g1">
-                        //             <i className="fa-solid fa-mobile-screen-button"/>
-                        //             <span className="item__title">Системный</span>
-                        //         </div>
-                        //     </div>,
-                        // },
                         {
                             value: 1,
                             label: <div className='item'>
@@ -58,6 +50,15 @@ const ThemeDrawer = ({ modal, setModal }) => {
                                 </div>
                             </div>,
                         },
+                        // {
+                        //     value: 1,
+                        //     label: <div className='item'>
+                        //         <div className="row align-center g1">
+                        //             <i className="fa-solid fa-mobile-screen-button"/>
+                        //             <span className="item__title">Системный</span>
+                        //         </div>
+                        //     </div>,
+                        // },
                     ]}
                 />
             </div>

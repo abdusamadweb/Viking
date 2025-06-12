@@ -26,7 +26,7 @@ const Monitoring = () => {
 
     // fetch
     const { data, refetch } = useQuery({
-        queryKey: ['statistic', {last_days: days, program: String(nav)}],
+        queryKey: ['statistic', {last_days: days, program: String(!nav)}],
         queryFn: ({ queryKey }) => {
             const [_key, body] = queryKey
             return getStatistic(body)

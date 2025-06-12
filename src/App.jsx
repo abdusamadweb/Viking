@@ -73,6 +73,7 @@ const fetchProvider = async () => {
 
 function App() {
 
+    const [_____, setEffect] = useState(false)
     const [loading, setLoading] = useState(true)
     const path = window.location.pathname
 
@@ -136,7 +137,7 @@ function App() {
                 i18n.changeLanguage('ru') // fallback
             }
         }
-    }, [])
+    }, [me])
 
 
     return (
@@ -148,7 +149,7 @@ function App() {
 
             <ConfigProvider theme={antdConfig()}>
 
-                <Header />
+                <Header refetchMe={refetchMe} setEffect={setEffect} />
                 <NavBar />
 
                 <Routes>
@@ -197,6 +198,7 @@ function App() {
         </Wrapper>
 
         <Toaster
+            containerClassName='toast'
             position="top-center"
             reverseOrder={true}
             toastOptions={{style: {borderRadius: '30px'}}}
