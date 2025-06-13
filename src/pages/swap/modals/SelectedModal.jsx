@@ -46,7 +46,7 @@ const SelectedModal = ({ selItem, setSelItem, setModal }) => {
     const muCheck = useMutation({
         mutationFn: chechId,
         onSuccess: (res) => {
-            toast.success(res.message)
+            // toast.success(res.message)
 
             setCheck(res?.player?.Name)
         },

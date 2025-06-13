@@ -48,7 +48,7 @@ const Profile = () => {
     const muUpdate = useMutation({
         mutationFn: updateProfile,
         onSuccess: (res) => {
-            toast.success(res.message)
+            toast.success(res.message || 'Успех!')
             
             refetchMe()
         },
@@ -110,7 +110,7 @@ const Profile = () => {
                                 onChange={(e) => setFile(e)}
                                 listType='text'
                             >
-                                <button className='upload-btn'>
+                                <button className='upload-btn' type='button'>
                                     <i className="fa-solid fa-pen"/>
                                 </button>
                             </Upload>

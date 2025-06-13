@@ -35,7 +35,7 @@ const DepositNew = ({ data, modal, setModal, me, refetchMe }) => {
     const muCheck = useMutation({
         mutationFn: chechId,
         onSuccess: (res) => {
-            toast.success(res.message)
+            // toast.success(res.message)
 
             setCheck(res?.player?.Name)
             setNav(3)

@@ -140,6 +140,15 @@ function App() {
     }, [me])
 
 
+    // eruda
+    useEffect(() => {
+        import('eruda').then((eruda) => {
+            eruda.init()
+            eruda.show()
+        })
+    }, [])
+
+
     return (
     <div className={`App ${path.includes('login') ? 'pb0' : ''} ${path.includes('admin') ? 'admin' : ''}`}>
 
@@ -201,7 +210,11 @@ function App() {
             containerClassName='toast'
             position="top-center"
             reverseOrder={true}
-            toastOptions={{style: {borderRadius: '30px'}}}
+            toastOptions={{style: {
+                    borderRadius: '30px',
+                    color: 'var(--text-color)',
+                    background: 'var(--modal-bg1)'
+            }}}
         />
     </div>
   )

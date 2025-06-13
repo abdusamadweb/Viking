@@ -35,7 +35,7 @@ const WithdrawNew = ({ data, modal, setModal, setModal2, refetchMe }) => {
     const muCheck = useMutation({
         mutationFn: chechId,
         onSuccess: (res) => {
-            toast.success(res.message)
+            // toast.success(res.message)
 
             setCheck(res?.player?.Name)
             setTimeout(() => {
