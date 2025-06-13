@@ -11,6 +11,7 @@ import {useQuery} from "@tanstack/react-query";
 import GetFileDef from "../../components/get-file/GetFileDef.jsx";
 import {Tr} from "../../components/translator/Tr.js";
 import {toast} from "react-hot-toast";
+import GetChatId from "../../components/GetChatId.jsx";
 
 
 // fetch
@@ -36,12 +37,16 @@ const Home = ({ refetchMe }) => {
         queryFn: fetchSlider,
         keepPreviousData: true,
     })
+    console.log(window.location, 'Href')
 
 
     return (
         <div className='home page'>
             <div className="container">
                 <div className="home__body">
+                    <div className='py3'>
+                        <GetChatId />
+                    </div>
                     <Carousel
                         autoplay
                         dots={false}
