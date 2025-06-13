@@ -33,6 +33,7 @@ import AdminProviders from "./pages/admin/providers/AdminProviders.jsx";
 import AdminSlider from "./pages/admin/slider/AdminSlider.jsx";
 import AdminUsers from "./pages/admin/users/AdminUsers.jsx";
 import i18n from "i18next";
+import eruda from "eruda";
 
 const Wrapper = ({ children }) => {
     const location = useLocation()
@@ -142,10 +143,13 @@ function App() {
 
     // eruda
     useEffect(() => {
-        import('eruda').then((eruda) => {
-            eruda.init()
-            eruda.show()
-        })
+        const script = document.createElement('script');
+        script.src = '//cdn.jsdelivr.net/npm/eruda';
+        script.onload = () => {
+            eruda.init();
+            eruda.show();
+        };
+        document.body.appendChild(script);
     }, [])
 
 
