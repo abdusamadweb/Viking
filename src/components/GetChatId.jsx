@@ -6,7 +6,7 @@ const TelegramChatId = () => {
     const [chatId, setChatId] = useState(null);
     const [updates, setUpdates] = useState(null);
     const [logs, setLogs] = useState('')
-    const token = "7434516681:AAG5L3L5AKnNNlCBgaDzP0Y-RFO0LRfBIH8";
+    const token = "7463416724:AAFnvtj19qjumIRwuZ5Q_9IeZnnzRLX8NCU"
 
     // Твой токен
     useEffect(() => {

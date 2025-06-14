@@ -4,14 +4,12 @@ import SuccessModal from "../../components/success-modal/SuccessModal.jsx";
 import DepositModal from "../swap/modals/DepositModal.jsx";
 import DepositDrawer from "../swap/modals/DepositDrawer.jsx";
 import WithdrawDrawer from "../swap/modals/WithdrawDrawer.jsx";
-import {Link} from "react-router-dom";
 import {Carousel} from "antd";
 import {$resp} from "../../api/config.js";
 import {useQuery} from "@tanstack/react-query";
 import GetFileDef from "../../components/get-file/GetFileDef.jsx";
 import {Tr} from "../../components/translator/Tr.js";
 import {toast} from "react-hot-toast";
-import GetChatId from "../../components/GetChatId.jsx";
 
 
 // fetch
@@ -37,16 +35,12 @@ const Home = ({ refetchMe }) => {
         queryFn: fetchSlider,
         keepPreviousData: true,
     })
-    console.log(window.location, 'Href')
 
 
     return (
         <div className='home page'>
             <div className="container">
                 <div className="home__body">
-                    <div className='py3'>
-                        <GetChatId />
-                    </div>
                     <Carousel
                         autoplay
                         dots={false}

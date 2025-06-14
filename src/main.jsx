@@ -1,34 +1,20 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import {StrictMode} from 'react'
+import {createRoot} from 'react-dom/client'
 import App from './App.jsx'
-import { init, miniApp } from '@telegram-apps/sdk';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { BrowserRouter } from "react-router-dom";
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
+import {BrowserRouter} from "react-router-dom";
 import './i18n.js'
 import i18n from './i18n.js'
 import {I18nextProvider} from "react-i18next";
 import {ThemeProvider} from "./context/ThemeContext.jsx";
+import {expandApp} from "./telegram/api.js";
 
-
-const initializeTelegramSDK = async () => {
-    try {
-        await init()
-
-        if (miniApp.ready.isAvailable()) {
-            await miniApp.ready()
-            await miniApp.expand()
-            console.log('Mini App готово')
-        }
-    } catch (error) {
-        console.error('Ошибка инициализации:', error)
-    }
-}
 
 const queryClient = new QueryClient()
 
 
 const startApp = async () => {
-    await initializeTelegramSDK()
+    await expandApp()
 
     createRoot(document.getElementById('root')).render(
         <StrictMode>

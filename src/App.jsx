@@ -34,6 +34,8 @@ import AdminSlider from "./pages/admin/slider/AdminSlider.jsx";
 import AdminUsers from "./pages/admin/users/AdminUsers.jsx";
 import i18n from "i18next";
 import eruda from "eruda";
+import {parseTelegramWebAppData} from "./telegram/api.js";
+
 
 const Wrapper = ({ children }) => {
     const location = useLocation()
@@ -72,13 +74,20 @@ const fetchProvider = async () => {
 }
 
 
+
+
+
 function App() {
 
     const [_____, setEffect] = useState(false)
     const [loading, setLoading] = useState(true)
     const path = window.location.pathname
 
-    console.log(window.Telegram, 'TELEGRAM')
+
+    // chat id
+    const tgData = parseTelegramWebAppData()
+
+    console.log(tgData)
 
 
     // fetch
@@ -143,13 +152,18 @@ function App() {
 
     // eruda
     useEffect(() => {
-        const script = document.createElement('script');
-        script.src = '//cdn.jsdelivr.net/npm/eruda';
+        const urlParams = new URLSearchParams(window.location.search)
+        const isDebug = urlParams.get('debug') === 'true'
+
+        if (!isDebug) return
+
+        const script = document.createElement('script')
+        script.src = '//cdn.jsdelivr.net/npm/eruda'
         script.onload = () => {
-            eruda.init();
-            eruda.show();
-        };
-        document.body.appendChild(script);
+            eruda.init()
+            eruda.show()
+        }
+        document.body.appendChild(script)
     }, [])
 
 

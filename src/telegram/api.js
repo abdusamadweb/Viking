@@ -18,4 +18,32 @@ export const expandApp = async () => {
     } catch (error) {
         console.error("Ошибка инициализации Telegram SDK:", error);
     }
-};
+}
+
+export const parseTelegramWebAppData = () => {
+    const hash = window.location.hash
+    const urlParams = new URLSearchParams(hash.split('#')[1])
+    const rawData = urlParams.get('tgWebAppData')
+
+    if (!rawData) return null
+
+    const decoded = decodeURIComponent(rawData) // query_id=...&user=...&auth_date=...&...
+    const result = {}
+
+    decoded.split('&').forEach(pair => {
+        const [key, value] = pair.split('=')
+
+        // Agar `user` bo‘lsa, u JSON bo‘ladi, alohida parse qilamiz
+        if (key === 'user') {
+            try {
+                result[key] = JSON.parse(decodeURIComponent(value))
+            } catch (e) {
+                result[key] = null
+            }
+        } else {
+            result[key] = decodeURIComponent(value)
+        }
+    })
+
+    return result
+}
