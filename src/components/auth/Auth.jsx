@@ -1,7 +1,7 @@
 import React from "react"
 import {Navigate, Outlet} from "react-router-dom"
 
-const Auth = () => {
+const Auth = ({ hash }) => {
 
     // const chatId =
     //     window.Telegram?.WebApp?.initDataUnsafe?.user?.id ||
@@ -13,7 +13,7 @@ const Auth = () => {
 
     return (
         token ? <Outlet />
-            : <Navigate to="/login" />
+            : <Navigate to={`/login#${hash}`} />
     )
 }
 

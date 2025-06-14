@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom";
 import {$resp} from "../../api/config.js";
 import {toast} from "react-hot-toast";
 import {useMutation} from "@tanstack/react-query";
+import {parseTelegramWebAppData} from "../../telegram/api.js";
 
 
 // fetch
@@ -17,10 +18,12 @@ const auth = async (body) => {
 }
 
 
-const Login = ({ user }) => {
+const Login = () => {
 
     const navigate = useNavigate()
     const [form] = Form.useForm()
+
+    const tgData = parseTelegramWebAppData()
 
 
     // mutate
@@ -43,7 +46,7 @@ const Login = ({ user }) => {
         const body = {
             ...val,
             username: '+998' + val.username,
-            ...user,
+            ...tgData?.user,
         }
 
         mutation.mutate(body)

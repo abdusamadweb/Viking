@@ -84,6 +84,8 @@ function App() {
     const [loading, setLoading] = useState(true)
     const path = window.location.pathname
 
+    const token = localStorage.getItem("token")
+
 
     // chat id
     const tgData = parseTelegramWebAppData()
@@ -95,6 +97,7 @@ function App() {
         queryKey: ['me'],
         queryFn: fetchMe,
         keepPreviousData: true,
+        enabled: !!token
     })
     useEffect(() => {
         if (me) localStorage.setItem('me', JSON.stringify(me?.data))
@@ -104,6 +107,7 @@ function App() {
         queryKey: ['cards'],
         queryFn: fetchCards,
         keepPreviousData: true,
+        enabled: !!token
     })
     useEffect(() => {
         if (cards) localStorage.setItem('cards', JSON.stringify(cards?.data))
@@ -113,29 +117,32 @@ function App() {
         queryKey: ['history'],
         queryFn: fetchTrans,
         keepPreviousData: true,
+        enabled: !!token
     })
     const { data: __ } = useQuery({
         queryKey: ['withdraw-deposit'],
         queryFn: getWD,
         keepPreviousData: true,
+        enabled: !!token
     })
     const { data: ___ } = useQuery({
         queryKey: ['slider'],
         queryFn: fetchSlider,
         keepPreviousData: true,
+        enabled: !!token
     })
     const { data: ____ } = useQuery({
         queryKey: ['provider'],
         queryFn: fetchProvider,
         keepPreviousData: true,
+        enabled: !!token
     })
 
 
-    useEffect(() => {
-        document.documentElement.scrollTo(0, 5)
-    }, [])
+    useEffect(() => document.documentElement.scrollTo(0, 5), [])
 
 
+    // i18 lang
     useEffect(() => {
         if (!localStorage.getItem('i18nextLng')) {
             const lang = navigator.language.slice(0, 2)
@@ -175,11 +182,11 @@ function App() {
 
                 <Routes>
 
-                    <Route path='/login' element={<Login user={tgData?.user} />} />
+                    <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/register/sms' element={<RegisterSms />} />
 
-                    <Route element={<Auth />}>
+                    <Route element={<Auth hash={tgData?.hash} />}>
 
                         <Route path='/' element={<Home refetchMe={refetchMe} />} />
                         <Route path='/swap' element={<Swap refetchMe={refetchMe} />} />
