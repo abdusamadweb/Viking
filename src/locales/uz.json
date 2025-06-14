@@ -105,5 +105,7 @@
   "Октябрь": "Oktabr",
   "Ноябрь": "Noyabr",
   "Декабрь": "Dekabr",
+  "Пополнения на сумму меньше не принимаются и автоматически отклоняются системой": "Kiritilayotgan mablag‘ belgilangan miqdordan kam bo‘lsa, tizim tomonidan avtomatik rad etiladi",
+  "Запросы на меньшие суммы не обрабатываются": "Kamroq miqdordagi so‘rovlar ko‘rib chiqilmaydi.",
   "title": "sarlavha"
 }
