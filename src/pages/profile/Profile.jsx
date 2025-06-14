@@ -103,7 +103,15 @@ const Profile = () => {
                         form={form}
                     >
                         <div className="imgs">
-                            <GetFile className='img' id={file ? file?.file?.response?.files?.[0]?.id : me?.logo_id} defImg={profile} />
+                            {
+                                typeof me?.logo_id === 'string'
+                                    ? <img src={me.logo_id} alt="logo" />
+                                    : <GetFile
+                                        className='img'
+                                        id={file ? file?.file?.response?.files?.[0]?.id : me?.logo_id}
+                                        defImg={profile}
+                                    />
+                            }
                             <Upload
                                 className='upload'
                                 {...uploadProps}

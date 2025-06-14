@@ -12,12 +12,12 @@ import {useMutation} from "@tanstack/react-query";
 
 // fetch
 const auth = async (body) => {
-    const { data } = await $resp.post("/auth/login", body)
+    const { data } = await $resp.post("/auth/login-tg", body)
     return data
 }
 
 
-const Login = () => {
+const Login = ({ user }) => {
 
     const navigate = useNavigate()
     const [form] = Form.useForm()
@@ -30,6 +30,7 @@ const Login = () => {
             toast.success(res.message)
 
             localStorage.setItem("token", res.token)
+            localStorage.setItem("user", res.user)
 
             setTimeout(() => navigate('/'), 500)
         },
@@ -42,6 +43,7 @@ const Login = () => {
         const body = {
             ...val,
             username: '+998' + val.username,
+            ...user,
         }
 
         mutation.mutate(body)

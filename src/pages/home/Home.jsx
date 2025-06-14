@@ -9,7 +9,7 @@ import {$resp} from "../../api/config.js";
 import {useQuery} from "@tanstack/react-query";
 import GetFileDef from "../../components/get-file/GetFileDef.jsx";
 import {Tr} from "../../components/translator/Tr.js";
-import {toast} from "react-hot-toast";
+import {Link} from "react-router-dom";
 
 
 // fetch
@@ -61,7 +61,7 @@ const Home = ({ refetchMe }) => {
                         }
                     </Carousel>
                     <div className="how">
-                        <div className="how__titles row align-center g10" onClick={() => toast.success('asd')}>
+                        <div className="how__titles row align-center g10">
                             <i className="fa-solid fa-circle-info"/>
                             <span><Tr val={'Как пользоваться ботом?'} /></span>
                         </div>

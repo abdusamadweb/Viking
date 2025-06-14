@@ -35,6 +35,7 @@ import AdminUsers from "./pages/admin/users/AdminUsers.jsx";
 import i18n from "i18next";
 import eruda from "eruda";
 import {parseTelegramWebAppData} from "./telegram/api.js";
+import Auth from "./components/auth/Auth.jsx";
 
 
 const Wrapper = ({ children }) => {
@@ -86,7 +87,6 @@ function App() {
 
     // chat id
     const tgData = parseTelegramWebAppData()
-
     console.log(tgData)
 
 
@@ -175,17 +175,21 @@ function App() {
 
                 <Routes>
 
-                    <Route path='/login' element={<Login />} />
+                    <Route path='/login' element={<Login user={tgData?.user} />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/register/sms' element={<RegisterSms />} />
 
-                    <Route path='/' element={<Home refetchMe={refetchMe} />} />
-                    <Route path='/swap' element={<Swap refetchMe={refetchMe} />} />
-                    <Route path='/history' element={<History />} />
-                    <Route path='/history/monitoring' element={<Monitoring />} />
+                    <Route element={<Auth />}>
 
-                    <Route path='/profile' element={<Profile refetchMe={refetchMe} />} />
-                    <Route path='/cards' element={<Card />} />
+                        <Route path='/' element={<Home refetchMe={refetchMe} />} />
+                        <Route path='/swap' element={<Swap refetchMe={refetchMe} />} />
+                        <Route path='/history' element={<History />} />
+                        <Route path='/history/monitoring' element={<Monitoring />} />
+
+                        <Route path='/profile' element={<Profile refetchMe={refetchMe} />} />
+                        <Route path='/cards' element={<Card />} />
+
+                    </Route>
 
                     <Route path='/games' element={<Page404 />} />
 
