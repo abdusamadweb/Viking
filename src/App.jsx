@@ -186,7 +186,7 @@ function App() {
                     <Route path='/register' element={<Register />} />
                     <Route path='/register/sms' element={<RegisterSms />} />
 
-                    <Route element={<Auth hash={tgData?.hash} />}>
+                    <Route element={<Auth hash={tgData?.rawData} />}>
 
                         <Route path='/' element={<Home refetchMe={refetchMe} />} />
                         <Route path='/swap' element={<Swap refetchMe={refetchMe} />} />

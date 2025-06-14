@@ -24,6 +24,7 @@ const Login = () => {
     const [form] = Form.useForm()
 
     const tgData = parseTelegramWebAppData()
+    console.log(tgData, 'Login tg-data')
 
 
     // mutate
@@ -33,7 +34,7 @@ const Login = () => {
             toast.success(res.message)
 
             localStorage.setItem("token", res.token)
-            localStorage.setItem("user", res.user)
+            localStorage.setItem("user", JSON.stringify(res.user))
 
             setTimeout(() => navigate('/'), 500)
         },
