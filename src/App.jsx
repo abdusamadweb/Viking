@@ -152,16 +152,10 @@ function App() {
 
     // eruda
     useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search)
-        const isDebug = urlParams.get('debug') === 'true'
-
-        if (!isDebug) return
-
         const script = document.createElement('script')
         script.src = '//cdn.jsdelivr.net/npm/eruda'
         script.onload = () => {
             eruda.init()
-            eruda.show()
         }
         document.body.appendChild(script)
     }, [])
