@@ -104,7 +104,7 @@ const Profile = () => {
                     >
                         <div className="imgs">
                             {
-                                typeof me?.logo_id === 'string'
+                                me?.logo_id?.includes('http')
                                     ? <img src={me.logo_id} alt="logo" />
                                     : <GetFile
                                         className='img'

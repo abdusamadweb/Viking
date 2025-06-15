@@ -8,14 +8,15 @@ const Auth = () => {
     //     new URLSearchParams(window.location.search).get("chat_id") ||
     //     new URLSearchParams(window.location.search).get("id") || "{null}"
 
-    const hash = window.location.hash
 
-    const token = localStorage.getItem('token')
+    const isTelegram = window.location.hash.includes('tgWebAppData')
+    const isAuthorized = !!localStorage.getItem('token')
 
-    return (
-        token ? <Outlet />
-            : <Navigate to={`/login${hash}`} />
-    )
+    if (isTelegram || isAuthorized) {
+        return <Outlet />
+    } else {
+        return <Navigate to='/login' />
+    }
 }
 
 export default Auth

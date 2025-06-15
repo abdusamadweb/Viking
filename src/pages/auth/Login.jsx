@@ -9,7 +9,6 @@ import {useNavigate} from "react-router-dom";
 import {$resp} from "../../api/config.js";
 import {toast} from "react-hot-toast";
 import {useMutation} from "@tanstack/react-query";
-import {parseTelegramWebAppData} from "../../telegram/api.js";
 import {useTheme} from "../../context/ThemeContext.jsx";
 
 
@@ -27,15 +26,12 @@ const Login = () => {
     const navigate = useNavigate()
     const [form] = Form.useForm()
 
-    const tgData = parseTelegramWebAppData()
-    console.log(tgData, 'Login tg-data')
-
 
     // mutate
     const mutation = useMutation({
         mutationFn: auth,
         onSuccess: (res) => {
-            toast.success(res.message)
+            // toast.success(res.message)
 
             localStorage.setItem("token", res.token)
             localStorage.setItem("user", JSON.stringify(res.user))
@@ -50,8 +46,7 @@ const Login = () => {
     const onFormSubmit = (val) => {
         const body = {
             ...val,
-            username: '+998' + val.username,
-            ...tgData?.user,
+            username: '+998' + val.username
         }
 
         mutation.mutate(body)

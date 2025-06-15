@@ -2,14 +2,14 @@
 set SERVER=165.22.108.193
 set USERNAME=root
 set PASSWORD=57246Abs
-set LOCAL_DIR="C:\Users\user\Documents\Front-end\Viking\Viking"
+set LOCAL_DIR="C:\Users\user\Documents\Front-End\React Vite JS\viking\Viking"
 set REMOTE_DIR=/var/www/viking-pay.com/html/
-set ARCHIVE_PATH="C:\Users\user\Documents\Front-end\Viking\Viking\dist.tar.gz"
+set ARCHIVE_PATH="C:\Users\user\Documents\Front-End\React Vite JS\viking\Viking\dist.tar.gz"
 
 
 @REM vite build
 REM node_modules papkasini chetlab o‘tib arxiv yaratish
-tar --exclude=".idea" --exclude=".vscode"  --exclude=".git" --exclude="init.bat"  -czvf %ARCHIVE_PATH% -C "C:\Users\user\Documents\Front-end\Viking\Viking\dist" .
+tar --exclude=".idea" --exclude=".vscode"  --exclude=".git" --exclude="init.bat"  -czvf %ARCHIVE_PATH% -C "C:\Users\user\Documents\Front-End\React Vite JS\viking\Viking\dist" .
 
 
 echo Starting SCP upload...
