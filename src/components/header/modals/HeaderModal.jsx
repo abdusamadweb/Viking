@@ -28,7 +28,11 @@ const HeaderModal = ({ modal, setModal, setModal2, theme }) => {
             closeIcon={false}
         >
             <div className="imgs row align-center g10">
-                <GetFile id={me?.logo_id} defImg={profile} odiy />
+                {
+                    me?.logo_id?.includes('http')
+                        ? <img src={me.logo_id} alt="logo" />
+                        : <GetFile id={me?.logo_id} defImg={profile} odiy />
+                }
                 <div>
                     <span className="name">{ me?.first_name + ' ' + me?.last_name }</span>
                     <span className="tel">{ formatPhone(me?.phone_number) }</span>

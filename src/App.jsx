@@ -181,7 +181,7 @@ function App() {
         script.onload = () => {
             eruda.init()
         }
-        document.body.appendChild(script)
+        // document.body.appendChild(script)
     }, [])
 
 
@@ -189,7 +189,7 @@ function App() {
     const mutation = useMutation({
         mutationFn: auth,
         onSuccess: (res) => {
-            toast.success(res.message)
+            // toast.success(res.message)
 
             localStorage.setItem("token", res.token)
             localStorage.setItem("user", JSON.stringify(res.user))
@@ -202,7 +202,7 @@ function App() {
     })
 
     useEffect(() => {
-        if (tgData?.user && token) mutation.mutate(tgData.user)
+        if (tgData) mutation.mutate(tgData.user)
     }, [])
 
 

@@ -105,7 +105,7 @@ const Profile = () => {
                         <div className="imgs">
                             {
                                 me?.logo_id?.includes('http')
-                                    ? <img src={me.logo_id} alt="logo" />
+                                    ? <img className='img' src={me.logo_id} alt="logo" />
                                     : <GetFile
                                         className='img'
                                         id={file ? file?.file?.response?.files?.[0]?.id : me?.logo_id}
