@@ -204,10 +204,6 @@ function App() {
     useEffect(() => {
         if (tgData?.user && token) mutation.mutate(tgData.user)
     }, [])
-    console.log(mutation.isPending, 'AUTH pending')
-
-
-
 
 
     return (
