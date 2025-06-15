@@ -11,6 +11,16 @@ export const $resp = axios.create({
     }
 })
 
+// Interceptor: har bir so‘rovdan oldin tokenni qo‘shadi
+$resp.interceptors.request.use((config) => {
+    const token = localStorage.getItem("token")
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+})
+
+
 export const $adminResp = axios.create({
     baseURL: API_TEST,
     headers: {

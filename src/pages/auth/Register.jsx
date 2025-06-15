@@ -3,11 +3,13 @@ import React from 'react';
 import {Button, Form, Input} from "antd";
 import {validateMessages} from "../../assets/scripts/global.js";
 import logo from '../../assets/images/login-logo.svg'
+import logoLight from '../../assets/images/login-logo-light.svg'
 import {PhoneInput} from "../../components/inputs/Inputs.jsx";
 import {useNavigate} from "react-router-dom";
 import {$resp} from "../../api/config.js";
 import {toast} from "react-hot-toast";
 import {useMutation} from "@tanstack/react-query";
+import {useTheme} from "../../context/ThemeContext.jsx";
 
 
 // fetch
@@ -18,6 +20,8 @@ const auth = async (body) => {
 
 
 const Register = () => {
+
+    const { theme: themeL } = useTheme()
 
     const navigate = useNavigate()
     const [form] = Form.useForm()
@@ -32,7 +36,7 @@ const Register = () => {
             localStorage.setItem("token", res.token)
 
             const phone = '+998' + form.getFieldValue('phone')
-            const smsId = res.data.sms_id
+            const smsId = res.data?.sms_id
 
             setTimeout(() => navigate(`/register/sms?phone=${phone}&smsId=${smsId}`), 500)
         },
@@ -56,7 +60,7 @@ const Register = () => {
             <div className="container">
                 <div className="auth__inner">
                     <div className="auth__titles">
-                        <img className='logo' src={logo} alt="logo"/>
+                        <img className='logo' src={themeL === 'dark' ? logo : logoLight} alt="logo"/>
                         <p className="title">Зарегистрироваться</p>
                     </div>
                     <Form

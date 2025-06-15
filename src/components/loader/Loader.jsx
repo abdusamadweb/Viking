@@ -1,16 +1,25 @@
 import React, {useEffect, useState} from 'react'
 import {Spin} from "antd"
 
-const Loader = ({ setLoading }) => {
+const Loader = ({ setLoading, isPending }) => {
 
     const [visible, setVisible] = useState(true)
 
     useEffect(() => {
-        setTimeout(() => {
-            setVisible(false)
-            setTimeout(() => setLoading(false), 600)
-        }, 1000)
-    }, [setLoading])
+        
+        if (isPending) {
+            setTimeout(() => {
+                setVisible(isPending)
+                setTimeout(() => setLoading(false), 600)
+            }, 1000)
+        } else {
+            setTimeout(() => {
+                setVisible(false)
+                setTimeout(() => setLoading(false), 600)
+            }, 1000)
+        }
+        
+    }, [isPending, setLoading])
 
 
     return (

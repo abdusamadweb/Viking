@@ -1,9 +1,25 @@
 @use "/src/scss" as *;
 
+:root {
+  --auth-bg: linear-gradient(180deg, #002A61 0%, #200061 60.6%, #000000 100%);
+  --auth-inp-bg: #FFFFFF2E;
+  --auth-inp-border: #FFFFFF33;
+  --auth-btn-bg: #ffffff33;
+  --auth-btn-color: #fff;
+}
+
+.light {
+  --auth-bg: var(--bg-color);
+  --auth-inp-bg: #fff;
+  --auth-inp-border: #D2E6F5;
+  --auth-btn-bg: #D5EEFF;
+  --auth-btn-color: #0095FF;
+}
+
 .auth {
-  min-height: 100vh;
-  padding-block: 2rem 1rem;
-  background: linear-gradient(180deg, #002A61 0%, #200061 60.6%, #000000 100%);
+  min-height: 103vh;
+  padding-block: 2rem 3rem;
+  background: var(--auth-bg);
 
   &__titles {
     text-align: center;
@@ -24,17 +40,17 @@
     font-size: 15px;
     padding: 1rem;
     border-radius: 12px;
-    border: 1px solid #FFFFFF33 !important;
+    border: 1px solid var(--auth-inp-border) !important;
     outline: none;
-    color: #fff;
-    background: #FFFFFF2E !important;
+    color: var(--text-color);
+    background: var(--auth-inp-bg) !important;
   }
 
   .reset {
     font-weight: 500;
     font-size: 16px;
     margin-bottom: 1rem;
-    color: #fff;
+    color: var(--text-color);
   }
 
   .btns {
@@ -52,10 +68,11 @@
       margin-bottom: 1rem;
       border-radius: 12px;
       border: none;
-      color: #fff;
-      background: #ffffff33 !important;
+      color: var(--auth-btn-color);
+      background: var(--auth-btn-bg) !important;
 
       &.submit {
+        color: #fff;
         background: $main-color !important;
       }
 
@@ -72,12 +89,12 @@
     }
 
     .ant-form-item-label label {
-      color: #fff;
+      color: var(--text-color);
     }
 
     .ant-input-outlined {
-      border: 1px solid #FFFFFF33;
-      background: #FFFFFF2E;
+      border: 1px solid var(--auth-inp-border);
+      background: var(--auth-inp-bg);
     }
     .ant-input {
       background: transparent !important;
@@ -91,7 +108,7 @@
     }
 
     .anticon {
-      color: #FFFFFF;
+      color: var(--text-color);
     }
   }
 }
@@ -103,7 +120,7 @@
 
     .navigate i {
       font-size: 22px;
-      color: #fff;
+      color: var(--text-color);
     }
 
     .title {
@@ -132,7 +149,7 @@
 
       .ant-input {
         border-color: #FFFFFF33;
-        background: #FFFFFF2E !important;
+        background: var(--auth-inp-bg) !important;
       }
     }
   }

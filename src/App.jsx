@@ -2,8 +2,8 @@
 import './assets/styles/global.css'
 import './App.scss'
 
-import {Route, Routes, useLocation} from "react-router-dom"
-import {Toaster} from "react-hot-toast"
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom"
+import {toast, Toaster} from "react-hot-toast"
 import {useEffect, useLayoutEffect, useState} from "react"
 import Loader from "./components/loader/Loader.jsx"
 import AuthAdmin from "./components/auth/AuthAdmin.jsx";
@@ -17,7 +17,7 @@ import History from "./pages/history/History.jsx";
 import Monitoring from "./pages/history/Monitoring.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import Card from "./pages/card/Card.jsx";
-import {useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {$resp} from "./api/config.js";
 import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
@@ -74,11 +74,15 @@ const fetchProvider = async () => {
     return data
 }
 
-
-
+const auth = async (body) => {
+    const { data } = await $resp.post("/auth/login-tg", body)
+    return data
+}
 
 
 function App() {
+
+    const navigate = useNavigate()
 
     const [_____, setEffect] = useState(false)
     const [loading, setLoading] = useState(true)
@@ -88,6 +92,7 @@ function App() {
 
 
     // chat id
+    const hash = window.location.hash
     const tgData = parseTelegramWebAppData()
     console.log(tgData)
 
@@ -139,7 +144,19 @@ function App() {
     })
 
 
+    // scroll
     useEffect(() => document.documentElement.scrollTo(0, 5), [])
+    useEffect(() => {
+        const fixHeight = () => {
+            const vh = window.innerHeight * 0.01
+            document.documentElement.style.setProperty('--vh', `${vh}px`)
+        }
+
+        fixHeight()
+        window.addEventListener('resize', fixHeight)
+
+        return () => window.removeEventListener('resize', fixHeight)
+    }, [])
 
 
     // i18 lang
@@ -168,10 +185,35 @@ function App() {
     }, [])
 
 
+    // mutate
+    const mutation = useMutation({
+        mutationFn: auth,
+        onSuccess: (res) => {
+            toast.success(res.message)
+
+            localStorage.setItem("token", res.token)
+            localStorage.setItem("user", JSON.stringify(res.user))
+
+            setTimeout(() => navigate(`/${hash}`), 500)
+        },
+        onError: (err) => {
+            toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
+        }
+    })
+
+    useEffect(() => {
+        if (tgData?.user && token) mutation.mutate(tgData.user)
+    }, [])
+    console.log(mutation.isPending, 'AUTH pending')
+
+
+
+
+
     return (
     <div className={`App ${path.includes('login') ? 'pb0' : ''} ${path.includes('admin') ? 'admin' : ''}`}>
 
-        {loading && <Loader setLoading={setLoading} />}
+        {loading && <Loader setLoading={setLoading} isPending={mutation.isPending} />}
 
         <Wrapper>
 

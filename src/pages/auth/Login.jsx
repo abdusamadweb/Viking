@@ -3,22 +3,26 @@ import React from 'react';
 import {Button, Form, Input} from "antd";
 import {validateMessages} from "../../assets/scripts/global.js";
 import logo from '../../assets/images/login-logo.svg'
+import logoLight from '../../assets/images/login-logo-light.svg'
 import {PhoneInput} from "../../components/inputs/Inputs.jsx";
 import {useNavigate} from "react-router-dom";
 import {$resp} from "../../api/config.js";
 import {toast} from "react-hot-toast";
 import {useMutation} from "@tanstack/react-query";
 import {parseTelegramWebAppData} from "../../telegram/api.js";
+import {useTheme} from "../../context/ThemeContext.jsx";
 
 
 // fetch
 const auth = async (body) => {
-    const { data } = await $resp.post("/auth/login-tg", body)
+    const { data } = await $resp.post("/auth/login", body)
     return data
 }
 
 
 const Login = () => {
+
+    const { theme: themeL } = useTheme()
 
     const navigate = useNavigate()
     const [form] = Form.useForm()
@@ -59,7 +63,7 @@ const Login = () => {
             <div className="container">
                 <div className="auth__inner">
                     <div className="auth__titles">
-                        <img className='logo' src={logo} alt="logo"/>
+                        <img className='logo' src={themeL === 'dark' ? logo : logoLight} alt="logo"/>
                         <p className="title">Войти в систему</p>
                     </div>
                     <Form

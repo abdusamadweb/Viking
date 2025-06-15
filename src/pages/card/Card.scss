@@ -16,7 +16,7 @@
 }
 
 .card-page {
-  min-height: 100vh;
+  min-height: 103vh;
   padding-block: 25px;
   background: var(--card-bg);
 
@@ -103,7 +103,7 @@
     }
 
     .empty {
-      min-height: calc(100vh - 100px);
+      min-height: calc(103vh - 100px);
       display: grid;
       place-items: center;
 
