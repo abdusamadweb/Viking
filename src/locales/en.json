@@ -108,5 +108,6 @@
   "Пополнения на сумму меньше не принимаются и автоматически отклоняются системой": "Top-ups below the minimum amount are not accepted and are automatically rejected by the system",
   "Запросы на меньшие суммы не обрабатываются": "Requests for smaller amounts are not processed",
   "Активировать телефон": "Activate phone",
+  "Пожалуйста, отправьте свой контакт в чат": "Please send your contact to the chat",
   "title": "title"
 }

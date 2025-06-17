@@ -5,7 +5,7 @@ export const hiddenRoutes = [
 ]
 
 export const hiddenRoutesNav = [
-    '/monitoring', '/profile', '/cards', '/login', '/register',
+    '/login', '/register',
     '/admin'
 ]
 

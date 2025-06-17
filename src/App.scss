@@ -38,9 +38,7 @@ html, body {
 }
 
 .toast {
-  div {
-    //background: var(--modal-bg2);
-  }
+  top: 100px !important;
 }
 
 .loader {
@@ -211,6 +209,31 @@ html, body {
   }
 }
 
+.phone-modal {
+
+  .img {
+    height: 60px;
+    margin-bottom: 1rem;
+  }
+
+  .title {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .desc {
+    font-size: 16px;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #9d9fa4;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
 .success-modal {
 
   .img {
@@ -355,10 +378,13 @@ html, body {
   }
 
   .filters {
+    display: flex;
+    gap: 10px;
     margin-bottom: 10px;
 
-    .ant-select {
+    .ant-select, .ant-input {
       width: 222px;
+      height: 38px;
     }
   }
 

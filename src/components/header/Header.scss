@@ -5,6 +5,8 @@
   --bg-nav-modal: #1D213A;
   --bg-nav-modal-border: #4A4D61;
   --bg-drawer-input: #323F59;
+  --bg-top-v: linear-gradient(180deg, #002A61 0%, #180061 100%);
+  --bg-top: linear-gradient(180deg, #180061 0%, #200061 100%);
 
 }
 
@@ -13,10 +15,33 @@
   --bg-nav-modal: #ECF8FF;
   --bg-nav-modal-border: #4A4D6160;
   --bg-drawer-input: #EFF3F6;
+  --bg-top-v: linear-gradient(180deg, #FFFFFF 0%, #E8F0F6 44.71%, #FFFFFF 100%);
+  --bg-top: linear-gradient(180deg, #FFFFFF 0%, #E8F0F6 44.71%, #FFFFFF 100%);
+}
+
+.header-top-v {
+  padding-top: 55px;
+  background: var(--bg-top-v);
+}
+.header-top {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  text-align: center;
+  padding-block: 5px;
+  background: var(--bg-top);
+
+  img {
+    width: 25px;
+    height: 30px;
+  }
 }
 
 .header {
-  padding: 15px 0;
+  padding-top: 5px;
+  padding-bottom: 15px;
   background: var(--bg-header);
 
   .logo {
@@ -54,11 +79,11 @@
 .header-modal {
 
   .ant-modal {
-    top: 50px;
+    top: 130px;
     left: 130px;
 
     @include breakpoint-down(765px) {
-      top: 45px;
+      top: 125px;
     }
     @include breakpoint-down(535px) {
       left: 90px;
@@ -71,6 +96,29 @@
     }
     @include breakpoint-down(330px) {
       left: 0;
+    }
+  }
+
+  &.desktop {
+    .ant-modal {
+      top: 50px;
+      left: 130px;
+
+      @include breakpoint-down(765px) {
+        top: 45px;
+      }
+      @include breakpoint-down(535px) {
+        left: 90px;
+      }
+      @include breakpoint-down(460px) {
+        left: 70px;
+      }
+      @include phone {
+        left: 25px;
+      }
+      @include breakpoint-down(330px) {
+        left: 0;
+      }
     }
   }
 
@@ -100,6 +148,9 @@
     }
     .tel {
       color: #A5A6B0;
+    }
+    .tel-auth {
+      color: $main-color;
     }
   }
 

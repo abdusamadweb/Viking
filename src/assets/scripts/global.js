@@ -18,6 +18,17 @@ export const changeLang = (lang) => {
 }
 
 
+// user device
+export function getDeviceType() {
+    const ua = navigator.userAgent
+
+    if (/mobile/i.test(ua)) return 'Mobile'
+    if (/tablet/i.test(ua)) return 'Tablet'
+    if (/iPad|Android 3.0|xoom|sch-i800|playbook|tablet|kindle/i.test(ua)) return 'Tablet'
+    return 'Desktop'
+}
+
+
 // format price
 export const formatPrice = (price) => {
     return Intl.NumberFormat('ru-RU').format(price)

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Title from "../../../components/admin/title/Title.jsx";
-import {Pagination, Table} from "antd";
+import {Input, Pagination, Select, Table} from "antd";
 import {formatCard, formatPrice} from "../../../assets/scripts/global.js";
 import {useQuery} from "@tanstack/react-query";
 import {$adminResp} from "../../../api/config.js";
@@ -15,7 +15,7 @@ const fetchData = async (body) => {
         return data
     } catch (error) {
         if (error?.response?.status === 403) {
-            toast.error("Sessiya tugagan. Qayta kiring.")
+            // toast.error("Sessiya tugagan. Qayta kiring.")
             // logoutAdmin()
         } else {
             toast.error("Xatolik yuz berdi")
@@ -31,10 +31,14 @@ const AdminTrans = () => {
     const [body, setBody] = useState({
         page: 1,
         limit: 30,
+        q: null,
+        program: true,
+        type: 'wallet',
+        status: null
     })
 
     const { data, isLoading } = useQuery({
-        queryKey: ['admin-transaction', JSON.stringify(body)],
+        queryKey: ['admin-transaction', body.page, body.limit, body.q, body.program, body.status, body.type],
         queryFn: () => fetchData(body),
         keepPreviousData: true,
     })
@@ -97,6 +101,45 @@ const AdminTrans = () => {
             <div className="container">
                 <Title title="Транзакции" />
                 <div className="content">
+                    <div className="filters">
+                        <Input placeholder="Search . . ." />
+                        <Select
+                            size='large'
+                            placeholder="Ne vibrano"
+                            options={[
+                                {
+                                    label: 'Ne vibrano',
+                                    value: null,
+                                },
+                                {
+                                    label: 'Пополнение баланса',
+                                    value: true,
+                                },
+                                {
+                                    label: 'Снято с баланса',
+                                    value: false,
+                                },
+                            ]}
+                        />
+                        <Select
+                            size='large'
+                            placeholder="Ne vibrano"
+                            options={[
+                                {
+                                    label: 'Ne vibrano',
+                                    value: null,
+                                },
+                                {
+                                    label: 'Wallet',
+                                    value: 'wallet',
+                                },
+                                {
+                                    label: 'Provider',
+                                    value: 'provider',
+                                },
+                            ]}
+                        />
+                    </div>
                     <Table
                         columns={columns}
                         dataSource={data?.data}

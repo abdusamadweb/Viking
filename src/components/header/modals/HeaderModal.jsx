@@ -1,11 +1,19 @@
 import React from 'react';
 import {Modal, Switch} from "antd";
 import profile from '../../../assets/images/profile-def.png'
-import {Link, useNavigate} from "react-router-dom";
-import {formatPhone} from "../../../assets/scripts/global.js";
+import {useNavigate} from "react-router-dom";
+import {formatPhone, getDeviceType} from "../../../assets/scripts/global.js";
 import GetFile from "../../get-file/GetFile.jsx";
 import {Tr, trans} from "../../translator/Tr.js";
 import {useTranslation} from "react-i18next";
+import {$resp} from "../../../api/config.js";
+import {useMutation} from "@tanstack/react-query";
+import {toast} from "react-hot-toast";
+
+const fetchPhone = async () => {
+    const { data } = await $resp.post("/user/ask-phone")
+    return data
+}
 
 const HeaderModal = ({ modal, setModal, setModal2, theme }) => {
 
@@ -13,15 +21,28 @@ const HeaderModal = ({ modal, setModal, setModal2, theme }) => {
 
     const me = JSON.parse(localStorage.getItem('me'))
 
+    const device = getDeviceType()
+
 
     // lang
     const { i18n } = useTranslation()
     const currentLang = i18n.language.split('-')[0]
 
 
+    const mutation = useMutation({
+        mutationFn: fetchPhone,
+        onSuccess: (res) => {
+            toast.success(res.message)
+        },
+        onError: (err) => {
+            toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
+        }
+    })
+
+
     return (
         <Modal
-            rootClassName='main-modal header-modal'
+            rootClassName={`main-modal header-modal ${device === 'Desktop' ? 'desktop' : ''}`}
             width={255}
             open={modal === 'menu'}
             onCancel={() => setModal('false')}
@@ -36,9 +57,15 @@ const HeaderModal = ({ modal, setModal, setModal2, theme }) => {
                 <div>
                     <span className="name">{ me?.first_name + ' ' + me?.last_name }</span>
                     {
-                        me?.phonse_number ?
+                        me?.phone_number ?
                             <span className="tel">{ formatPhone(me?.phone_number) }</span>
-                            : <Link className='tel-auth' to='/register#phone'><Tr val='Активировать телефон' /></Link>
+                            :
+                            <button className='tel-auth' onClick={() => {
+                                mutation.mutate()
+                                setModal('phone')
+                            }}>
+                                <Tr val='Активировать телефон' />
+                            </button>
                     }
                 </div>
             </div>
