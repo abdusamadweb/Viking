@@ -30,13 +30,7 @@ const HeaderModal = ({ modal, setModal, setModal2, theme }) => {
 
 
     const mutation = useMutation({
-        mutationFn: fetchPhone,
-        onSuccess: (res) => {
-            toast.success(res.message)
-        },
-        onError: (err) => {
-            toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
-        }
+        mutationFn: fetchPhone
     })
 
 
