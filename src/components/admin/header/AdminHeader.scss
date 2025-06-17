@@ -78,6 +78,7 @@
 
     @include tablet {
       display: block;
+      padding-bottom: 20px;
     }
     @include mobile {
       top: 2%;

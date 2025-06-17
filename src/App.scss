@@ -292,6 +292,12 @@ html, body {
   }
 }
 
+.ant-drawer-open {
+  .ant-form-item-label label {
+    color: var(--text-color);
+  }
+}
+
 
 // admin
 .admin {
@@ -331,7 +337,7 @@ html, body {
   }
 
   .ant-input, .ant-input-affix-wrapper {
-    color: #011d42;
+    color: #011d42 !important;
     background-color: #f5f5f5 !important;
 
     &::placeholder {

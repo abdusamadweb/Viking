@@ -36,6 +36,7 @@ import i18n from "i18next";
 import eruda from "eruda";
 import {parseTelegramWebAppData} from "./telegram/api.js";
 import Auth from "./components/auth/Auth.jsx";
+import {logout} from "./hooks/useCrud.jsx";
 
 
 const Wrapper = ({ children }) => {
@@ -49,8 +50,18 @@ const Wrapper = ({ children }) => {
 
 // fetch
 const fetchMe = async () => {
-    const { data } = await $resp.post("/user/me")
-    return data
+    try {
+        const { data } = await $resp.post("/user/me")
+        return data
+    } catch (error) {
+        if (error?.response?.status === 403) {
+            toast.error("Sessiya tugagan. Qayta kiring.")
+            logout()
+        } else {
+            toast.error("Xatolik yuz berdi")
+        }
+        throw error
+    }
 }
 const fetchCards = async () => {
     const { data } = await $resp.get(`/user-card/my-cards?page=1&limit=30`)
@@ -94,7 +105,7 @@ function App() {
     // chat id
     const hash = window.location.hash
     const tgData = parseTelegramWebAppData()
-    console.log(tgData)
+    console.log(tgData, 'Telegram')
 
 
     // fetch
@@ -130,7 +141,7 @@ function App() {
         keepPreviousData: true,
         enabled: !!token
     })
-    const { data: ___ } = useQuery({
+    const { data: ___, isLoading: sliderLoading } = useQuery({
         queryKey: ['slider'],
         queryFn: fetchSlider,
         keepPreviousData: true,
@@ -181,11 +192,11 @@ function App() {
         script.onload = () => {
             eruda.init()
         }
-        // document.body.appendChild(script)
+        document.body.appendChild(script)
     }, [])
 
 
-    // mutate
+    // mutate login
     const mutation = useMutation({
         mutationFn: auth,
         onSuccess: (res) => {
@@ -209,7 +220,11 @@ function App() {
     return (
     <div className={`App ${path.includes('login') ? 'pb0' : ''} ${path.includes('admin') ? 'admin' : ''}`}>
 
-        {loading && <Loader setLoading={setLoading} isPending={mutation.isPending} />}
+        {loading && <Loader
+            setLoading={setLoading}
+            isPending={mutation.isPending}
+            sliderLoading={sliderLoading}
+        />}
 
         <Wrapper>
 

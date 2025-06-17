@@ -6,7 +6,7 @@ const Admin = () => {
     const token = localStorage.getItem('admin-token')
 
     return (
-        token ? <Navigate to='/admin/dashboard' />
+        token ? <Navigate to='/admin/transactions' />
             : <Navigate to='/admin/login' />
     );
 };

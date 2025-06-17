@@ -1,10 +1,9 @@
 import {useMutation} from '@tanstack/react-query'
 import {toast} from 'react-hot-toast'
-import {$adminResp} from "../api/config.js";
 
 export const logout = () => {
     localStorage.clear()
-    setTimeout(() => window.location.href = '/admin/login', 1000)
+    setTimeout(() => window.location.href = '/login', 1000)
 }
 export const logoutAdmin = () => {
     localStorage.clear()
@@ -12,14 +11,26 @@ export const logoutAdmin = () => {
 }
 
 
-export const getRequest = async (url, config = {}) => {
+export const requestUnified = async (options) => {
+    const {
+        method = 'get',      // 'get' yoki 'post'
+        url,
+        data = {},           // faqat POST uchun ishlatiladi
+        config = {},
+        instance,
+        logoutFn = null
+    } = options
+
     try {
-        const { data } = await $adminResp.get(url, config)
-        return data
+        const response = method.toLowerCase() === 'post'
+            ? await instance.post(url, data, config)
+            : await instance.get(url, config)
+
+        return response.data
     } catch (error) {
         if (error?.response?.status === 403) {
             toast.error("Sessiya tugagan. Qayta kiring.")
-            logout()
+            if (logoutFn) logoutFn()
         } else {
             toast.error("Xatolik yuz berdi")
         }
@@ -27,20 +38,6 @@ export const getRequest = async (url, config = {}) => {
     }
 }
 
-export const getRequestAdmin = async (url, config = {}) => {
-    try {
-        const { data } = await $adminResp.get(url, config)
-        return data
-    } catch (error) {
-        if (error?.response?.status === 403) {
-            toast.error("Sessiya tugagan. Qayta kiring.")
-            logoutAdmin()
-        } else {
-            toast.error("Xatolik yuz berdi")
-        }
-        throw error
-    }
-}
 
 
 export const useCrud = (key, options) => {

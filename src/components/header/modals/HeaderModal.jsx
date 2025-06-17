@@ -1,7 +1,7 @@
 import React from 'react';
 import {Modal, Switch} from "antd";
 import profile from '../../../assets/images/profile-def.png'
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {formatPhone} from "../../../assets/scripts/global.js";
 import GetFile from "../../get-file/GetFile.jsx";
 import {Tr, trans} from "../../translator/Tr.js";
@@ -35,7 +35,11 @@ const HeaderModal = ({ modal, setModal, setModal2, theme }) => {
                 }
                 <div>
                     <span className="name">{ me?.first_name + ' ' + me?.last_name }</span>
-                    <span className="tel">{ formatPhone(me?.phone_number) }</span>
+                    {
+                        me?.phonse_number ?
+                            <span className="tel">{ formatPhone(me?.phone_number) }</span>
+                            : <Link className='tel-auth' to='/register#phone'><Tr val='Активировать телефон' /></Link>
+                    }
                 </div>
             </div>
             <ul className="list">

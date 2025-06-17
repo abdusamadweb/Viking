@@ -1,15 +1,27 @@
 import React, {useState} from 'react';
 import Title from "../../../components/admin/title/Title.jsx";
-import {Form, Modal, Pagination, Table} from "antd";
+import {Pagination, Table} from "antd";
 import {formatCard, formatPrice} from "../../../assets/scripts/global.js";
 import {useQuery} from "@tanstack/react-query";
 import {$adminResp} from "../../../api/config.js";
+import {toast} from "react-hot-toast";
+import {logoutAdmin} from "../../../hooks/useCrud.jsx";
 
 
 // fetches
 const fetchData = async (body) => {
-    const { data } = await $adminResp.post(`/transaction/filter?page=${body.page}&limit=${body.limit}`, body)
-    return data
+    try {
+        const { data } = await $adminResp.post(`/transaction/filter?page=${body.page}&limit=${body.limit}`, body)
+        return data
+    } catch (error) {
+        if (error?.response?.status === 403) {
+            toast.error("Sessiya tugagan. Qayta kiring.")
+            // logoutAdmin()
+        } else {
+            toast.error("Xatolik yuz berdi")
+        }
+        throw error
+    }
 }
 
 

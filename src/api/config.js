@@ -29,6 +29,15 @@ export const $adminResp = axios.create({
     }
 })
 
+// Admin token interceptor
+$adminResp.interceptors.request.use((config) => {
+    const token = localStorage.getItem("admin-token")
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+})
+
 
 export const getFile = async (id) => {
     const response = await $api.get(`/file/get-id/${id}`, {

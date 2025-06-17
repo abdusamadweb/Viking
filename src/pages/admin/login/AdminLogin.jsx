@@ -4,6 +4,7 @@ import {Button, Form, Input} from "antd";
 import toast from "react-hot-toast";
 import {useMutation} from "@tanstack/react-query";
 import $api from "../../../api/api.js";
+import {useNavigate} from "react-router-dom";
 
 
 const fetchLogin = async (body) => {
@@ -14,6 +15,8 @@ const fetchLogin = async (body) => {
 
 const Auth = () => {
 
+    const navigate = useNavigate()
+
 
     // log in
     const mutation = useMutation({
@@ -22,7 +25,7 @@ const Auth = () => {
             toast.success(res.message)
 
             localStorage.setItem('admin-token', res.token)
-            window.location.href = '/admin'
+            navigate('/admin')
         },
         onError: (err) => {
             toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
@@ -30,7 +33,10 @@ const Auth = () => {
     })
 
     const onFinish = (values) => {
-        mutation.mutate(values)
+        mutation.mutate({
+            ...values,
+            username: values.username.replace(/\s+/g, '')
+        })
     }
 
 
@@ -53,9 +59,7 @@ const Auth = () => {
                             },
                         ]}
                     >
-                        <Input placeholder='Telefon raqam' type="tel"
-                               inputMode="numeric"
-                               pattern="[0-9]*" />
+                        <Input placeholder='Telefon raqam' type="tel" />
                     </Form.Item>
                     <Form.Item
                         label="Parol"
