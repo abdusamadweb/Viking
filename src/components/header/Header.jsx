@@ -32,7 +32,7 @@ const Header = ({ setEffect }) => {
     return (
         <>
             {
-                device === 'Desktop' &&
+                device !== 'Desktop' &&
                 <div className={`header-top ${href.includes('admin') ? 'd-none' : ''}`}>
                     <div className="sticky">
                         <img src={themeL === 'dark' ? logoOnly : logoOnlyL} alt="logo"/>
