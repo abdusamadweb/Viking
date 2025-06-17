@@ -31,11 +31,11 @@ const Header = ({ setEffect }) => {
     return (
         <>
             {
-                device === 'Desktop' &&
+                device !== 'Desktop' &&
                 <div className={`header-top-v ${href.includes('admin') ? 'd-none' : ''}`}/>
             }
             {
-                device === 'Desktop' &&
+                device !== 'Desktop' &&
                 <div className={`header-top ${href.includes('admin') ? 'd-none' : ''}`}>
                     <div className="sticky">
                         <img src={logoOnly} alt="logo"/>
