@@ -5,8 +5,7 @@
   --bg-nav-modal: #1D213A;
   --bg-nav-modal-border: #4A4D61;
   --bg-drawer-input: #323F59;
-  --bg-top-v: linear-gradient(180deg, #002A61 0%, #180061 100%);
-  --bg-top: linear-gradient(180deg, #180061 0%, #200061 100%);
+  --bg-top: linear-gradient(180deg, #002A61 0%, #180061 15%, #102b52 100%);
 
 }
 
@@ -15,14 +14,9 @@
   --bg-nav-modal: #ECF8FF;
   --bg-nav-modal-border: #4A4D6160;
   --bg-drawer-input: #EFF3F6;
-  --bg-top-v: linear-gradient(180deg, #FFFFFF 0%, #E8F0F6 44.71%, #FFFFFF 100%);
-  --bg-top: linear-gradient(180deg, #FFFFFF 0%, #E8F0F6 44.71%, #FFFFFF 100%);
+  --bg-top: linear-gradient(180deg, #FFFFFF 0%, #E8F0F6 44.71%, #f9f9f9 100%);
 }
 
-.header-top-v {
-  padding-top: 55px;
-  background: var(--bg-top-v);
-}
 .header-top {
   position: sticky;
   top: 0;
@@ -30,7 +24,7 @@
   z-index: 2;
   width: 100%;
   text-align: center;
-  padding-block: 5px;
+  padding-block: 60px 5px;
   background: var(--bg-top);
 
   img {

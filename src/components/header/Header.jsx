@@ -5,6 +5,7 @@ import {hiddenRoutes} from "../../assets/scripts/mockAPI.js";
 import logo from '../../assets/images/logo.svg'
 import logoLight from '../../assets/images/logo-light.png'
 import logoOnly from '../../assets/images/logo-only.png'
+import logoOnlyL from '../../assets/images/logo-only-light.svg'
 import HeaderModal from "./modals/HeaderModal.jsx";
 import LangDrawer from "./modals/LangDrawer.jsx";
 import ThemeDrawer from "./modals/ThemeDrawer.jsx";
@@ -31,14 +32,10 @@ const Header = ({ setEffect }) => {
     return (
         <>
             {
-                device !== 'Desktop' &&
-                <div className={`header-top-v ${href.includes('admin') ? 'd-none' : ''}`}/>
-            }
-            {
-                device !== 'Desktop' &&
+                device === 'Desktop' &&
                 <div className={`header-top ${href.includes('admin') ? 'd-none' : ''}`}>
                     <div className="sticky">
-                        <img src={logoOnly} alt="logo"/>
+                        <img src={themeL === 'dark' ? logoOnly : logoOnlyL} alt="logo"/>
                     </div>
                 </div>
             }
