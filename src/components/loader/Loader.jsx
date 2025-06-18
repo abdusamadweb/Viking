@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
-import {Spin} from "antd"
+import {Player} from "@lottiefiles/react-lottie-player"
+import animation from '../../assets/images/animation.json'
 
 const Loader = ({ setLoading, isPending, sliderLoading }) => {
 
@@ -17,10 +18,10 @@ const Loader = ({ setLoading, isPending, sliderLoading }) => {
 
             const loadingTimeout = setTimeout(() => {
                 setLoading(false)
-            }, 600)
+            }, 1000)
 
             return () => clearTimeout(loadingTimeout)
-        }, 1000)
+        }, 1400)
 
         return () => clearTimeout(visibleTimeout)
     }, [isPending, setLoading, sliderLoading])
@@ -28,7 +29,12 @@ const Loader = ({ setLoading, isPending, sliderLoading }) => {
 
     return (
         <div className={`loader grid-center ${!visible ? "hidden" : ""}`}>
-            <Spin size="large"/>
+            <Player
+                autoplay
+                loop
+                src={animation}
+                style={{ height: '100%', width: '100%' }}
+            />
         </div>
     );
 };

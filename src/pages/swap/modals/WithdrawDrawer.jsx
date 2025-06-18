@@ -16,6 +16,10 @@ const withdraw = async (body) => {
     const { data } = await $resp.post("/transaction/withdraw-balance", body)
     return data
 }
+const addCard = async (body) => {
+    const { data } = await $resp.post("/user-card/create", body)
+    return data
+}
 
 
 const WithdrawDrawer = ({ modal, setModal, setSuccessText, refetchMe }) => {
@@ -24,8 +28,10 @@ const WithdrawDrawer = ({ modal, setModal, setSuccessText, refetchMe }) => {
     const me = JSON.parse(localStorage.getItem('me'))
 
     const [nav, setNav] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const [card, setCard] = useState(null)
+    const [cardName, setCardName] = useState('')
     const [amount, setAmount] = useState(0)
 
 
@@ -38,20 +44,50 @@ const WithdrawDrawer = ({ modal, setModal, setSuccessText, refetchMe }) => {
 
             setSuccessText(res.data.status)
             setModal('success')
+            setLoading(false)
         },
         onError: (err) => {
             toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
+            setLoading(false)
         }
     })
 
+    // add card
+    const muAdd = useMutation({
+        mutationFn: addCard,
+        onSuccess: (res) => {
+            refetchMe()
+
+            mutation.mutate({
+                card_id: res.id,
+                amount: Number(amount),
+            })
+        },
+        onError: (err) => {
+            toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
+            setLoading(false)
+        }
+    })
 
     const onFormSubmit = () => {
+        setLoading(true)
+
+        const addBody = {
+            name: cardName,
+            number: card.replace(/\s+/g, ''),
+            card_img: 'card',
+        }
+
         const body = {
             card_id: card,
             amount: Number(amount),
         }
 
-        mutation.mutate(body)
+        if (cardName) {
+            muAdd.mutate(addBody)
+        } else {
+            mutation.mutate(body)
+        }
     }
 
 
@@ -79,13 +115,22 @@ const WithdrawDrawer = ({ modal, setModal, setSuccessText, refetchMe }) => {
                     !nav ?
                         <div>
                             <div className="cards__number">
-                                <span className='txt'><Tr val={'Номер карты'} /></span>
-                                <IMaskInput
-                                    className='inp-mask'
-                                    mask='0000 0000 0000 0000'
-                                    placeholder='0000 - 0000 - 0000 - 0000'
-                                    onChange={(e) => setCard(e.target.value.replace(/\s+/g, ''))}
-                                />
+                                <div>
+                                    <span className='txt'><Tr val={'Название карты'}/></span>
+                                    <Input
+                                        placeholder={trans('Название карты')}
+                                        onChange={(e) => setCardName(e.target.value)}
+                                    />
+                                </div>
+                                <div>
+                                    <span className='txt'><Tr val={'Номер карты'}/></span>
+                                    <IMaskInput
+                                        className='inp-mask'
+                                        mask='0000 0000 0000 0000'
+                                        placeholder='0000 - 0000 - 0000 - 0000'
+                                        onChange={(e) => setCard(e.target.value.replace(/\s+/g, ''))}
+                                    />
+                                </div>
                                 <div className='imgs row align-center'>
                                     <img className='img' src={humo} alt="img"/>
                                     <img src={uzcard} alt="img"/>
@@ -149,7 +194,7 @@ const WithdrawDrawer = ({ modal, setModal, setSuccessText, refetchMe }) => {
                 <Button
                     className='btn submit'
                     onClick={onFormSubmit}
-                    loading={mutation.isPending}
+                    loading={loading}
                 >
                     <Tr val='Вывести' />
                 </Button>

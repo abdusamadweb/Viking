@@ -130,9 +130,8 @@ function App() {
     }, [cards])
 
     const { data: _ } = useQuery({
-        queryKey: ['history'],
+        queryKey: ['history', 1],
         queryFn: fetchTrans,
-        keepPreviousData: true,
         enabled: !!token
     })
     const { data: __ } = useQuery({

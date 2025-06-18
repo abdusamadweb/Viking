@@ -46,9 +46,9 @@ html, body {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 103vh;
-  background: rgb(135 154 186 / 20%);
-  backdrop-filter: blur(10px);
+  height: 100vh;
+  background: rgba(47, 17, 134, 0.4);
+  backdrop-filter: blur(22px);
   z-index: 999999;
   transition: opacity 0.4s ease-in-out,
   visibility 0.4s ease-in-out;

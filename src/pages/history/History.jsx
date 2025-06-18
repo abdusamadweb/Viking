@@ -49,7 +49,7 @@ const History = () => {
         keepPreviousData: true,
     })
     const { data: WD } = useQuery({
-        queryKey: ['withdraw-deposit', page],
+        queryKey: ['withdraw-deposit'],
         queryFn: () => getWD(),
         keepPreviousData: true,
     })
