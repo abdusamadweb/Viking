@@ -47,8 +47,7 @@ html, body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(47, 17, 134, 0.4);
-  backdrop-filter: blur(22px);
+  background: linear-gradient(180deg, #102B52 0%, #011D42 15%, #002061 47.6%, #2F1186 100%);
   z-index: 999999;
   transition: opacity 0.4s ease-in-out,
   visibility 0.4s ease-in-out;

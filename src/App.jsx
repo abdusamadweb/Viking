@@ -37,6 +37,7 @@ import eruda from "eruda";
 import {parseTelegramWebAppData} from "./telegram/api.js";
 import Auth from "./components/auth/Auth.jsx";
 import {logout} from "./hooks/useCrud.jsx";
+import PreLoadImg from "./components/pre-load-images/PreLoadImg.jsx";
 
 
 const Wrapper = ({ children }) => {
@@ -282,6 +283,7 @@ function App() {
 
         </Wrapper>
 
+        <PreLoadImg />
         <Toaster
             containerClassName='toast'
             position="top-center"

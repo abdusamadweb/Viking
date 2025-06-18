@@ -18,10 +18,10 @@ const Loader = ({ setLoading, isPending, sliderLoading }) => {
 
             const loadingTimeout = setTimeout(() => {
                 setLoading(false)
-            }, 1000)
+            }, 600)
 
             return () => clearTimeout(loadingTimeout)
-        }, 1400)
+        }, 2222)
 
         return () => clearTimeout(visibleTimeout)
     }, [isPending, setLoading, sliderLoading])
