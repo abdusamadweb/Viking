@@ -38,6 +38,7 @@ import {parseTelegramWebAppData} from "./telegram/api.js";
 import Auth from "./components/auth/Auth.jsx";
 import {logout} from "./hooks/useCrud.jsx";
 import PreLoadImg from "./components/pre-load-images/PreLoadImg.jsx";
+import {getDeviceType} from "./assets/scripts/global.js";
 
 
 const Wrapper = ({ children }) => {
@@ -50,20 +51,6 @@ const Wrapper = ({ children }) => {
 
 
 // fetch
-const fetchMe = async () => {
-    try {
-        const { data } = await $resp.post("/user/me")
-        return data
-    } catch (error) {
-        if (error?.response?.status === 403) {
-            toast.error("Sessiya tugagan. Qayta kiring.")
-            logout()
-        } else {
-            toast.error("Xatolik yuz berdi")
-        }
-        throw error
-    }
-}
 const fetchCards = async () => {
     const { data } = await $resp.get(`/user-card/my-cards?page=1&limit=30`)
     return data
@@ -101,12 +88,33 @@ function App() {
     const path = window.location.pathname
 
     const token = localStorage.getItem("token")
+    const device = getDeviceType()
 
 
     // chat id
     const hash = window.location.hash
     const tgData = parseTelegramWebAppData()
-    console.log(tgData, 'Telegram')
+    console.log(tgData, 'TG data')
+    console.log(device, "DEVICe")
+
+
+    // fetch me
+    const fetchMe = async () => {
+        try {
+            const { data } = await $resp.post("/user/me")
+            return data
+        } catch (error) {
+            if (error?.response?.status === 403) {
+                // toast.error("Sessiya tugagan. Qayta kiring.")
+                if (device === 'Desktop') {
+                    logout()
+                }
+            } else {
+                // toast.error("Xatolik yuz berdi")
+            }
+            throw error
+        }
+    }
 
 
     // fetch

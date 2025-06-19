@@ -9,7 +9,7 @@ const Auth = () => {
     //     new URLSearchParams(window.location.search).get("id") || "{null}"
 
 
-    const isTelegram = window.location.hash.includes('tgWebAppData')
+    const isTelegram = !!window.location.hash
     const isAuthorized = !!localStorage.getItem('token')
 
     if (isTelegram || isAuthorized) {

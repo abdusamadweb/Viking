@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Title from "../../../components/admin/title/Title.jsx";
 import {Button, Form, Input, Modal, Pagination, Table, Upload} from "antd";
-import {formatCard, formatPrice, uploadProps, validateMessages} from "../../../assets/scripts/global.js";
+import {formatPrice, uploadProps, validateMessages} from "../../../assets/scripts/global.js";
 import {addOrEdit, deleteData} from "../../../api/crud.js";
 import {useQuery} from "@tanstack/react-query";
 import {tableCols} from "../../../components/admin/table/columns.js";
@@ -207,7 +207,7 @@ const AdminProviders = () => {
                     <Form.Item
                         className='upload'
                         name='logo_id'
-                        label='Passport fayl'
+                        label='Foto'
                         rules={[{required: true, message: ''}]}
                     >
                         <Upload

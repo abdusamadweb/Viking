@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import Title from "../../../components/admin/title/Title.jsx";
-import {Input, Pagination, Select, Table} from "antd";
+import {Form, Input, Pagination, Select, Table} from "antd";
 import {formatCard, formatPrice} from "../../../assets/scripts/global.js";
 import {useQuery} from "@tanstack/react-query";
 import {$adminResp} from "../../../api/config.js";
 import {toast} from "react-hot-toast";
-import {logoutAdmin} from "../../../hooks/useCrud.jsx";
+import {tableCols} from "../../../components/admin/table/columns.js";
+import Actions from "../../../components/admin/table/Actions.jsx";
+import AddOrUpdateModal from "./AddOrUpdateModal.jsx";
 
 
 // fetches
@@ -15,8 +17,8 @@ const fetchData = async (body) => {
         return data
     } catch (error) {
         if (error?.response?.status === 403) {
-            // toast.error("Sessiya tugagan. Qayta kiring.")
-            // logoutAdmin()
+            toast.error("Sessiya tugagan. Qayta kiring.")
+            logoutAdmin()
         } else {
             toast.error("Xatolik yuz berdi")
         }
@@ -26,6 +28,10 @@ const fetchData = async (body) => {
 
 
 const AdminTrans = () => {
+
+    const [modal, setModal] = useState('close')
+    const [selectedItem, setSelectedItem] = useState(null)
+
 
     // filter data
     const [body, setBody] = useState({
@@ -37,7 +43,7 @@ const AdminTrans = () => {
         status: null
     })
 
-    const { data, isLoading } = useQuery({
+    const { data, isLoading, refetch } = useQuery({
         queryKey: ['admin-transaction', body.page, body.limit, body.q, body.program, body.status, body.type],
         queryFn: () => fetchData(body),
         keepPreviousData: true,
@@ -93,13 +99,35 @@ const AdminTrans = () => {
                 <span className={`status white ${i.status}`}>{ i.status }</span>
             )
         },
+        {
+            ...tableCols.actions,
+            render: (_, i) => <Actions
+                setModal={setModal}
+                setSelectedItem={setSelectedItem}
+                i={i}
+            />
+        },
     ]
 
 
     return (
-        <div className="other page">
+        <div className="admin-trans other page">
             <div className="container">
-                <Title title="Транзакции" />
+                <Title
+                    title="Транзакции"
+                    additional={
+                        <div className="row g10">
+                            <button className='admin-titles__btn' onClick={() => setModal('deposit')}>
+                                <span>Deposit</span>
+                                <i className="fa-solid fa-circle-plus"/>
+                            </button>
+                            <button className='admin-titles__btn' onClick={() => setModal('withdraw')}>
+                                <span>Withdraw</span>
+                                <i className="fa-solid fa-circle-plus"/>
+                            </button>
+                        </div>
+                    }
+                />
                 <div className="content">
                     <div className="filters">
                         <Input placeholder="Search . . ." />
@@ -163,6 +191,14 @@ const AdminTrans = () => {
                     />
                 </div>
             </div>
+
+            <AddOrUpdateModal
+                modal={modal}
+                setModal={setModal}
+                selectedItem={selectedItem}
+                setSelectedItem={setSelectedItem}
+                refetch={refetch}
+            />
         </div>
     );
 };

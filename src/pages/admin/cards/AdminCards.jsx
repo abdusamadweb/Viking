@@ -154,6 +154,7 @@ const AdminCards = () => {
                     />
                 </div>
             </div>
+
             <Modal
                 rootClassName='admin-modal'
                 className='main-modal'

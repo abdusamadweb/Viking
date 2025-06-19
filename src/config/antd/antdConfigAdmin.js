@@ -29,7 +29,7 @@ export const antdConfigAdmin = () => {
             },
             Tooltip: {
                 colorBgSpotlight: '#222222dd'
-            }
+            },
         }
     }
 }

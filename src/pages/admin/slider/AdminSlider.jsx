@@ -119,7 +119,7 @@ const AdminSlider = () => {
 
     // form fields
     const fields = [
-        { name: 'link', label: 'Link', type: 'text', required: true },
+        { name: 'link', label: 'Link', type: 'text', required: false },
         { name: 'order_index', label: 'Index', type: 'number', required: true },
     ]
 
@@ -188,7 +188,7 @@ const AdminSlider = () => {
                     <Form.Item
                         className='upload'
                         name='photo_id'
-                        label='Passport fayl'
+                        label='Foto'
                         rules={[{required: true, message: ''}]}
                     >
                         <Upload

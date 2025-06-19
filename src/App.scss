@@ -512,8 +512,13 @@ html, body {
       color: #011d42 !important;
     }
     input {
+      color: #011d42 !important;
       background: #fff !important;
     }
+  }
+
+  .ant-select-dropdown {
+    background: #fff !important;
   }
 }
 
@@ -583,6 +588,15 @@ html, body {
         background: #F42C2C;
       }
     }
+  }
+}
+
+.admin-trans {
+
+  .page-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 
