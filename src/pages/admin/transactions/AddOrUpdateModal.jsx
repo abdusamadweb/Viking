@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Button, Form, Modal, Select} from "antd";
+import {Button, Form, Input, Modal, Select} from "antd";
 import {validateMessages} from "../../../assets/scripts/global.js";
 import {useMutation} from "@tanstack/react-query";
 import {toast} from "react-hot-toast";
@@ -9,6 +9,10 @@ import {$adminResp} from "../../../api/config.js";
 // fetch
 const fetchEdit = async (body) => {
     const { data } = await $adminResp.post('/transaction/update-transaction', body)
+    return data
+}
+const fetchAdd = async (body) => {
+    const { data } = await $adminResp.post('/transaction/deposit/manual', body)
     return data
 }
 
@@ -31,14 +35,33 @@ const AddOrUpdateModal = ({ modal, setModal, selectedItem, setSelectedItem, refe
         }
     })
 
+    const muAdd = useMutation({
+        mutationFn: fetchAdd,
+        onSuccess: (res) => {
+            toast.success(res.message)
+
+            refetch()
+        },
+        onError: (err) => {
+            toast.error(`Ошибка: ${err.response?.data?.message || err.message}`)
+        }
+    })
+
     const onFormSubmit = (values) => {
-        const body = {
+        const edit = {
             ...values,
-            trans_id: selectedItem.id,
+            trans_id: selectedItem?.id,
+        }
+        const add = {
+            ...values,
+            type: modal === 'deposit' ? 'in' : 'out'
         }
 
-        console.log(body)
-        muEdit.mutate(body)
+        if (modal === 'edit') {
+            muEdit.mutate(edit)
+        } else {
+            muAdd.mutate(add)
+        }
     }
 
 
@@ -52,14 +75,11 @@ const AddOrUpdateModal = ({ modal, setModal, selectedItem, setSelectedItem, refe
     }, [form, selectedItem])
 
 
-    console.log(selectedItem)
-
-
     return (
         <Modal
             rootClassName='admin-modal'
             className='main-modal'
-            title={modal === 'add' ? "Qo'shish" : "O'zgartirish"}
+            title={modal !== 'edit' ? "Qo'shish" : "O'zgartirish"}
             open={modal !== 'close'}
             onCancel={() => {
                 setModal('close')
@@ -98,7 +118,44 @@ const AddOrUpdateModal = ({ modal, setModal, selectedItem, setSelectedItem, refe
                         </>
                         :
                         <>
-
+                            <Form.Item
+                                name='user_id'
+                                label='User'
+                                rules={[{ required: true, message: '' }]}
+                            >
+                                <Select
+                                    size='large'
+                                    placeholder="User"
+                                    options={[
+                                        {
+                                            label: 'reject',
+                                            value: 'reject',
+                                        },
+                                    ]}
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name='amount'
+                                label='Amount'
+                                rules={[{ required: true, message: '' }]}
+                            >
+                                <Input
+                                    placeholder='Amount'
+                                    type="tel"
+                                    inputMode="numeric"
+                                    pattern="[0-9]*"
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name='description'
+                                label='Description'
+                                rules={[{ required: true, message: '' }]}
+                            >
+                                <Input.TextArea
+                                    placeholder='Description'
+                                    type="text"
+                                />
+                            </Form.Item>
                         </>
                 }
 

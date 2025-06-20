@@ -166,10 +166,6 @@ html, body {
     width: 100%;
   }
 
-  .ant-input {
-
-  }
-
   .balance {
     font-size: 16px;
     margin-bottom: 1rem;
@@ -505,6 +501,12 @@ html, body {
   }
   .anticon {
     color: #9d9d9d !important;
+  }
+
+  .ant-input {
+    border-color: #d9d9d9 !important;
+    color: #011d42 !important;
+    background: #fff !important;
   }
 
   .ant-form-item {
