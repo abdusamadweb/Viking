@@ -6,10 +6,10 @@ const AdminNavBar = ({ openMenu, setOpenMenu }) => {
     const me = JSON.parse(localStorage.getItem('meAdmin'))
 
     const nav = [
-        {
-            name: 'Статистика',
-            link: '/admin/dashboard'
-        },
+        // {
+        //     name: 'Статистика',
+        //     link: '/admin/dashboard'
+        // },
         {
             name: 'Юзеры',
             link: '/admin/users'
@@ -29,6 +29,14 @@ const AdminNavBar = ({ openMenu, setOpenMenu }) => {
         {
             name: 'Слайдер',
             link: '/admin/slider'
+        },
+        {
+            name: 'Стат параметры',
+            link: '/admin/static-options'
+        },
+        {
+            name: 'Tg сообщение',
+            link: '/admin/tg/messages'
         },
     ]
 

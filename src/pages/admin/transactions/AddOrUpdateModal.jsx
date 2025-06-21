@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Button, Form, Input, Modal, Select} from "antd";
 import {validateMessages} from "../../../assets/scripts/global.js";
-import {useMutation} from "@tanstack/react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {toast} from "react-hot-toast";
 import {$adminResp} from "../../../api/config.js";
 
@@ -16,6 +16,15 @@ const fetchAdd = async (body) => {
     return data
 }
 
+// debounce search
+function debounce(func, wait) {
+    let timeout
+    return (...args) => {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => func(...args), wait)
+    }
+}
+
 
 const AddOrUpdateModal = ({ modal, setModal, selectedItem, setSelectedItem, refetch }) => {
 
@@ -28,6 +37,7 @@ const AddOrUpdateModal = ({ modal, setModal, selectedItem, setSelectedItem, refe
         onSuccess: (res) => {
             toast.success(res.message)
 
+            setModal('close')
             refetch()
         },
         onError: (err) => {
@@ -40,6 +50,7 @@ const AddOrUpdateModal = ({ modal, setModal, selectedItem, setSelectedItem, refe
         onSuccess: (res) => {
             toast.success(res.message)
 
+            setModal('close')
             refetch()
         },
         onError: (err) => {
@@ -73,6 +84,42 @@ const AddOrUpdateModal = ({ modal, setModal, selectedItem, setSelectedItem, refe
             form.resetFields()
         }
     }, [form, selectedItem])
+
+
+    // search
+    const [_, setSearchTerm] = useState('')
+    const [searchQuery, setSearchQuery] = useState('')
+
+    const debouncedSearch = useMemo(() => debounce((val) => {
+        if (val.length >= 3) setSearchQuery(val)
+    }, 400), [])
+
+    const fetchUsers = async ({ queryKey }) => {
+        const [_key, q] = queryKey
+
+        const params = q && q.length >= 3
+            ? { q }
+            : {}; // hech narsa bermasa, umumiy ro‘yxat
+
+        const { data } = await $adminResp.get('/user/all-users?is_system_user=true&page=1&limit=20', { params })
+        return data
+    }
+
+    const handleSearch = (val) => {
+        setSearchTerm(val);
+        if (!val) {
+            setSearchQuery(''); // tozalanganda umumiy userlar ko‘rsatiladi
+        } else {
+            debouncedSearch(val);
+        }
+    }
+
+    const { data: user, isFetching } = useQuery({
+        queryKey: ['users', searchQuery],
+        queryFn: fetchUsers,
+        enabled: modal === 'deposit' || modal === 'withdraw', // faqat 3 harfdan keyin ishga tushadi
+        keepPreviousData: true
+    })
 
 
     return (
@@ -124,14 +171,16 @@ const AddOrUpdateModal = ({ modal, setModal, selectedItem, setSelectedItem, refe
                                 rules={[{ required: true, message: '' }]}
                             >
                                 <Select
-                                    size='large'
-                                    placeholder="User"
-                                    options={[
-                                        {
-                                            label: 'reject',
-                                            value: 'reject',
-                                        },
-                                    ]}
+                                    showSearch
+                                    size="large"
+                                    placeholder="Foydalanuvchini tanlang"
+                                    notFoundContent={isFetching ? 'Yuklanmoqda...' : 'Topilmadi'}
+                                    onSearch={handleSearch}
+                                    filterOption={false}
+                                    options={user?.data?.map(i => ({
+                                        label: `${i.first_name} ${i?.last_name} - ${i.id}`,
+                                        value: i.id,
+                                    }))}
                                 />
                             </Form.Item>
                             <Form.Item

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Title from "../../../components/admin/title/Title.jsx";
-import {Button, Form, Input, Modal, Pagination, Table, Upload} from "antd";
+import {Button, Form, Input, Modal, Pagination, Select, Table, Upload} from "antd";
 import {formatPhone, formatPrice, uploadProps, validateMessages} from "../../../assets/scripts/global.js";
 import {addOrEdit, deleteData} from "../../../api/crud.js";
 import {useQuery} from "@tanstack/react-query";
@@ -10,6 +10,7 @@ import {useCrud} from "../../../hooks/useCrud.jsx";
 import {$adminResp} from "../../../api/config.js";
 import GetFile from "../../../components/get-file/GetFile.jsx";
 import {formatNumber} from "chart.js/helpers";
+import {useDebounce} from "../../../hooks/useDebounce.jsx";
 
 
 // fetches
@@ -21,27 +22,38 @@ const fetchData = async (body) => {
 
 const AdminProviders = () => {
 
-    const [form] = Form.useForm()
-
-    const [modal, setModal] = useState('close')
-    const [selectedItem, setSelectedItem] = useState(null)
-
-    const [file, setFile] = useState(null)
-
 
     // filter data
+    const [searchText, setSearchText] = useState('')
+    const debouncedSearch = useDebounce(searchText, 500)
+
     const [body, setBody] = useState({
-        system: false,
+        system: true,
         q: '',
         page: 1,
         limit: 30,
     })
 
-    const { data, refetch, isLoading } = useQuery({
+    useEffect(() => {
+        setBody(prev => ({
+            ...prev,
+            q: debouncedSearch,
+            page: 1,
+        }))
+    }, [debouncedSearch])
+
+    const { data, isLoading } = useQuery({
         queryKey: ['admin-providers', JSON.stringify(body)],
         queryFn: () => fetchData(body),
         keepPreviousData: true,
     })
+
+    const handleSelectChange = (value, type) => {
+        setBody(prev => ({
+            ...prev,
+            [type]: value,
+        }))
+    }
 
 
     // table
@@ -108,6 +120,27 @@ const AdminProviders = () => {
             <div className="container">
                 <Title title="Юзеры" />
                 <div className="content">
+                    <div className="filters">
+                        <Input
+                            placeholder="Search . . ."
+                            onChange={(e) => setSearchText(e.target.value)}
+                        />
+                        <Select
+                            size='large'
+                            defaultValue={true}
+                            onChange={(val) => handleSelectChange(val, 'system')}
+                            options={[
+                                {
+                                    label: 'System user - true',
+                                    value: true,
+                                },
+                                {
+                                    label: 'System user - false',
+                                    value: false,
+                                },
+                            ]}
+                        />
+                    </div>
                     <Table
                         columns={columns}
                         dataSource={data?.data}
@@ -131,36 +164,6 @@ const AdminProviders = () => {
                     />
                 </div>
             </div>
-            <Modal
-                rootClassName='admin-modal'
-                className='main-modal'
-                title={modal === 'add' ? "Qo'shish" : "O'zgartirish"}
-                open={modal !== 'close'}
-                onCancel={() => {
-                    setModal('close')
-                    setSelectedItem(null)
-                }}
-            >
-                <Form
-                    // onFinish={onFormSubmit}
-                    layout='vertical'
-                    validateMessages={validateMessages}
-                    form={form}
-                >
-
-
-                    <div className='end mt1'>
-                        <Button
-                            type="primary"
-                            htmlType="submit"
-                            size='large'
-                            // loading={addOrEditMutation?.isPending}
-                        >
-                            Tasdiqlash
-                        </Button>
-                    </div>
-                </Form>
-            </Modal>
         </div>
     );
 };

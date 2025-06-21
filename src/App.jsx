@@ -39,6 +39,8 @@ import Auth from "./components/auth/Auth.jsx";
 import {logout} from "./hooks/useCrud.jsx";
 import PreLoadImg from "./components/pre-load-images/PreLoadImg.jsx";
 import {getDeviceType} from "./assets/scripts/global.js";
+import StaticOption from "./pages/admin/static-options/StaticOptions.jsx";
+import TgMessages from "./pages/admin/telegram/TgMessages.jsx";
 
 
 const Wrapper = ({ children }) => {
@@ -280,6 +282,8 @@ function App() {
                         <Route path='/admin/transactions' element={<AdminTrans />} />
                         <Route path='/admin/providers' element={<AdminProviders />} />
                         <Route path='/admin/slider' element={<AdminSlider />} />
+                        <Route path='/admin/static-options' element={<StaticOption />} />
+                        <Route path='/admin/tg/messages' element={<TgMessages />} />
 
                     </Route>
 

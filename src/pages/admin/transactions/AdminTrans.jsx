@@ -8,6 +8,7 @@ import {toast} from "react-hot-toast";
 import {tableCols} from "../../../components/admin/table/columns.js";
 import Actions from "../../../components/admin/table/Actions.jsx";
 import AddOrUpdateModal from "./AddOrUpdateModal.jsx";
+import {logoutAdmin} from "../../../hooks/useCrud.jsx";
 
 
 // fetches
@@ -48,6 +49,13 @@ const AdminTrans = () => {
         queryFn: () => fetchData(body),
         keepPreviousData: true,
     })
+
+    const handleSelectChange = (value, type) => {
+        setBody(prev => ({
+            ...prev,
+            [type]: value,
+        }))
+    }
 
 
     // table
@@ -130,10 +138,11 @@ const AdminTrans = () => {
                 />
                 <div className="content">
                     <div className="filters">
-                        <Input placeholder="Search . . ." />
+                        {/*<Input placeholder="Search . . ." />*/}
                         <Select
                             size='large'
                             placeholder="Ne vibrano"
+                            onChange={(val) => handleSelectChange(val, 'program')}
                             options={[
                                 {
                                     label: 'Ne vibrano',
@@ -152,6 +161,7 @@ const AdminTrans = () => {
                         <Select
                             size='large'
                             placeholder="Ne vibrano"
+                            onChange={(val) => handleSelectChange(val, 'type')}
                             options={[
                                 {
                                     label: 'Ne vibrano',
