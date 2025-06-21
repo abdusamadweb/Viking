@@ -9,6 +9,7 @@ import {logoutAdmin} from "../../../hooks/useCrud.jsx";
 const AdminHeader = () => {
 
     const href = useHref({})
+
     const isHidden = hiddenRoutesAdmin.some(route => href.includes(route))
     const isOpen = openRoutesAdmin.some(route => href.includes(route))
 

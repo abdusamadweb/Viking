@@ -278,12 +278,12 @@ function App() {
 
                         <Route path='/admin' element={<Admin />} />
                         <Route path='/admin/users' element={<AdminUsers />} />
-                        <Route path='/admin/cards' element={<AdminCards />} />
-                        <Route path='/admin/transactions' element={<AdminTrans />} />
-                        <Route path='/admin/providers' element={<AdminProviders />} />
+                        <Route path='/admin/system-cards' element={<AdminCards />} />
+                        <Route path='/admin/wallet-transaction' element={<AdminTrans />} />
+                        <Route path='/admin/provider' element={<AdminProviders />} />
                         <Route path='/admin/slider' element={<AdminSlider />} />
                         <Route path='/admin/static-options' element={<StaticOption />} />
-                        <Route path='/admin/tg/messages' element={<TgMessages />} />
+                        <Route path='/admin/telegram-integration' element={<TgMessages />} />
 
                     </Route>
 
